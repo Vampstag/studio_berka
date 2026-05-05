@@ -59,7 +59,7 @@
         <script type="text/javascript">
             WebFont.load({
                 google: {
-                    families: ["Inter:300,400,500,600,700", "Playfair Display:300,400,500,600,700", "Noto Sans:300,400,500,600,700"]
+                    families: ["Noto Sans:300,400,500,600,700"]
                 }
             });
         </script>
@@ -74,521 +74,7 @@
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb31d5e0b23aee617bb_Favicon_Light_BERKA.jpg" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)"/>
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb31d5e0b23aee617bb_Favicon_Light_BERKA.jpg" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)"/>
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb909ae6c8afa51d817_Webclip_Light_BERKA.jpg" rel="apple-touch-icon"/>
-        <style>
-            /* --- Sembunyikan Webflow Badge --- */
-            .w-webflow-badge {
-                display: none !important;
-            }
-
-            /* --- Mencegah Horizontal Scroll / Gap Hitam di Mobile --- */
-            html, body {
-                max-width: 100%;
-                overflow-x: clip; /* Menggunakan 'clip' alih-alih 'hidden' untuk mengembalikan fungsi position: sticky */
-            }
-
-            /* Premium Navbar Styles */
-            .berka-navbar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                z-index: 1000;
-                padding: 32px 5%;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-                box-sizing: border-box;
-            }
-            .berka-navbar.scrolled {
-                padding: 16px 5%;
-                background: rgba(24, 24, 24, 0.35); /* Lebih transparan agar tidak hitam pekat */
-                backdrop-filter: blur(24px); /* Efek kaca buram (frosted glass) diperkuat */
-                -webkit-backdrop-filter: blur(24px);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Sedikit ditegaskan untuk batas kaca */
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Bayangan lembut untuk memberikan kedalaman/dimensi */
-            }
-            .berka-navbar .logo-link {
-                z-index: 1001;
-            }
-            .berka-navbar .logo-link img {
-                height: 24px;
-                display: block;
-                border: none;
-                outline: none;
-                transition: transform 0.4s ease;
-            }
-            .berka-navbar .logo-link:hover img {
-                transform: scale(1.05);
-            }
-            .berka-nav-links {
-                display: flex;
-                gap: 48px;
-                align-items: center;
-            }
-            .berka-nav-link {
-                color: #fff;
-                text-decoration: none;
-                font-family: 'Noto Sans', sans-serif;
-                font-size: 14px;
-                font-weight: 400;
-                letter-spacing: 0.5px;
-                text-transform: uppercase;
-                position: relative;
-                padding-bottom: 4px;
-                transition: color 0.3s ease;
-            }
-            .berka-nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0%;
-                height: 1px;
-                background-color: #fff;
-                transition: width 0.3s ease;
-            }
-            .berka-nav-link:hover {
-                color: rgba(255, 255, 255, 0.7);
-            }
-            .berka-nav-link:hover::after {
-                width: 100%;
-            }
-
-            /* Hamburger Button */
-            .berka-burger {
-                display: none;
-                background: none;
-                border: none;
-                width: 40px;
-                height: 40px;
-                position: relative;
-                cursor: pointer;
-                z-index: 1001;
-                padding: 0;
-            }
-            .berka-burger-line {
-                position: absolute;
-                left: 8px;
-                right: 8px;
-                height: 1px;
-                background: #fff;
-                transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            }
-            .berka-burger-line.top { top: 16px; }
-            .berka-burger-line.bottom { bottom: 16px; width: 60%; right: 8px; left: auto; }
-            .berka-burger:hover .berka-burger-line.bottom { width: calc(100% - 16px); }
-
-            .berka-burger.open .berka-burger-line.top {
-                transform: translateY(3.5px) rotate(45deg);
-            }
-            .berka-burger.open .berka-burger-line.bottom {
-                width: calc(100% - 16px);
-                transform: translateY(-3.5px) rotate(-45deg);
-            }
-
-            /* Mobile Menu Overlay */
-            .berka-mobile-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(20, 20, 20, 0.5); /* Hitam transparan yang lebih elegan */
-                backdrop-filter: blur(28px); /* Blur lebih tinggi memudarkan background dengan indah */
-                -webkit-backdrop-filter: blur(28px);
-                z-index: 999;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 32px;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.4s ease;
-            }
-            .berka-mobile-menu.open {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            .berka-mobile-link {
-                color: #fff;
-                text-decoration: none;
-                font-family: 'Noto Sans', sans-serif;
-                font-size: 2.5rem;
-                font-weight: 500;
-                transform: translateY(20px);
-                opacity: 0;
-                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
-            }
-            .berka-mobile-menu.open .berka-mobile-link {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            .berka-mobile-menu.open .berka-mobile-link:nth-child(1) { transition-delay: 0.1s; }
-            .berka-mobile-menu.open .berka-mobile-link:nth-child(2) { transition-delay: 0.15s; }
-            .berka-mobile-menu.open .berka-mobile-link:nth-child(3) { transition-delay: 0.2s; }
-            
-            @media (max-width: 991px) {
-                .berka-nav-links { display: none; }
-                .berka-burger { display: block; }
-            }
-
-            /* --- Lenis Smooth Scroll Base CSS --- */
-            html.lenis, html.lenis body {
-                height: auto;
-            }
-            .lenis.lenis-smooth {
-                scroll-behavior: auto !important;
-            }
-            .lenis.lenis-smooth [data-lenis-prevent] {
-                overscroll-behavior: contain;
-            }
-            .lenis.lenis-stopped {
-                overflow: hidden;
-            }
-
-            /* --- Animasi Hover Card Layanan Kami --- */
-            .service-content-wrapper {
-                transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-                border-radius: 0 !important; /* Memaksa sudut menjadi tajam kaku */
-                padding: 40px 32px !important; /* Memberikan ruang (padding) yang lebih lega */
-                border: none !important;
-            }
-            .service-content-wrapper:hover {
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-            .service-image-wrapper {
-                overflow: hidden;
-                border-radius: 0 !important; /* Menghilangkan sudut membulat pada gambar */
-            }
-            .service-image-wrapper .service-image {
-                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            }
-            .service-content-wrapper:hover .service-image {
-                transform: scale(1.08);
-            }
-            .service-arrow-2 {
-                transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
-            }
-            .service-content-wrapper:hover .service-arrow-2 {
-                transform: translateX(12px) !important;
-            }
-
-            /* --- Perbaikan Judul Layanan Terpotong & Posisi --- */
-            .service-title-item {
-                text-align: left !important;
-            }
-            .service-title, .service-title.alternate {
-                white-space: nowrap !important; /* Mencegah teks turun baris yang membuatnya terpotong dan ke tengah */
-                text-align: left !important;
-            }
-
-            /* --- Animasi Premium Card Prinsip Kami --- */
-            .benefit-card-2 {
-                border-radius: 0 !important; /* Memaksa sudut tajam bersiku */
-                border: none !important;
-                box-shadow: none !important;
-                transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease !important;
-                background-color: rgba(20, 20, 20, 0.2) !important;
-                transform: translateZ(0) !important; /* Akselerasi hardware anti-getar */
-                will-change: transform, box-shadow;
-            }
-            .benefit-card-2:hover {
-                background-color: rgba(255, 255, 255, 0.04) !important;
-                box-shadow: 0 0 32px rgba(255, 255, 255, 0.06) !important; /* Mempertahankan glow tanpa border */
-                transform: translateY(-6px) translateZ(0) !important;
-            }
-            .benefit-card-2 .icon img {
-                filter: grayscale(100%) opacity(60%);
-                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease, opacity 0.5s ease;
-            }
-            .benefit-card-2:hover .icon img {
-                filter: grayscale(0%) opacity(100%);
-                transform: scale(1.15) !important; /* Hanya membesar dari tengah, tidak bergerak ke atas */
-            }
-
-            /* --- Tampilan Harga (Price/Add-on) & Spasi Judul --- */
-            .ratecard .large-heading {
-                font-size: 3.5rem !important;
-                line-height: 1.2 !important;
-                letter-spacing: 0.05em !important;
-                margin-bottom: 24px !important;
-            }
-            .subhead-main.price, .list-build.price {
-                font-size: 1.25rem !important;
-                font-weight: 600 !important;
-                color: #e0e0e0 !important;
-                margin: 0 !important;
-            }
-
-            /* --- Warna Charcoal untuk Catatan Ratecard --- */
-            .note.ratecard, 
-            .note.ratecard span, 
-            .note.ratecard em {
-                color: rgba(20, 20, 20, 0.8) !important; /* Charcoal elegan seperti About Us */
-            }
-            .note.ratecard strong,
-            .note.ratecard strong em {
-                color: #111111 !important; /* Penegasan warna lebih pekat untuk teks tebal */
-            }
-
-            /* --- Ratecard Aesthetic Bullet Lists --- */
-            .ratecard_item-list {
-                list-style: none !important;
-                padding-left: 0 !important;
-                margin-top: 16px;
-                margin-bottom: 24px;
-            }
-            .ratecard_item-list li {
-                position: relative;
-                padding-left: 32px;
-                margin-bottom: 12px;
-                color: rgba(255, 255, 255, 0.9);
-                line-height: 1.6;
-            }
-            .ratecard_item-list li::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 4px;
-                width: 18px;
-                height: 18px;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a5d6a7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-                background-size: contain;
-                background-repeat: no-repeat;
-            }
-
-            /* --- UI/UX & Tipografi Premium Polish --- */
-            /* 1. Mencegah Eye-Strain (Kenyamanan Membaca di Dark Mode) */
-            p, .service-description-2, .body-display.small, .ratecard_desc {
-                color: rgba(255, 255, 255, 0.7) !important;
-                line-height: 1.7 !important; /* Nafas antar baris lebih lega */
-                font-weight: 300 !important;
-                transition: color 0.4s ease;
-            }
-
-            /* 2. Hierarki Tipografi Hero Section (Premium Editorial Look) */
-            .display-1.second._5rem {
-                letter-spacing: -0.02em !important; /* Teks besar lebih rapat terlihat mahal */
-                line-height: 1.1 !important; /* Merapatkan jarak vertikal antar baris pada Headline Utama */
-                text-align: left !important; /* Memastikan teks rata kiri */
-            }
-            .display-1.second._5rem .smaller {
-                font-family: 'Inter', sans-serif !important;
-                font-size: 1.15rem !important;
-                line-height: 1.6 !important;
-                color: rgba(20, 20, 20, 0.8) !important; /* Diubah menjadi gelap elegan agar kontras di latar cream */
-                display: block;
-                margin-top: 32px;
-                font-weight: 300 !important;
-                letter-spacing: normal !important;
-            }
-            .display-1.second._5rem .smaller strong {
-                color: #111111 !important; /* Menegaskan teks tebal (bold) menjadi lebih pekat */
-                font-weight: 500 !important;
-            }
-
-            /* 3. Micro-interaction: Teks menyala saat Card di-hover */
-            .benefit-card-2:hover .body-display.small {
-                color: rgba(255, 255, 255, 0.95) !important; /* Teks lebih terang saat fokus */
-            }
-
-            /* 4. Penyempurnaan Ratecard (Scannability Harga) */
-            .subhead-main.price {
-                color: #ffffff !important;
-                font-size: 1.4rem !important; /* Mempertegas ukuran harga */
-                letter-spacing: 0.02em;
-            }
-
-            /* --- Layanan Kami - Premium Feature List --- */
-            .service-feature-grid {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-                gap: 16px 32px !important; /* Jarak lega antar list */
-                margin-top: 32px !important;
-            }
-            .service-feature-item {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 16px !important;
-            }
-            .service-feature-text-2 {
-                position: relative !important;
-                padding-left: 24px !important; /* Ruang untuk bullet point */
-                font-family: 'Inter', sans-serif !important;
-                font-size: 0.95rem !important;
-                line-height: 1.6 !important;
-                color: rgba(255, 255, 255, 0.75) !important;
-                font-weight: 300 !important;
-                margin: 0 !important;
-                transition: color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                cursor: default;
-            }
-            .service-feature-text-2:hover {
-                color: #ffffff !important;
-                transform: translateX(4px); /* Bergeser sedikit ke kanan saat disorot */
-            }
-            .service-feature-text-2::before {
-                content: '✦' !important; /* Ikon bullet eksklusif */
-                position: absolute !important;
-                left: 0 !important;
-                top: 0px !important;
-                color: rgba(255, 255, 255, 0.3) !important;
-                font-size: 0.85rem !important;
-                transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease !important;
-            }
-            .service-feature-text-2:hover::before {
-                color: #ffffff !important;
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important; /* Efek glow terang pada bintang */
-                transform: scale(1.2); /* Bintang sedikit membesar */
-            }
-
-            /* --- Premium Section Spacing (Breathing Room) --- */
-            .section {
-                padding-top: 140px !important;
-                padding-bottom: 140px !important;
-            }
-            .margin-100 {
-                margin-top: 120px !important; /* Ruang lebih lega antara Hero dan Portofolio */
-            }
-            .padding-section-large {
-                padding-bottom: 64px !important; /* Memisahkan judul seksi dengan grid secara elegan */
-            }
-
-            /* --- Footer Logo Full Width --- */
-            .div-block-3 > img { width: 100% !important; max-width: 100% !important; }
-
-            /* --- Responsibilitas Font Ratecard (Mobile) --- */
-            @media (max-width: 767px) {
-                .ratecard .large-heading { font-size: 2.4rem !important; line-height: 1.1 !important; margin-bottom: 16px !important; }
-                .ratecard .note.ratecard span { font-size: 0.85rem !important; line-height: 1.5 !important; color: rgba(20, 20, 20, 0.8) !important; }
-                .ratecard .heading-style-h3-3 { font-size: 1.25rem !important; line-height: 1.3 !important; margin-bottom: 12px !important; }
-                .ratecard .subhead-main { font-size: 0.9rem !important; line-height: 1.5 !important; }
-                .ratecard .subhead-main.for-footer-title { font-size: 0.8rem !important; letter-spacing: 0.05em !important; opacity: 0.8; }
-                .ratecard .price { font-size: 1.2rem !important; margin-top: 2px !important; color: #ffffff !important; }
-                .ratecard .text-size-md, .ratecard .list-build { font-size: 0.85rem !important; line-height: 1.6 !important; }
-                .ratecard_desc { font-size: 0.85rem !important; margin-bottom: 16px !important; }
-                .line-flex { flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; margin-bottom: 16px !important; }
-                .ratecard_item-list li { padding-left: 24px !important; margin-bottom: 12px !important; }
-                .ratecard_item-list li::before { top: 3px !important; width: 14px !important; height: 14px !important; }
-
-                /* --- Responsibilitas Footer, Logo, & General Spacing (Mobile) --- */
-                .berka-navbar .logo-link img { height: 20px !important; }
-                .logo-svg { max-width: 80% !important; height: auto !important; margin: 0 auto; display: block; }
-                
-                /* General Layout & Sections Spacing */
-                .section { padding: 80px 5% !important; }
-                .padding-section-large { padding-bottom: 48px !important; }
-                .margin-100 { margin-top: 80px !important; }
-                .margin-60 { margin-top: 48px !important; }
-                .margin-102, .margin-103 { margin-top: 16px !important; }
-                
-                /* Service Feature Mobile Overlap Fix */
-                .service-feature-grid {
-                    grid-template-columns: 1fr !important; /* Ubah ke 1 kolom di mobile */
-                    gap: 16px !important;
-                    margin-top: 24px !important;
-                }
-                
-                /* Grid to Column Stack on Mobile */
-                .grid-2-column, .grid-2-column-2 {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    gap: 24px !important;
-                }
-                .grid-2-column.reverse, .grid-2-column-2.reverse {
-                    flex-direction: column !important;
-                }
-                
-                /* Typography Adjustments for Readability */
-                .display-1.second._5rem { font-size: 1.8rem !important; line-height: 1.2 !important; } /* Diperketat juga untuk versi mobile */
-                .display-2.second._1-7-rem { font-size: 1.1rem !important; line-height: 1.4 !important; }
-                .heading-style-huge { font-size: 2.2rem !important; line-height: 1.2 !important; }
-                .service-title, .service-title.alternate { font-size: 7.5vw !important; } /* Mengakali agar Design & Build muat 1 baris di layar HP */
-                
-                /* Footer Specific Adjustments */
-                .footer { padding: 48px 5% !important; }
-                .div-block-3 > img { width: 100% !important; max-width: 100% !important; margin-bottom: 24px !important; }
-                .social-content.left { justify-content: flex-start !important; gap: 16px; flex-wrap: wrap; }
-                .footnote { font-size: 0.8rem !important; line-height: 1.4 !important; }
-            }
-
-            /* --- Cinematic Preloader --- */
-            .berka-preloader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: #f5e9da;
-                z-index: 99999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .berka-preloader-logo {
-                width: 160px;
-                opacity: 0; /* Akan di-animate oleh GSAP */
-                filter: invert(1); /* Membuat logo putih menjadi gelap agar kontras di latar terang */
-            }
-
-            /* --- Premium Minimalist WA Widget --- */
-            .berka-wa-widget {
-                position: fixed;
-                bottom: 40px;
-                right: 40px;
-                z-index: 9990;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                background-color: rgba(24, 24, 24, 0.35); /* Disamakan dengan navbar */
-                backdrop-filter: blur(24px); /* Blur disamakan dengan navbar */
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 100px; /* Improvisasi: Bentuk kapsul (pill) yang lebih modern untuk tombol floating */
-                padding: 12px 24px; /* Disesuaikan untuk proporsi kapsul */
-                text-decoration: none;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Bayangan lebih halus */
-                transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-                transform: translateZ(0); /* Hardware acceleration */
-            }
-            .berka-wa-widget:hover {
-                background-color: rgba(40, 40, 40, 0.45); /* Tetap transparan agar efek kaca tidak hilang */
-                border-color: rgba(255, 255, 255, 0.2);
-                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 24px rgba(165, 214, 167, 0.15); /* Improvisasi: Glow hijau WA lembut saat di-hover */
-                transform: translateY(-6px) translateZ(0);
-            }
-            .wa-status-dot {
-                width: 8px;
-                height: 8px;
-                background-color: #a5d6a7;
-                border-radius: 50%;
-                position: relative;
-            }
-            .wa-status-dot::after {
-                content: '';
-                position: absolute;
-                top: -4px;
-                left: -4px;
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                border: 1px solid #a5d6a7;
-                animation: wa-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            }
-            @keyframes wa-pulse {
-                0% { transform: scale(0.5); opacity: 1; }
-                100% { transform: scale(1.5); opacity: 0; }
-            }
-            .wa-icon { width: 20px; height: 20px; color: #fff; }
-            .wa-text { color: #fff; font-family: 'Noto Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
-            
-            @media (max-width: 767px) {
-                .berka-wa-widget { bottom: 24px; right: 24px; padding: 10px 20px; gap: 10px; }
-                .wa-text { font-size: 11px; }
-            }
-        </style>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <!-- Cinematic Preloader -->
@@ -597,7 +83,8 @@
         </div>
 
         <!-- Premium Minimalist WA Widget -->
-        <a href="https://wa.me/6285187662466" target="_blank" class="berka-wa-widget">
+        <a href="https://wa.me/6285187662466" target="_blank" rel="noopener noreferrer" class="berka-wa-widget">
+            <div class="wa-status-dot"></div>
             <svg class="wa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
@@ -637,7 +124,7 @@
                 <a href="#portofolio" class="berka-nav-link">Portofolio</a>
                 <a href="#ratecard" class="berka-nav-link">Ratecard</a>
             </div>
-            <button class="berka-burger" id="berka-burger" aria-label="Toggle Menu">
+            <button class="berka-burger" id="berka-burger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="berka-mobile-menu">
                 <div class="berka-burger-line top"></div>
                 <div class="berka-burger-line bottom"></div>
             </button>
@@ -656,16 +143,13 @@
                             <div id="w-node-dc6f5de0-ae5d-fd02-9260-f90de93f090d-0c4a52ce">
                                 <h1 id="w-node-_7941846e-2626-bb9c-05c1-64c69e2f8ef4-0c4a52ce" class="display-1 second _5rem">
                                     Bangun Hunian<br/>
-                                    Penuh Arti<br/>
-                                    ‍<br/>
-                                    <span class="smaller">
-                                        <strong>Studio Berka</strong>
-                                        lahir dari esensi &quot;Berkat&quot;, sebuah komitmen untuk mewujudkan hunian yang transparan, esensial, dan selaras<strong></strong>
-                                        dengan Anda. Kami adalah kolektif desainer dan praktisi yang percaya bahwa proses membangun rumah harus semenyenangkan saat menempatinya.<br/>
-                                        <br/>Kami mengambil alih seluruh kerumitan teknis di lapangan demi merancang ruang yang fungsional dan personal, yang dipercaya membawa kebahagiaan serta nasib baik bagi penghuninya. Di sini, Anda adalah rekan kolaborasi. Mari bekerja sama; Anda beri visinya, kami jaga integritas dan kemudahan prosesnya hingga pekerjaan selesai.
-                                    </span>
-                                    ‍
+                                    Penuh Arti
                                 </h1>
+                                <p class="hero-description-smaller">
+                                    <strong>Studio Berka</strong> lahir dari esensi &quot;Berkat&quot;, sebuah komitmen untuk mewujudkan hunian yang transparan, esensial, dan selaras dengan Anda. Kami adalah kolektif desainer dan praktisi yang percaya bahwa proses membangun rumah harus semenyenangkan saat menempatinya.<br/>
+                                    <br/>
+                                    Kami mengambil alih seluruh kerumitan teknis di lapangan demi merancang ruang yang fungsional dan personal, yang dipercaya membawa kebahagiaan serta nasib baik bagi penghuninya. Di sini, Anda adalah rekan kolaborasi. Mari bekerja sama; Anda beri visinya, kami jaga integritas dan kemudahan prosesnya hingga pekerjaan selesai.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1350,7 +834,7 @@
                                                             <div class="line-flex">
                                                                 <p class="subhead-main for-footer-title">
                                                                     <strong>
-                                                                        KABINET, WARDROBE, DIVAN<br/>dAN CREDENZA
+                                                                        KABINET, WARDROBE, DIVAN<br/>DAN CREDENZA
                                                                     </strong>
                                                                 </p>
                                                                 <div>
@@ -1395,7 +879,7 @@
                                                 <div class="project-bottom-line">
                                                     <div class="line-flex">
                                                         <p class="subhead-main for-footer-title">
-                                                            <strong>KITCHEN SET, ISLAND dan PANTRY</strong>
+                                                            <strong>KITCHEN SET, ISLAND & PANTRY</strong>
                                                         </p>
                                                         <div>
                                                             <p class="subhead-main price">Rp 2.350.000 / m¹</p>
@@ -1621,7 +1105,7 @@
                                                 <div class="project-bottom-line">
                                                     <div class="line-flex">
                                                         <p class="subhead-main for-footer-title">
-                                                            <strong>ATAP dAN CEILING</strong>
+                                                            <strong>ATAP DAN CEILING</strong>
                                                         </p>
                                                     </div>
                                                     <div class="line-flex build">
@@ -2185,45 +1669,41 @@
                     <div class="margin-60 make-30">
                         <div class="instragram-grid">
                             <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6018">
-                                <a href="https://www.instagram.com/" target="_blank" class="blog-main-wrapper flex-center w-inline-block">
+                                <a href="https://www.instagram.com/p/DNmjy7Py3cG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
                                     <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c601a" class="image-wrap for-instagram">
-                                        <img width="904" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37.webp" sizes="(max-width: 991px) 100vw, 904px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5492_photo-37.webp 1808w" class="paralax-image"/>
+                                        <img width="904" loading="lazy" alt="Cover IG 1" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
                                         <div class="button-icon-main">
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg"/>
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg is-absolute"/>
+                                            <svg class="buton-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c601f">
-                                <a href="https://www.instagram.com/" target="_blank" class="blog-main-wrapper flex-center w-inline-block">
+                                <a href="https://www.instagram.com/p/LINK_POST_2_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
                                     <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6021" class="image-wrap for-instagram _02">
-                                        <img width="1200" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39.webp" sizes="(max-width: 1919px) 100vw, 1200px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5490_photo-39.webp 2400w" class="paralax-image"/>
+                                        <img width="1200" loading="lazy" alt="Cover IG 2" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
                                         <div class="button-icon-main">
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg"/>
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg is-absolute"/>
+                                            <svg class="buton-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6026">
-                                <a href="https://www.instagram.com/" target="_blank" class="blog-main-wrapper flex-center w-inline-block">
+                                <a href="https://www.instagram.com/p/LINK_POST_3_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
                                     <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6028" class="image-wrap for-instagram _04">
-                                        <img width="996" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36.webp" sizes="(max-width: 1919px) 100vw, 996px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a2_photo-36.webp 1992w" class="paralax-image"/>
+                                        <img width="996" loading="lazy" alt="Cover IG 3" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
                                         <div class="button-icon-main">
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg"/>
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg is-absolute"/>
+                                            <svg class="buton-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c602d">
-                                <a href="https://www.instagram.com/" target="_blank" class="blog-main-wrapper flex-center w-inline-block">
+                                <a href="https://www.instagram.com/p/LINK_POST_4_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
                                     <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c602f" class="image-wrap for-instagram _03">
-                                        <img width="904" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38.webp" sizes="(max-width: 991px) 100vw, 904px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5491_photo-38.webp 1808w" class="paralax-image"/>
+                                        <img width="904" loading="lazy" alt="Cover IG 4" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
                                         <div class="button-icon-main">
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg"/>
-                                            <img loading="lazy" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a8_instagram%20(1).webp" alt="" class="buton-icon-svg is-absolute"/>
+                                            <svg class="buton-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                                         </div>
                                     </div>
                                 </a>
@@ -2262,15 +1742,15 @@
                             <div data-w-id="b04c845c-4267-0785-2ae6-86dd313a2e32" class="navigation-grid">
                                 <div class="div-block-7">
                                     <div class="social-content left">
-                                        <a href="https://www.twitter.com/" target="_blank" class="social-wrapper w-inline-block">
+                                        <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer" class="social-wrapper w-inline-block">
                                             <img width="18" sizes="(max-width: 767px) 18px, (max-width: 991px) 2vw, (max-width: 1279px) 18px, 1vw" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29.png" loading="lazy" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29.png 1000w" class="social-icon second"/>
                                             <img width="18" sizes="(max-width: 767px) 18px, (max-width: 991px) 2vw, (max-width: 1279px) 18px, 1vw" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29.png" loading="lazy" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f2_03e9c73fa7ece23b73a08026deae5406_twitter%20%283%29.png 1000w" class="social-icon second"/>
                                         </a>
-                                        <a href="https://www.linkedin.com/" target="_blank" class="social-wrapper w-inline-block">
+                                        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="social-wrapper w-inline-block">
                                             <img width="18" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f1_instagram%20(5).png" class="social-icon"/>
                                             <img width="18" loading="lazy" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54f1_instagram%20(5).png" class="social-icon"/>
                                         </a>
-                                        <a href="https://www.instagram.com/" target="_blank" class="social-wrapper w-inline-block">
+                                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-wrapper w-inline-block">
                                             <img width="18" sizes="(max-width: 767px) 18px, (max-width: 991px) 2vw, (max-width: 1279px) 18px, 1vw" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon.png" loading="lazy" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon.png 1000w" class="social-icon"/>
                                             <img width="18" sizes="(max-width: 767px) 18px, (max-width: 991px) 2vw, (max-width: 1279px) 18px, 1vw" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon.png" loading="lazy" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69ed6e2714d9212aaa1f99c0_tiktok%20logo%20icon.png 1000w" class="social-icon"/>
                                         </a>
@@ -2300,141 +1780,6 @@
         <script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js" type="text/javascript"></script>
         <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
         <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-        <script>
-            // Inisialisasi Lenis Smooth Scroll
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smooth: true,
-            });
-            lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-            gsap.ticker.lagSmoothing(0);
-
-            document.addEventListener('DOMContentLoaded', () => {
-                // --- Cinematic Preloader Animation ---
-                const preloader = document.getElementById('berka-preloader');
-                const preloaderLogo = document.getElementById('berka-preloader-logo');
-                
-                if (preloader && preloaderLogo) {
-                    document.body.style.overflow = 'hidden'; // Kunci scroll bawaan
-                    if (typeof lenis !== 'undefined') lenis.stop(); // Kunci scroll Lenis
-    
-                    const tl = gsap.timeline();
-                    tl.to(preloaderLogo, { opacity: 1, duration: 1, ease: "power2.out", delay: 0.2 })
-                      .to(preloaderLogo, { scale: 1.05, duration: 1, ease: "power2.out" }, "-=0.5")
-                      .to(preloader, { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, "+=0.3")
-                      .call(() => {
-                          document.body.style.overflow = '';
-                          if (typeof lenis !== 'undefined') lenis.start(); // Kembalikan fungsionalitas scroll
-                          preloader.style.display = 'none';
-                      });
-                }
-
-                const navbar = document.getElementById('berka-navbar');
-                const burger = document.getElementById('berka-burger');
-                const mobileMenu = document.getElementById('berka-mobile-menu');
-                const mobileLinks = document.querySelectorAll('.mobile-close');
-                const waWidget = document.querySelector('.berka-wa-widget');
-
-                // Scroll Effect for Navbar Glassmorphism
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                    
-                    // Reveal WA Widget on Scroll
-                    if (waWidget) {
-                        if (window.scrollY > 300) {
-                            waWidget.classList.add('visible');
-                        } else {
-                            waWidget.classList.remove('visible');
-                        }
-                    }
-                });
-
-                // Toggle Mobile Menu
-                function toggleMenu() {
-                    burger.classList.toggle('open');
-                    const isOpen = mobileMenu.classList.toggle('open');
-                    if (typeof lenis !== 'undefined') {
-                        if (isOpen) lenis.stop(); // Kunci scroll Lenis saat menu terbuka
-                        else lenis.start();
-                    } else {
-                        document.body.style.overflow = isOpen ? 'hidden' : '';
-                    }
-                }
-
-                burger.addEventListener('click', toggleMenu);
-
-                // Close Menu on Link Click
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (mobileMenu.classList.contains('open')) {
-                            toggleMenu();
-                        }
-                    });
-                });
-
-                // --- Animasi GSAP SplitText Hero H1 ---
-                const heroTitle = document.querySelector('.display-1.second._5rem');
-                if (heroTitle) {
-                    // Memastikan teks terlihat sebelum dianimasikan (mencegah bentrok dengan CSS Webflow)
-                    gsap.set(heroTitle, { visibility: 'visible' });
-                    
-                    // Memecah berdasarkan kata saja agar tidak merusak native line-height & align justify
-                    const split = new SplitText(heroTitle, { type: "words" });
-                    
-                    gsap.from(split.words, {
-                        y: 80,
-                        opacity: 0,
-                        rotation: 3,
-                        duration: 1.2,
-                        stagger: 0.03,
-                        ease: "power4.out",
-                        delay: 2.5 // Waktu tunda agar sinkron dengan terbukanya Cinematic Preloader
-                    });
-                }
-
-                // --- Animasi Magnetic Hover untuk Widget WA ---
-                // Efek ini hanya dijalankan pada perangkat dengan kursor (Desktop/Laptop)
-                if (waWidget && window.matchMedia("(pointer: fine)").matches) { 
-                    waWidget.addEventListener('mousemove', (e) => {
-                        const rect = waWidget.getBoundingClientRect();
-                        // Menghitung jarak kursor dari titik tengah tombol
-                        const x = e.clientX - rect.left - rect.width / 2;
-                        const y = e.clientY - rect.top - rect.height / 2;
-                        
-                        gsap.to(waWidget, {
-                            x: x * 0.4, // Intensitas tarikan magnet (semakin besar semakin jauh tertarik)
-                            y: y * 0.4,
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                    });
-        
-                    waWidget.addEventListener('mouseleave', () => {
-                        // Memantul kembali ke posisi semula
-                        gsap.to(waWidget, {
-                            x: 0,
-                            y: 0,
-                            duration: 0.8,
-                            ease: "elastic.out(1, 0.4)" 
-                        });
-                    });
-                }
-
-                // Animasi Smooth Scroll untuk tautan jangkar (Anchor Links)
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const target = this.getAttribute('href');
-                        if (target && target !== '#') lenis.scrollTo(target);
-                    });
-                });
-            });
-        </script>
+        <script src="main.js"></script>
     </body>
 </html>

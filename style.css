@@ -1,0 +1,712 @@
+/* --- Sembunyikan Webflow Badge --- */
+.w-webflow-badge {
+    display: none !important;
+}
+
+/* --- Mencegah Horizontal Scroll / Gap Hitam di Mobile --- */
+html, body {
+    max-width: 100%;
+    overflow-x: clip; /* Menggunakan 'clip' alih-alih 'hidden' untuk mengembalikan fungsi position: sticky */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) #141414;
+}
+
+/* --- Global Sizing & Typography Symmetry --- */
+*, *::before, *::after {
+    box-sizing: border-box; /* Memastikan padding/margin tidak membuat elemen terdorong keluar layar */
+}
+img, picture, video, svg {
+    max-width: 100%; /* Mencegah gambar/media berukuran besar menabrak dan meluber keluar dari batas kontainernya */
+}
+h1, h2, h3, h4, h5, h6, 
+.display-1, .display-2, .heading-style-h3, 
+.large-heading, .value-title {
+    text-wrap: balance; /* Membuat baris teks multiline menjadi seimbang dan simetris */
+    overflow-wrap: break-word;
+}
+.heading-style-huge, .service-title, .service-title.alternate {
+    white-space: nowrap !important; /* Mengunci teks @studioberka dan judul layanan agar selalu 1 baris */
+    text-wrap: nowrap !important;
+}
+
+/* --- UI/UX Premium Enhancements --- */
+/* Custom Selection Highlight */
+::selection {
+    background: #08522d;
+    color: #ffffff;
+}
+::-moz-selection {
+    background: #08522d;
+    color: #ffffff;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; border: 2px solid #141414; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+
+/* Focus-visible untuk Aksesibilitas Keyboard */
+*:focus-visible {
+    outline: 2px solid #a5d6a7 !important;
+    outline-offset: 4px !important;
+}
+
+/* Premium Navbar Styles */
+.berka-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 32px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box;
+}
+.berka-navbar.scrolled {
+    padding: 16px 5%;
+    background: rgba(24, 24, 24, 0.35); /* Lebih transparan agar tidak hitam pekat */
+    backdrop-filter: blur(24px); /* Efek kaca buram (frosted glass) diperkuat */
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Sedikit ditegaskan untuk batas kaca */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Bayangan lembut untuk memberikan kedalaman/dimensi */
+}
+.berka-navbar .logo-link {
+    z-index: 1001;
+}
+.berka-navbar .logo-link img {
+    height: 24px;
+    display: block;
+    border: none;
+    outline: none;
+    transition: transform 0.4s ease;
+}
+.berka-navbar .logo-link:hover img {
+    transform: scale(1.05);
+}
+.berka-nav-links {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+}
+.berka-nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+.berka-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: #fff;
+    transition: width 0.3s ease;
+}
+.berka-nav-link:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+.berka-nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hamburger Button */
+.berka-burger {
+    display: none;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 0;
+}
+.berka-burger-line {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    height: 1px;
+    background: #fff;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.berka-burger-line.top { top: 16px; }
+.berka-burger-line.bottom { bottom: 16px; width: 60%; right: 8px; left: auto; }
+.berka-burger:hover .berka-burger-line.bottom { width: calc(100% - 16px); }
+
+.berka-burger.open .berka-burger-line.top {
+    transform: translateY(3.5px) rotate(45deg);
+}
+.berka-burger.open .berka-burger-line.bottom {
+    width: calc(100% - 16px);
+    transform: translateY(-3.5px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.berka-mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(20, 20, 20, 0.5); /* Hitam transparan yang lebih elegan */
+    backdrop-filter: blur(28px); /* Blur lebih tinggi memudarkan background dengan indah */
+    -webkit-backdrop-filter: blur(28px);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+.berka-mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.berka-mobile-link {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+}
+.berka-mobile-menu.open .berka-mobile-link {
+    transform: translateY(0);
+    opacity: 1;
+}
+.berka-mobile-menu.open .berka-mobile-link:nth-child(1) { transition-delay: 0.1s; }
+.berka-mobile-menu.open .berka-mobile-link:nth-child(2) { transition-delay: 0.15s; }
+.berka-mobile-menu.open .berka-mobile-link:nth-child(3) { transition-delay: 0.2s; }
+
+@media (max-width: 991px) {
+    .berka-nav-links { display: none; }
+    .berka-burger { display: block; }
+    
+    /* --- Penyesuaian Layar Tablet (iPad) untuk Mencegah Overflow / Squeezing --- */
+    .section { padding-left: 5% !important; padding-right: 5% !important; } /* Mengunci lebar konten ke area aman */
+    .service-content-wrapper { padding: 32px 24px !important; } /* Menyesuaikan padding kotak agar teks di dalamnya tidak mendesak batas (squeezed) */
+    .service-feature-grid { gap: 16px !important; } /* Merapatkan list kotak Layanan agar tidak terpotong ke kanan */
+    .ratecard .large-heading { font-size: 3rem !important; } /* Mencegah judul besar Ratecard kepotong di mode Portrait */
+    .display-1.second._5rem { font-size: clamp(2rem, 5vw, 3.5rem) !important; } /* Adaptasi Judul Hero khusus Tablet */
+    .div-block-3 > img { max-width: 600px !important; } /* Mencegah logo footer meraksasa dan melebar di tablet */
+}
+
+/* --- Lenis Smooth Scroll Base CSS --- */
+html.lenis, html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+/* --- Animasi Hover Card Layanan Kami --- */
+.service-content-wrapper {
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 0 !important; /* Memaksa sudut menjadi tajam kaku */
+    padding: 40px 32px !important; /* Memberikan ruang (padding) yang lebih lega */
+    border: none !important;
+}
+.service-content-wrapper:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.service-image-wrapper {
+    overflow: hidden;
+    border-radius: 0 !important; /* Menghilangkan sudut membulat pada gambar */
+}
+.service-image-wrapper .service-image {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.service-content-wrapper:hover .service-image {
+    transform: scale(1.08);
+}
+.service-arrow-2 {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.service-content-wrapper:hover .service-arrow-2 {
+    transform: translateX(12px) !important;
+}
+
+/* --- Perbaikan Judul Layanan Terpotong & Posisi --- */
+.service-title-item {
+    text-align: left !important;
+    overflow: hidden !important; /* Wajib hidden untuk menyembunyikan teks alternate di bawahnya sebelum dihover */
+    position: relative !important;
+}
+.service-title, .service-title.alternate {
+    white-space: nowrap !important; /* Kembalikan ke 1 baris */
+    text-wrap: nowrap !important;
+    text-align: left !important;
+    line-height: 1.1 !important;
+}
+.service-title.alternate {
+    position: absolute !important;
+    top: 100% !important; /* Meletakkan teks alternate persis di luar batas bawah kontainer */
+    left: 0 !important;
+    width: 100% !important;
+}
+
+/* --- Animasi Premium Card Prinsip Kami --- */
+.benefit-card-2 {
+    border-radius: 0 !important; /* Memaksa sudut tajam bersiku */
+    border: none !important;
+    box-shadow: none !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease !important;
+    background-color: rgba(20, 20, 20, 0.2) !important;
+    transform: translateZ(0) !important; /* Akselerasi hardware anti-getar */
+    will-change: transform, box-shadow;
+}
+.benefit-card-2:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.06) !important; /* Mempertahankan glow tanpa border */
+    transform: translateY(-6px) translateZ(0) !important;
+}
+.benefit-card-2 .icon img {
+    filter: grayscale(100%) opacity(60%);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease, opacity 0.5s ease;
+}
+.benefit-card-2:hover .icon img {
+    filter: grayscale(0%) opacity(100%);
+    transform: scale(1.15) !important; /* Hanya membesar dari tengah, tidak bergerak ke atas */
+}
+
+/* --- Tampilan Harga (Price/Add-on) & Spasi Judul --- */
+.ratecard .large-heading {
+    font-size: 3.5rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 24px !important;
+}
+.subhead-main.price, .list-build.price {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: #e0e0e0 !important;
+    margin: 0 !important;
+}
+
+/* --- Warna Charcoal untuk Catatan Ratecard --- */
+.note.ratecard, 
+.note.ratecard span, 
+.note.ratecard em {
+    color: rgba(20, 20, 20, 0.8) !important; /* Charcoal elegan seperti About Us */
+}
+.note.ratecard strong,
+.note.ratecard strong em {
+    color: #111111 !important; /* Penegasan warna lebih pekat untuk teks tebal */
+}
+
+/* --- Ratecard Aesthetic Bullet Lists --- */
+.ratecard_item-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+.ratecard_item-list li {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+.ratecard_item-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a5d6a7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* --- UI/UX & Tipografi Premium Polish --- */
+p, .service-description-2, .body-display.small, .ratecard_desc {
+    color: rgba(255, 255, 255, 0.7) !important;
+    line-height: 1.7 !important; /* Nafas antar baris lebih lega */
+    font-weight: 300 !important;
+    transition: color 0.4s ease;
+}
+
+.display-1.second._5rem {
+    font-family: 'Noto Sans', sans-serif !important;
+    letter-spacing: -0.02em !important; /* Teks besar lebih rapat terlihat mahal */
+    line-height: 1.1 !important; /* Merapatkan jarak vertikal antar baris pada Headline Utama */
+    text-align: left !important; /* Memastikan teks rata kiri */
+}
+.hero-description-smaller {
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
+    color: rgba(20, 20, 20, 0.95) !important; /* Dibuat lebih pekat agar lebih kontras */
+    display: block;
+    margin-top: 32px;
+    margin-bottom: 0;
+    font-weight: 400 !important; /* Ditebalkan dari 300 (Light) ke 400 (Regular) */
+    letter-spacing: normal !important;
+    text-align: left !important; /* Mencegah teks ter-justify yang membuat spasi berantakan */
+    text-wrap: normal !important; /* Mencegah spasi merenggang akibat algoritma balance pada teks panjang */
+    word-spacing: normal !important;
+}
+.hero-description-smaller strong {
+    color: #000000 !important; /* Menegaskan teks tebal (bold) menjadi hitam pekat */
+    font-weight: 600 !important; /* Ditebalkan ekstra untuk membedakan dari teks biasa */
+}
+
+.benefit-card-2:hover .body-display.small {
+    color: rgba(255, 255, 255, 0.95) !important; /* Teks lebih terang saat fokus */
+}
+
+.subhead-main.price {
+    color: #ffffff !important;
+    font-size: 1.4rem !important; /* Mempertegas ukuran harga */
+    letter-spacing: 0.02em;
+}
+.subhead-main.ratecard_desc {
+    line-height: 1.75 !important; /* Memberikan nafas antar baris yang lebih lega */
+    letter-spacing: 0.015em !important; /* Merenggangkan huruf agar tidak dempet */
+    margin-bottom: 24px !important; /* Menambah jarak dengan elemen list di bawahnya */
+    display: block;
+}
+
+/* Menerapkan font Noto Sans pada Judul Besar lainnya */
+.ratecard .large-heading, 
+.heading-style-huge, 
+.value-title {
+    font-family: 'Noto Sans', sans-serif !important;
+}
+
+/* --- Layanan Kami - Premium Feature List --- */
+.service-feature-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px 32px !important; /* Jarak lega antar list */
+    margin-top: 32px !important;
+}
+.service-feature-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+.service-feature-text-2 {
+    position: relative !important;
+    padding-left: 24px !important; /* Ruang untuk bullet point */
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 300 !important;
+    margin: 0 !important;
+    transition: color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    cursor: default;
+}
+.service-feature-text-2:hover {
+    color: #ffffff !important;
+    transform: translateX(4px); /* Bergeser sedikit ke kanan saat disorot */
+}
+.service-feature-text-2::before {
+    content: '✦' !important; /* Ikon bullet eksklusif */
+    position: absolute !important;
+    left: 0 !important;
+    top: 0px !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    font-size: 0.85rem !important;
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease !important;
+}
+.service-feature-text-2:hover::before {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important; /* Efek glow terang pada bintang */
+    transform: scale(1.2); /* Bintang sedikit membesar */
+}
+
+/* --- Premium Section Spacing (Breathing Room) --- */
+.section {
+    padding-top: 140px !important;
+    padding-bottom: 140px !important;
+}
+.margin-100 {
+    margin-top: 120px !important; /* Ruang lebih lega antara Hero dan Portofolio */
+}
+.padding-section-large {
+    padding-bottom: 64px !important; /* Memisahkan judul seksi dengan grid secara elegan */
+}
+
+/* --- Footer Logo Full Width --- */
+.div-block-3 {
+    text-align: center !important;
+    width: 100% !important;
+}
+.div-block-3 > img { width: 100% !important; max-width: 800px !important; margin: 0 auto !important; display: block; }
+
+/* --- Responsibilitas Font Ratecard (Mobile) --- */
+@media (max-width: 767px) {
+    .ratecard .large-heading { font-size: 2.4rem !important; line-height: 1.1 !important; margin-bottom: 16px !important; }
+    .ratecard .note.ratecard span { font-size: 0.85rem !important; line-height: 1.5 !important; color: rgba(20, 20, 20, 0.8) !important; }
+    .ratecard .heading-style-h3-3 { font-size: 1.25rem !important; line-height: 1.3 !important; margin-bottom: 12px !important; }
+    .ratecard .subhead-main { font-size: 0.9rem !important; line-height: 1.5 !important; }
+    .ratecard .subhead-main.for-footer-title { font-size: 0.8rem !important; letter-spacing: 0.05em !important; opacity: 0.8; }
+    .ratecard .price { font-size: 1.2rem !important; margin-top: 2px !important; color: #ffffff !important; }
+    .ratecard .text-size-md, .ratecard .list-build { font-size: 0.85rem !important; line-height: 1.6 !important; }
+    .ratecard_desc { font-size: 0.85rem !important; line-height: 1.7 !important; letter-spacing: 0.01em !important; margin-bottom: 24px !important; }
+    .line-flex { flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; margin-bottom: 16px !important; }
+    .ratecard_item-list li { padding-left: 24px !important; margin-bottom: 12px !important; }
+    .ratecard_item-list li::before { top: 3px !important; width: 14px !important; height: 14px !important; }
+
+    /* --- Responsibilitas Footer, Logo, & General Spacing (Mobile) --- */
+    .berka-navbar .logo-link img { height: 20px !important; }
+    .logo-svg { max-width: 80% !important; height: auto !important; margin: 0 auto; display: block; }
+    
+    /* General Layout & Sections Spacing */
+    .section { padding: 80px 5% !important; }
+    .padding-section-large { padding-bottom: 48px !important; }
+    .margin-100 { margin-top: 80px !important; }
+    .margin-60 { margin-top: 48px !important; }
+    .margin-102, .margin-103 { margin-top: 16px !important; }
+    
+    /* Service Feature Mobile Overlap Fix */
+    .service-feature-grid {
+        grid-template-columns: 1fr !important; /* Ubah ke 1 kolom di mobile */
+        gap: 16px !important;
+        margin-top: 24px !important;
+    }
+    
+    /* Grid to Column Stack on Mobile */
+    .grid-2-column, .grid-2-column-2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+    .grid-2-column.reverse, .grid-2-column-2.reverse {
+        flex-direction: column !important;
+    }
+    
+    /* Typography Adjustments for Readability */
+    .display-1.second._5rem { font-size: clamp(1.8rem, 6vw, 2.2rem) !important; line-height: 1.3 !important; } /* Menggunakan clamp agar ukuran font membal/elastis dan tidak kepotong */
+    .display-2.second._1-7-rem { font-size: clamp(1.1rem, 4vw, 1.3rem) !important; line-height: 1.5 !important; }
+    .heading-style-huge { font-size: clamp(2rem, 7vw, 2.5rem) !important; line-height: 1.2 !important; }
+    .service-title, .service-title.alternate { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; } /* Mengganti vw absolut dengan clamp */
+    
+    /* Footer Specific Adjustments */
+    .footer { padding: 48px 5% !important; }
+    .div-block-3 > img { width: 100% !important; max-width: 400px !important; margin-bottom: 24px !important; } /* Logo footer mengecil secara presisi di HP */
+    .social-content.left { justify-content: flex-start !important; gap: 16px; flex-wrap: wrap; }
+    .footnote { font-size: 0.8rem !important; line-height: 1.4 !important; }
+}
+
+/* --- Cinematic Preloader --- */
+.berka-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #f5e9da;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.berka-preloader-logo {
+    width: 160px;
+    opacity: 0; /* Akan di-animate oleh GSAP */
+    filter: invert(1); /* Membuat logo putih menjadi gelap agar kontras di latar terang */
+}
+
+/* --- Premium Minimalist WA Widget --- */
+.berka-wa-widget {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(24, 24, 24, 0.35); /* Disamakan dengan navbar */
+    backdrop-filter: blur(24px); /* Blur disamakan dengan navbar */
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 13px; /* Bentuk kotak dengan sudut melengkung (squircle/rounded box) */
+    padding: 12px 24px;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Bayangan lebih halus */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+.berka-wa-widget:hover {
+    background-color: rgba(8, 82, 45, 0.85); /* Berubah menjadi hijau gelap transparan yang elegan */
+    border-color: rgba(165, 214, 167, 0.4); /* Garis tepi sedikit kehijauan */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 24px rgba(165, 214, 167, 0.15); /* Improvisasi: Glow hijau WA lembut saat di-hover */
+    transform: translateY(-6px) translateZ(0);
+}
+.wa-status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #a5d6a7;
+    border-radius: 50%;
+    position: relative;
+}
+.wa-status-dot::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #a5d6a7;
+    animation: wa-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes wa-pulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+.berka-wa-widget:hover .wa-status-dot::after {
+    animation-duration: 0.8s; /* Membuat denyut lebih cepat saat tombol di-hover */
+}
+.wa-icon { width: 20px; height: 20px; color: #fff; }
+.wa-text { color: #fff; font-family: 'Noto Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+
+@media (max-width: 767px) {
+    .berka-wa-widget { bottom: 24px; right: 24px; padding: 10px 20px; gap: 10px; }
+    .wa-text { font-size: 11px; }
+}
+
+/* --- Customization for Instagram Feed --- */
+/* 1. Menghilangkan gap bawah section agar menempel rata dengan Footer */
+.section.with-z-index {
+    padding-bottom: 0 !important; 
+}
+/* 2. Mengurangi gap atas agar lebih mepet dengan teks judul */
+.margin-60.make-30 {
+    margin-top: 32px !important; 
+    margin-bottom: 0 !important;
+}
+.instragram-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0 !important; /* Menghilangkan jarak antar cover */
+    width: 100% !important;
+    max-width: 100% !important; /* Keamanan responsivitas desktop */
+    overflow: hidden !important; /* Mencegah overflow gambar di ultrawide */
+}
+/* 3. Menghilangkan margin bawaan Webflow agar baris atas & bawah menyatu sempurna (khususnya di HP) */
+.instragram-grid > div {
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+.blog-main-wrapper {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-decoration: none !important;
+}
+
+.image-wrap.for-instagram {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    aspect-ratio: 4 / 5 !important; /* Rasio 4:5 (Portrait IG) */
+    overflow: hidden !important;
+    border-radius: 0 !important; /* Memastikan sudut siku tajam menyatu */
+}
+
+.paralax-image {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.image-wrap.for-instagram::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 20, 20, 0.5); /* Overlay gelap elegan saat hover */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.blog-main-wrapper:hover .image-wrap.for-instagram::after {
+    opacity: 1;
+}
+
+.blog-main-wrapper:hover .paralax-image {
+    transform: scale(1.08) !important; /* Efek zoom-in halus pada gambar cover */
+}
+
+/* Animasi Ikon IG Hover Baru (Elegan & Bouncy) */
+.button-icon-main {
+    position: absolute !important;
+    top: 65% !important; /* Posisi awal murni di bawah */
+    left: 50% !important;
+    transform: translate(-50%, 0) scale(0.8) !important; /* Murni vertikal, tidak bergeser dari pinggir */
+    opacity: 0 !important;
+    z-index: 2 !important;
+    background: rgba(255, 255, 255, 0.25) !important; /* Latar kaca lebih terang */
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important; /* Garis tepi putih tipis */
+    padding: 18px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important; /* Efek memantul (bouncy) yang mulus */
+}
+
+.blog-main-wrapper:hover .button-icon-main {
+    opacity: 1 !important;
+    top: 50% !important; /* Meluncur vertikal persis ke tengah */
+    transform: translate(-50%, -50%) scale(1) !important; 
+}
+
+.buton-icon-svg {
+    width: 32px !important;
+    height: 32px !important;
+    object-fit: contain;
+    display: block !important;
+    color: #ffffff !important;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.blog-main-wrapper:hover .buton-icon-svg {
+    transform: scale(1.1) !important; /* Ikon membesar sedikit secara lurus (0 derajat) */
+}
+
+/* --- Responsibilitas Grid IG (Mobile) --- */
+@media (max-width: 767px) {
+    .instragram-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* Jadi 2 kolom agar gambar tetap proporsional */
+    }
+    .button-icon-main { padding: 14px !important; }
+    .buton-icon-svg { width: 20px !important; height: 20px !important; }
+}
