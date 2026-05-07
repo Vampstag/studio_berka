@@ -110,6 +110,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Animasi Hero untuk template.html ---
+    const templateTitle = document.querySelector('.heading-style-h1');
+    if (templateTitle) {
+        const templateDesc = document.querySelector('.project-details_description p');
+        const templateInfo = document.querySelector('.project-details_info');
+        const templateVisual = document.querySelector('.project-details_visual');
+
+        // Memecah teks judul (SplitText) agar bisa dianimasikan per karakter
+        const splitTemplate = new SplitText(templateTitle, { type: "words,chars" });
+
+        // Cek jika preloader ada di halaman, beri delay lebih lama. Jika tidak ada, jalankan lebih cepat
+        const delayTime = document.getElementById('berka-preloader') ? 2.5 : 0.5;
+
+        const tl = gsap.timeline({ delay: delayTime });
+        tl.from(splitTemplate.chars, {
+            y: 40,
+            opacity: 0,
+            rotationX: -30,
+            duration: 1,
+            stagger: 0.02,
+            ease: "power4.out",
+            force3D: true
+        })
+        .from([templateDesc, templateInfo], {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out"
+        }, "-=0.6") // Animasi info berjalan saat huruf judul hampir selesai
+        .from(templateVisual, {
+            y: 40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out"
+        }, "-=0.8");
+    }
+
     // --- Animasi Magnetic Hover untuk Widget WA ---
     // Efek ini hanya dijalankan pada perangkat dengan kursor (Desktop/Laptop)
     if (waWidget && window.matchMedia("(pointer: fine)").matches) { 
@@ -185,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     
     // Memilih elemen-elemen yang ingin diberi efek masuk (Reveal)
-    const revealElements = document.querySelectorAll('.benefit-card-2, .service-content-wrapper, .ratecard_block'); // .steps-card dihapus agar tidak konflik dengan animasi bawaan Webflow
+    const revealElements = document.querySelectorAll('.benefit-card-2, .service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image');
     
     revealElements.forEach((el) => {
         gsap.fromTo(el, 

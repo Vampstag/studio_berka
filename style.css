@@ -19,7 +19,7 @@ body::after {
     pointer-events: none; /* Memastikan tidak mengganggu klik */
     z-index: 9998; /* Di bawah preloader, tapi menutupi seluruh background konten */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.035; /* Sangat halus, memberikan tekstur kertas/matte */
+    opacity: 0.04; /* Sangat halus, memberikan tekstur kertas/matte */
 }
 
 /* --- Global Sizing & Typography Symmetry --- */
@@ -715,5 +715,164 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 @media (max-width: 767px) {
     .instragram-grid {
         grid-template-columns: repeat(2, 1fr) !important; /* Jadi 2 kolom agar gambar tetap proporsional */
+    }
+}
+
+/* ==========================================================================
+   PREMIUM LAYOUT: PAGE TEMPLATE (PROJECT DETAILS HERO)
+   ========================================================================== */
+.section_project-details {
+    padding-top: 120px !important; /* Jarak atas dikurangi agar judul lebih ideal mendekati navbar */
+    padding-bottom: 40px !important; /* Jarak bawah dikurangi agar lebih padat dengan bagian galeri */
+}
+
+.heading-style-h1 {
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: clamp(3.5rem, 8vw, 7.5rem) !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1 !important;
+    text-transform: uppercase;
+    margin-top: 0 !important; /* Memastikan tidak ada margin bawaan yang mendorong teks ke bawah */
+    margin-bottom: 64px !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.project-details_content {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* Proporsi simetris rata kanan kiri (1:1) */
+    gap: 64px !important; /* Jarak didekatkan sedikit agar visual menyatu dengan teks */
+    align-items: start !important;
+}
+
+.project-details_description p {
+    font-size: 1.15rem !important;
+    line-height: 1.75 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 300 !important;
+    margin-bottom: 48px !important;
+    text-align: justify !important; /* Rata kanan kiri agar blok teks terlihat rapi */
+}
+
+/* Tabel Info Proyek (Spesifikasi Klien, Lokasi, dll) */
+.project-details_info .project-bottom-line {
+    display: flex !important;
+    flex-direction: column !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 32px !important;
+}
+
+.project-details_info .line-flex-2 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.project-details_info .subhead-main-2.for-footer-title {
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+}
+
+.project-details_info .subhead-main-2:not(.for-footer-title) {
+    font-size: 1rem !important;
+    color: #ffffff !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    text-align: right !important;
+}
+
+/* Gambar Visual Utama */
+.project-details_visual {
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+.project-details_image {
+    width: 100% !important;
+    height: 60vh !important; /* Ketinggian dikurangi agar rasio gambar lebih proporsional dan tidak terlalu portrait */
+    object-fit: cover !important;
+    filter: brightness(0.9) !important;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease !important;
+    will-change: transform;
+}
+
+.project-details_visual:hover .project-details_image {
+    transform: scale(1.05) !important; /* Interaksi zoom sangat halus saat kursor diletakkan */
+    filter: brightness(1) !important;
+}
+
+/* Responsif untuk Mobile / Tablet */
+@media (max-width: 991px) {
+    .section_project-details {
+        padding-top: 100px !important; /* Disesuaikan untuk layar HP/Tablet agar tidak terlalu kosong */
+    }
+    .heading-style-h1 {
+        font-size: clamp(3rem, 10vw, 4.5rem) !important;
+        margin-bottom: 40px !important;
+    }
+    .project-details_content {
+        grid-template-columns: 1fr !important; /* Ditumpuk menjadi 1 kolom di layar kecil */
+        gap: 48px !important;
+    }
+    .project-details_image {
+        height: 50vh !important; /* Sedikit dipendekkan di HP agar tidak memakan ruang berlebih */
+    }
+}
+
+/* ==========================================================================
+   PREMIUM LAYOUT: PAGE TEMPLATE (PROJECT GALLERY)
+   ========================================================================== */
+.section_project-galerry {
+    padding-top: 0 !important; /* Menghilangkan jarak atas agar galeri menyatu erat dengan deskripsi Hero */
+    padding-bottom: 120px !important;
+}
+
+.project-galerry_component {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 100px !important; /* Jarak lega antar elemen galeri (slider, teks, dan gambar) */
+}
+
+.project-info_component {
+    display: grid !important;
+    grid-template-columns: 1fr 2.5fr !important; /* Layout editorial: Subjudul di kiri, Paragraf di kanan */
+    gap: 64px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 48px !important;
+}
+
+.project-info_component .title-small-2 {
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin: 0 !important;
+}
+
+.project-info_component p {
+    font-size: 1.25rem !important;
+    line-height: 1.8 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 300 !important;
+    margin: 0 !important;
+    text-align: justify !important;
+}
+
+@media (max-width: 991px) {
+    .project-info_component {
+        grid-template-columns: 1fr !important; /* Menumpuk rapi di layar kecil (HP/Tablet) */
+        gap: 24px !important;
+        padding-top: 32px !important;
+    }
+    .project-galerry_component {
+        gap: 64px !important;
     }
 }
