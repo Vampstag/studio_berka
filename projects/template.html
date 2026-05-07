@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!-- This site was created in Webflow. https://webflow.com -->
+<!-- Last Published: Wed May 06 2026 01:12:04 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="veilbounds-trendy-site-a19039.webflow.io" data-wf-page="69edc2efe859924e2ae39fc8" data-wf-site="69edc2ede859924e2ae39f85" data-wf-status="1">
+    <head>
+        <meta charset="utf-8"/>
+        <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/>
+        <title>Case Study – Eclipsis - Webflow HTML website template</title>
+        <meta content="Discover the strategy, design decisions, and execution behind this project. Explore the process, visuals, challenges, and final results that shaped a meaningful digital experience." name="description"/>
+        <meta content="Case Study – Eclipsis - Webflow HTML website template" property="og:title"/>
+        <meta content="Discover the strategy, design decisions, and execution behind this project. Explore the process, visuals, challenges, and final results that shaped a meaningful digital experience." property="og:description"/>
+        <meta content="https://cdn.prod.website-files.com/6908d5132b96c33fb6525a5f/691f56795fa3168cb9c4fb8c_Eclipsis-Open-Graph.webp" property="og:image"/>
+        <meta content="Case Study – Eclipsis - Webflow HTML website template" property="twitter:title"/>
+        <meta content="Discover the strategy, design decisions, and execution behind this project. Explore the process, visuals, challenges, and final results that shaped a meaningful digital experience." property="twitter:description"/>
+        <meta content="https://cdn.prod.website-files.com/6908d5132b96c33fb6525a5f/691f56795fa3168cb9c4fb8c_Eclipsis-Open-Graph.webp" property="twitter:image"/>
+        <meta property="og:type" content="website"/>
+        <meta content="summary_large_image" name="twitter:card"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="Webflow" name="generator"/>
+        <link href="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/css/veilbounds-trendy-site-a19039.webflow.shared.72ca04c7c.css" rel="stylesheet" type="text/css" integrity="sha384-csoEx8xgcvgm8RErzjkJ/msMEAAK0Whv9MXprMVXue+F2yEQRgV4raFZEOgr3jBN" crossorigin="anonymous"/>
+        <style>
+            html.w-mod-js:not(.w-mod-ix3) :is([data-load-text], .nav_logo, .nav_menu_text, .nav_cta) {
+                visibility: hidden !important;
+            }
+        </style>
+        <script type="text/javascript">
+            !function(o, c) {
+                var n = c.documentElement
+                  , t = " w-mod-";
+                n.className += t + "js",
+                ("ontouchstart"in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+            }(window, document);
+        </script>
+        <link href="https://cdn.prod.website-files.com/6908d5132b96c33fb6525a5f/691f4e1990ba4197895ac8d3_Favicon.jpg" rel="shortcut icon" type="image/x-icon"/>
+        <link href="https://cdn.prod.website-files.com/6908d5132b96c33fb6525a5f/691f4e1d679e0f98fa3b59b6_Webclip.jpg" rel="apple-touch-icon"/>
+    </head>
+    <body class="body">
+        <div class="page-wrapper">
+            <div class="global-styles w-embed">
+                <style>
+                    /* Make text look crisper and more legible in all browsers */
+                    body {
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        font-smoothing: antialiased;
+                        text-rendering: optimizeLegibility;
+                    }
+
+                    /* Focus state style for keyboard navigation for the focusable elements */
+                    *[tabindex]:focus-visible, input[type="file"]:focus-visible {
+                        outline: 0.125rem solid #4d65ff;
+                        outline-offset: 0.125rem;
+                    }
+
+                    /* Set color style to inherit */
+                    .inherit-color * {
+                        color: inherit;
+                    }
+
+                    /* Get rid of top margin on first element in any rich text element */
+                    .w-richtext > :not(div):first-child, .w-richtext > div:first-child > :first-child {
+                        margin-top: 0 !important;
+                    }
+
+                    /* Get rid of bottom margin on last element in any rich text element */
+                    .w-richtext>:last-child, .w-richtext ol li:last-child, .w-richtext ul li:last-child {
+                        margin-bottom: 0 !important;
+                    }
+
+                    /* Make sure containers never lose their center alignment */
+                    .container-medium,.container-small, .container-large {
+                        margin-right: auto !important;
+                        margin-left: auto !important;
+                    }
+
+                    /* 
+Make the following elements inherit typography styles from the parent and not have hardcoded values. 
+Important: You will not be able to style for example "All Links" in Designer with this CSS applied.
+Uncomment this CSS to use it in the project. Leave this message for future hand-off.
+*/
+                    /*
+a,
+.w-input,
+.w-select,
+.w-tab-link,
+.w-nav-link,
+.w-dropdown-btn,
+.w-dropdown-toggle,
+.w-dropdown-link {
+  color: inherit;
+  text-decoration: inherit;
+  font-size: inherit;
+}
+*/
+                    /* Apply "..." after 3 lines of text */
+                    .text-style-3lines {
+                        display: -webkit-box;
+                        overflow: hidden;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                    }
+
+                    /* Apply "..." after 2 lines of text */
+                    .text-style-2lines {
+                        display: -webkit-box;
+                        overflow: hidden;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                    }
+
+                    /* These classes are never overwritten */
+                    .hide {
+                        display: none !important;
+                    }
+
+                    @media screen and (max-width: 991px) {
+                        .hide, .hide-tablet {
+                            display: none !important;
+                        }
+                    }
+
+                    @media screen and (max-width: 767px) {
+                        .hide-mobile-landscape {
+                            display: none !important;
+                        }
+                    }
+
+                    @media screen and (max-width: 479px) {
+                        .hide-mobile {
+                            display: none !important;
+                        }
+
+                        .home-hero_title .float-right {
+                            float: none;
+                        }
+                    }
+
+                    .margin-0 {
+                        margin: 0rem !important;
+                    }
+
+                    .padding-0 {
+                        padding: 0rem !important;
+                    }
+
+                    .spacing-clean {
+                        padding: 0rem !important;
+                        margin: 0rem !important;
+                    }
+
+                    .margin-top {
+                        margin-right: 0rem !important;
+                        margin-bottom: 0rem !important;
+                        margin-left: 0rem !important;
+                    }
+
+                    .padding-top {
+                        padding-right: 0rem !important;
+                        padding-bottom: 0rem !important;
+                        padding-left: 0rem !important;
+                    }
+
+                    .margin-right {
+                        margin-top: 0rem !important;
+                        margin-bottom: 0rem !important;
+                        margin-left: 0rem !important;
+                    }
+
+                    .padding-right {
+                        padding-top: 0rem !important;
+                        padding-bottom: 0rem !important;
+                        padding-left: 0rem !important;
+                    }
+
+                    .margin-bottom {
+                        margin-top: 0rem !important;
+                        margin-right: 0rem !important;
+                        margin-left: 0rem !important;
+                    }
+
+                    .padding-bottom {
+                        padding-top: 0rem !important;
+                        padding-right: 0rem !important;
+                        padding-left: 0rem !important;
+                    }
+
+                    .margin-left {
+                        margin-top: 0rem !important;
+                        margin-right: 0rem !important;
+                        margin-bottom: 0rem !important;
+                    }
+
+                    .padding-left {
+                        padding-top: 0rem !important;
+                        padding-right: 0rem !important;
+                        padding-bottom: 0rem !important;
+                    }
+
+                    .margin-horizontal {
+                        margin-top: 0rem !important;
+                        margin-bottom: 0rem !important;
+                    }
+
+                    .padding-horizontal {
+                        padding-top: 0rem !important;
+                        padding-bottom: 0rem !important;
+                    }
+
+                    .margin-vertical {
+                        margin-right: 0rem !important;
+                        margin-left: 0rem !important;
+                    }
+
+                    .padding-vertical {
+                        padding-right: 0rem !important;
+                        padding-left: 0rem !important;
+                    }
+
+                    /* Custom CSS */
+                    .wf-control {
+                        opacity: 0;
+                    }
+
+                    h1,h2,h3,h4,h5,h6 {
+                        font-weight: 400;
+                    }
+
+                    .menu_button-mobile svg path {
+                        fill: currentColor;
+                    }
+
+                    .navbar_projects-link:has(.w--current) {
+                        color: var(--_theme-colors---text--primary);
+                    }
+
+                    /* Project Marquee Animation*/
+                    .projects_marquee-list {
+                        animation: marquee 40s linear infinite;
+                        animation-delay: 0.2s;
+                    }
+
+                    .projects_marquee:hover .projects_marquee-list {
+                        animation-play-state: paused;
+                    }
+
+                    @keyframes marquee {
+                        from {
+                            transform: translateX(0);
+                        }
+
+                        to {
+                            transform: translateX(-100%);
+                        }
+                    }
+
+                    /* Project Marquee Animation*/
+                    .faq:first-child {
+                        padding-top: 0;
+                        border: none;
+                    }
+
+                    @media (max-width: 992px) {
+                        .menu_button-mobile {
+                            display:flex!important;
+                        }
+
+                        .menu_button-mobile.w--open .menu_button-icon {
+                            display: none;
+                        }
+
+                        .menu_button-mobile.w--open .menu_button-icon.is-close {
+                            display: block;
+                        }
+                    }
+                </style>
+            </div>
+            <main class="main-wrapper">
+                <header class="section_project-details">
+                    <div class="padding-global">
+                        <div class="container-large">
+                            <div class="project-details_component">
+                                <h1 data-w-id="1ecd684e-a9d3-d6ea-c2e0-7454c5079bb0" class="heading-style-h1">SR House</h1>
+                                <div class="project-details_content">
+                                    <div class="project-details_description">
+                                        <p data-load-text="" class="text-size-md">Berada di kawasan [sebutkan area, misal: urban padat Jakarta], lahan seluas [150 m²] ini awalnya memiliki tantangan sirkulasi udara yang buruk dan pencahayaan alami yang sangat minim. Klien kami, seorang [profil klien, misal: pengusaha muda], membutuhkan ruang yang tidak hanya berfungsi sebagai tempat singgah, tetapi juga menjadi oase personal di tengah hiruk-pikuk kota. Kondisi bangunan eksisting memaksa kami untuk merombak total hierarki tata ruang tanpa mengorbankan integritas struktur utamanya.</p>
+                                        <div class="project-details_info">
+                                            <div class="project-bottom-line">
+                                                <div class="line-flex">
+                                                    <p class="subhead-main for-footer-title">Klien</p>
+                                                    <div>
+                                                        <p class="subhead-main">Ibu Ratu Safitri</p>
+                                                    </div>
+                                                </div>
+                                                <div class="line-flex">
+                                                    <p class="subhead-main for-footer-title">Kategori Layanan</p>
+                                                    <div>
+                                                        <p class="subhead-main">Design &amp;Build</p>
+                                                    </div>
+                                                </div>
+                                                <div class="line-flex">
+                                                    <p class="subhead-main for-footer-title">Lokasi</p>
+                                                    <div>
+                                                        <p class="subhead-main">Bekasi, Jawa Barat</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="project-details_visual">
+                                        <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69edc2efe859924e2ae39fe2_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4.png" loading="lazy" data-w-id="1ecd684e-a9d3-d6ea-c2e0-7454c5079bc7" alt="Orange and gray knitted beanie floating over a soft blue background." sizes="(max-width: 1336px) 100vw, 1336px" srcset="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69edc2efe859924e2ae39fe2_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4-p-500.png 500w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69edc2efe859924e2ae39fe2_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4-p-800.png 800w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69edc2efe859924e2ae39fe2_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4.png 1002w" class="project-details_image"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <section class="section_project-galerry">
+                    <div class="padding-global">
+                        <div class="container-large">
+                            <div class="project-galerry_component">
+                                <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease" style="opacity:0" data-hide-arrows="false" data-disable-swipe="true" data-w-id="3160ecfa-7aed-c819-f8e3-d88aceb05418" data-autoplay-limit="0" data-nav-spacing="0" data-duration="500" data-infinite="false">
+                                    <div class="overflow-visible w-slider-mask">
+                                        <div class="slide_item is-gallery w-slide">
+                                            <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4c8af00451de10c9e_slider_1.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4c8af00451de10c9e_slider_1-p-500.png 500w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4c8af00451de10c9e_slider_1-p-800.png 800w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4c8af00451de10c9e_slider_1.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                        </div>
+                                        <div class="slide_item is-gallery w-slide">
+                                            <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5ae_slider_2.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5ae_slider_2-p-500.png 500w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5ae_slider_2-p-800.png 800w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5ae_slider_2.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                        </div>
+                                        <div class="slide_item is-gallery w-slide">
+                                            <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4938be224ca9fc6ac_slider_3.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4938be224ca9fc6ac_slider_3-p-500.png 500w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4938be224ca9fc6ac_slider_3-p-800.png 800w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4938be224ca9fc6ac_slider_3.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                        </div>
+                                        <div class="slide_item is-gallery w-slide">
+                                            <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5b2_slider_4.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5b2_slider_4-p-500.png 500w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5b2_slider_4-p-800.png 800w, https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5b2_slider_4.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                        </div>
+                                    </div>
+                                    <div class="slider_arrow is-left w-slider-arrow-left">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                                            <path d="M44 24H4" stroke="currentColor" stroke-width="4" stroke-miterlimit="10"></path>
+                                            <path d="M18 38L4 24L18 10" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="square"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="slider_arrow w-slider-arrow-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                                            <path d="M4 24H44" stroke="currentColor" stroke-width="4" stroke-miterlimit="10"></path>
+                                            <path d="M30 10L44 24L30 38" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="square"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="hide w-slider-nav"></div>
+                                </div>
+                                <div class="project-info_component">
+                                    <div class="title-small light">Eksekusi &amp;Solusi</div>
+                                    <p data-load-text="" class="text-size-md text-color-secondary">
+                                        Intervensi desain kami fokuskan secara agresif pada efisiensi spasial dan pemanfaatan material yang esensial. Kami menerapkan konsep ruang terbuka di area komunal dan mengintegrasikan [elemen teknis, misal: <em>skylight</em>
+                                        strategis / partisi <em>custom</em>
+                                        ] untuk memaksimalkan fungsi setiap meter perseginya.<br/>
+                                        <br/>
+                                        Penggunaan paduan material [sebutkan material, misal: beton ekspos dan kayu <em>solid</em>
+                                        ] dipilih bukan sekadar untuk mengejar estetika visual, melainkan untuk menjamin daya tahan mekanis dan menekan biaya pemeliharaan jangka panjang.
+                                    </p>
+                                </div>
+                                <img src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9efcfc27314ee2613d04c_project_main.png" loading="lazy" width="1280" height="720" alt="" data-w-id="31f8af1c-fc8a-0e8f-5dc7-3270e00ec91f" style="opacity:0" class="full-image"/>
+                                <div class="project-info_component">
+                                    <div class="title-small light">Hasil Akhir</div>
+                                    <p data-load-text="" class="text-size-md text-color-secondary">Hasilnya adalah sebuah ruang yang secara visual jujur, fungsional, dan selaras dengan ritme hidup penghuninya. Sesuai dengan prinsip Studio Berka, seluruh proses ini dikawal dengan transparansi anggaran absolut dari fase rancang hingga konstruksi akhir, memastikan tidak ada biaya siluman yang disembunyikan. Kami tidak sekadar merakit tumpukan bata dan semen, melainkan mewujudkan ketenangan pikiran dari hari pertama pengerjaan hingga kunci diserahterimakan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="padding-global">
+                        <div class="container-large"></div>
+                    </div>
+                </section>
+                <div id="About" class="section">
+                    <div class="container">
+                        <div>
+                            <div class="grid-2-column">
+                                <div id="w-node-_063bedac-2601-4c0d-dc6f-c1aef2d25943-2ae39fc8">
+                                    <h2 id="w-node-_063bedac-2601-4c0d-dc6f-c1aef2d25944-2ae39fc8" class="display-1 second _5rem">Explore the ideas we &#x27;ve brought to life.</h2>
+                                </div>
+                                <div id="w-node-_063bedac-2601-4c0d-dc6f-c1aef2d25946-2ae39fc8">
+                                    <h2 class="display-1 second _1-7-rem">©21 — 25</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin-100">
+                            <div>
+                                <div class="card-row">
+                                    <div class="wrok-card-wrapper">
+                                        <a href="#" class="work-wrapper w-inline-block">
+                                            <div class="work-title-wrapper">
+                                                <div class="work-title">Project 2</div>
+                                                <div class="work-title">—</div>
+                                                <div class="work-title light-text">Design</div>
+                                            </div>
+                                            <div class="project-card-thumbnail-wrapper">
+                                                <img loading="lazy" src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9efcfc27314ee2613d04c_project_main.png" alt="" class="wrok-primay-photo"/>
+                                                <img loading="lazy" src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eba34bff02522ec3b1d5_993364e1cba82d06a30e5d2b5ade5dcf.jpg" alt="" class="wrok-primay-photo second-photo"/>
+                                            </div>
+                                            <div class="overlay-main _01 less full"></div>
+                                        </a>
+                                    </div>
+                                    <div class="wrok-card-wrapper">
+                                        <a href="#" class="work-wrapper w-inline-block">
+                                            <div class="work-title-wrapper">
+                                                <div class="work-title">Project 1</div>
+                                                <div class="work-title">—</div>
+                                                <div class="work-title light-text">Design</div>
+                                            </div>
+                                            <div class="project-card-thumbnail-wrapper">
+                                                <img loading="lazy" src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef4938be224ca9fc6ac_slider_3.png" alt="" class="wrok-primay-photo"/>
+                                                <img loading="lazy" src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/69f9eef450337cd11566f5b2_slider_4.png" alt="" class="wrok-primay-photo second-photo"/>
+                                            </div>
+                                            <div class="overlay-main _01 less full"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=69edc2ede859924e2ae39f85" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G" crossorigin="anonymous"></script>
+        <script src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/js/webflow.schunk.33d0c97320534487.js" type="text/javascript" integrity="sha384-9ytiXYjXDo3/ehf8IAP3WKSQUsoesjEFmW45XNh5ofVtIeWBFmr33etbnpwAY8Do" crossorigin="anonymous"></script>
+        <script src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/js/webflow.schunk.9e0baef3c5eb015e.js" type="text/javascript" integrity="sha384-pPaaMqQeX4GdIJoDXn2OiV9C7FKlrhxhEefabSyM7GMcSKxvxdshWAqQ1pmKzVKo" crossorigin="anonymous"></script>
+        <script src="https://cdn.prod.website-files.com/69edc2ede859924e2ae39f85/js/webflow.eae54eff.4132af98ffb2756d.js" type="text/javascript" integrity="sha384-yhIgdHQXOiDz0leTo8+FfexeyUaWqFHc+jw+qFhL82wsC0bi0CbITRXdRepjfJa0" crossorigin="anonymous"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js" type="text/javascript"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
+    </body>
+</html>
