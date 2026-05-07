@@ -138,6 +138,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Animasi Parallax Lembut pada Video Hero ---
+    const heroVideo = document.querySelector('.bg-video');
+    if (heroVideo) {
+        gsap.to(heroVideo, {
+            yPercent: 30, // Video akan tertinggal/turun perlahan menciptakan efek 3D
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".top-logo",
+                start: "top top",
+                end: "bottom top",
+                scrub: true // Animasi mengikuti kecepatan scroll pengguna (Lenis)
+            }
+        });
+    }
+
     // Animasi Smooth Scroll untuk tautan jangkar (Anchor Links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
