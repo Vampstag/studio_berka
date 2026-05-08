@@ -44,6 +44,11 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* --- UI/UX Premium Enhancements --- */
+/* Menghilangkan highlight biru bawaan browser saat disentuh di HP/Tablet */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+}
+
 /* Custom Selection Highlight */
 ::selection {
     background: #08522d;
@@ -722,7 +727,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
    PREMIUM LAYOUT: PAGE TEMPLATE (PROJECT DETAILS HERO)
    ========================================================================== */
 .section_project-details {
-    padding-top: 120px !important; /* Jarak atas dikurangi agar judul lebih ideal mendekati navbar */
+    padding-top: 40px !important; /* Jarak atas dipangkas drastis agar judul sangat dekat dengan navbar */
     padding-bottom: 40px !important; /* Jarak bawah dikurangi agar lebih padat dengan bagian galeri */
 }
 
@@ -811,7 +816,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 /* Responsif untuk Mobile / Tablet */
 @media (max-width: 991px) {
     .section_project-details {
-        padding-top: 100px !important; /* Disesuaikan untuk layar HP/Tablet agar tidak terlalu kosong */
+        padding-top: 32px !important; /* Jarak dipangkas drastis untuk layar HP/Tablet */
     }
     .heading-style-h1 {
         font-size: clamp(3rem, 10vw, 4.5rem) !important;
@@ -824,6 +829,54 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .project-details_image {
         height: 50vh !important; /* Sedikit dipendekkan di HP agar tidak memakan ruang berlebih */
     }
+}
+
+/* ==========================================================================
+   PREMIUM LIGHTBOX GALLERY (GLightbox)
+   ========================================================================== */
+.gallery-lightbox {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: zoom-in;
+    overflow: hidden;
+}
+.gallery-lightbox .full-image {
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.gallery-lightbox:hover .full-image {
+    transform: scale(1.05) !important; /* Efek zoom tipis menandakan gambar dapat diklik */
+}
+
+/* ==========================================================================
+   PREMIUM SLIDER ARROWS (PROJECT GALLERY)
+   ========================================================================== */
+.slider_arrow {
+    width: 64px !important;
+    height: 64px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50% !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transform-origin: center center !important;
+}
+
+.slider_arrow svg {
+    width: 24px !important;
+    height: 24px !important;
+    transition: transform 0.4s ease !important;
+}
+
+/* Menjalankan animasi panah HANYA pada perangkat dengan kursor (Desktop/Laptop) untuk mencegah bug di HP */
+@media (hover: hover) and (pointer: fine) {
+    .slider_arrow:hover { background: #ffffff !important; color: #141414 !important; }
+    .slider_arrow.is-left:hover svg { transform: translateX(-4px) !important; }
+    .slider_arrow.w-slider-arrow-right:hover svg { transform: translateX(4px) !important; }
 }
 
 /* ==========================================================================

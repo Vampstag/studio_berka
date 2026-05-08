@@ -242,4 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
     });
+
+    // --- Inisialisasi GLightbox untuk Galeri ---
+    const lightbox = GLightbox({ selector: '.gallery-lightbox', loop: true });
 });
