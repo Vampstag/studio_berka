@@ -19,7 +19,7 @@ body::after {
     pointer-events: none; /* Memastikan tidak mengganggu klik */
     z-index: 9998; /* Di bawah preloader, tapi menutupi seluruh background konten */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04; /* Sangat halus, memberikan tekstur kertas/matte */
+    opacity: 0.05; /* Sangat halus, memberikan tekstur kertas/matte */
 }
 
 /* --- Global Sizing & Typography Symmetry --- */
@@ -727,7 +727,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
    PREMIUM LAYOUT: PAGE TEMPLATE (PROJECT DETAILS HERO)
    ========================================================================== */
 .section_project-details {
-    padding-top: 40px !important; /* Jarak atas dipangkas drastis agar judul sangat dekat dengan navbar */
+    padding-top: 0 !important; /* Jarak atas dihilangkan sepenuhnya agar mentok ke atas */
     padding-bottom: 40px !important; /* Jarak bawah dikurangi agar lebih padat dengan bagian galeri */
 }
 
@@ -737,8 +737,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     letter-spacing: -0.03em !important;
     line-height: 1 !important;
     text-transform: uppercase;
-    margin-top: 0 !important; /* Memastikan tidak ada margin bawaan yang mendorong teks ke bawah */
-    margin-bottom: 64px !important;
+    margin-top: -96px !important; /* Tarikan ekstra kuat ke atas mendekati navbar */
+    margin-bottom: 16px !important; /* Jarak dibuat ekstra rapat dengan paragraf di bawahnya */
     color: #ffffff !important;
     font-weight: 600 !important;
 }
@@ -816,11 +816,12 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 /* Responsif untuk Mobile / Tablet */
 @media (max-width: 991px) {
     .section_project-details {
-        padding-top: 32px !important; /* Jarak dipangkas drastis untuk layar HP/Tablet */
+        padding-top: 0 !important; /* Jarak dipangkas agar judul lebih naik di HP/Tablet */
     }
     .heading-style-h1 {
         font-size: clamp(3rem, 10vw, 4.5rem) !important;
-        margin-bottom: 40px !important;
+        margin-top: -48px !important; /* Tarikan ekstra kuat ke atas untuk layar HP */
+        margin-bottom: 12px !important; /* Jarak ekstra rapat judul dengan paragraf di HP */
     }
     .project-details_content {
         grid-template-columns: 1fr !important; /* Ditumpuk menjadi 1 kolom di layar kecil */
