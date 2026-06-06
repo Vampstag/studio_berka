@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8"/>
         <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/>
-        <title>Studio BERKA | Biro Arsitektur &amp;Desain Interior</title>
+        <title>O House — Studio BERKA | Biro Arsitektur &amp; Desain Interior</title>
         <meta content="Berbasis di Bandung, melayani arsitektur dan desain interior. Kami mengelola seluruh proses perancangan hingga pembangunan dengan biaya transparan, memastikan Anda tetap tenang hingga pekerjaan selesai." name="description"/>
         <meta content="Studio BERKA | Biro Arsitektur &amp; Desain Interior" property="og:title"/>
         <meta content="Berbasis di Bandung, melayani arsitektur dan desain interior. Kami mengelola seluruh proses perancangan hingga pembangunan dengan biaya transparan, memastikan Anda tetap tenang hingga pekerjaan selesai." property="og:description"/>
@@ -45,6 +45,25 @@
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb909ae6c8afa51d817_Webclip_Light_BERKA.jpg" rel="apple-touch-icon"/>
         <link rel="stylesheet" href="../style.css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+        <style>
+            /* Custom Grid for Storytelling Layout */
+            .project-image-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+                width: 100%;
+            }
+            .grid-image {
+                width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3;
+            }
+            .story-image {
+                width: 100%; height: auto; max-height: 80vh; object-fit: cover;
+            }
+            @media (max-width: 767px) {
+                .project-image-grid { grid-template-columns: 1fr; gap: 16px; }
+                .grid-image { aspect-ratio: auto; height: auto; }
+            }
+        </style>
     </head>
     <body class="project-page">
         <!-- Cinematic Preloader -->
@@ -98,8 +117,11 @@
         <nav class="berka-dots-nav">
             <a href="#project-hero" class="dot-link active" data-tooltip="Pengantar"></a>
             <a href="#project-gallery" class="dot-link" data-tooltip="Galeri Utama"></a>
-            <a href="#eksekusi" class="dot-link" data-tooltip="Eksekusi &amp; Solusi"></a>
+            <a href="#kebutuhan" class="dot-link" data-tooltip="Kekhawatiran Klien"></a>
+            <a href="#sirkulasi" class="dot-link" data-tooltip="Sirkulasi &amp; Pencahayaan"></a>
+            <a href="#solusi" class="dot-link" data-tooltip="Solusi Desain"></a>
             <a href="#hasil" class="dot-link" data-tooltip="Hasil Akhir"></a>
+            <a href="#mulai-proyek" class="dot-link" data-tooltip="Mulai Proyek"></a>
             <a href="#explore-projects" class="dot-link" data-tooltip="Proyek Lainnya"></a>
         </nav>
         
@@ -108,47 +130,53 @@
                 <div class="padding-global-2">
                     <div class="container-large-2">
                         <div class="project-details_component">
-                            <h1 class="heading-style-h1">SR House</h1>
+                            <h1 class="heading-style-h1">O House</h1>
                             <div class="project-hero-meta">
                                 <div class="ph-meta-item">
-                                    <div class="ph-meta-label">Total Investasi</div>
-                                    <div class="ph-meta-value">Rp xxx.xxx.xxx <span class="ph-meta-detail">— All-in</span></div>
+                                    <div class="ph-meta-label">Nilai Proyek</div>
+                                    <div class="ph-meta-value">Rp 650.000.000 <span class="ph-meta-detail">— All-in</span></div>
                                 </div>
                                 <div class="ph-meta-item">
                                     <div class="ph-meta-label">Timeline Eksekusi</div>
-                                    <div class="ph-meta-value">x Bulan <span class="ph-meta-detail">— x Bln Konstruksi, x Bln Interior</span></div>
+                                    <div class="ph-meta-value">6 Bulan <span class="ph-meta-detail">— 4 Bln Konstruksi, 2 Bln Interior &amp; Furnitur</span></div>
                                 </div>
                             </div>
                             <div class="project-details_content">
                                 <div class="project-details_description">
-                                    <p data-load-text="" class="text-size-md-4">Berada di kawasan [sebutkan area, misal: urban padat Jakarta], lahan seluas [150 m²] ini awalnya memiliki tantangan sirkulasi udara yang buruk dan pencahayaan alami yang sangat minim. Klien kami, seorang [profil klien, misal: pengusaha muda], membutuhkan ruang yang tidak hanya berfungsi sebagai tempat singgah, tetapi juga menjadi oase personal di tengah hiruk-pikuk kota. Kondisi bangunan eksisting memaksa kami untuk merombak total hierarki tata ruang tanpa mengorbankan integritas struktur utamanya.</p>
+                                    <p data-load-text="" class="text-size-md-4">Renovasi rumah secara menyeluruh untuk pasangan muda pengusaha. Berka menangani seluruh tahap, dari perencanaan arsitektur dan interior, konstruksi, sampai pembuatan furnitur built-in. Rumah standar diubah menjadi hunian yang personal dan siap ditempati sepenuhnya.</p>
                                     <div class="berka-premium-info">
                                         <div class="bpi-row">
-                                            <div class="bpi-label">Klien</div>
-                                            <div class="bpi-value">Nama Klien / Private</div>
-                                        </div>
-                                        <div class="bpi-row">
-                                            <div class="bpi-label">Kategori Layanan</div>
-                                            <div class="bpi-value">Design &amp; Build</div>
-                                        </div>
-                                        <div class="bpi-row">
                                             <div class="bpi-label">Lokasi</div>
-                                            <div class="bpi-value">Sebutkan Lokasi Detail Proyek</div>
+                                            <div class="bpi-value">Kota Bali Residence, Padalarang</div>
+                                        </div>
+                                        <div class="bpi-row">
+                                            <div class="bpi-label">Tahun</div>
+                                            <div class="bpi-value">2024</div>
+                                        </div>
+                                        <div class="bpi-row">
+                                            <div class="bpi-label">Scope of Work</div>
+                                            <div class="bpi-value">
+                                                <ul class="bpi-list">
+                                                    <li>Perencanaan Arsitektur &amp; Interior</li>
+                                                    <li>Konstruksi</li>
+                                                    <li>Interior &amp; Furniture Build</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-details_visual">
-                                    <img class="project-details_image" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf55_Project-Thumbnail-4.png" alt="Orange and gray knitted beanie floating over a soft blue background." sizes="(max-width: 1002px) 100vw, 1002px" loading="lazy" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf55_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf55_8855ee5b048805b7e5d5b45702c8c0e9_Project-Thumbnail-4-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf55_Project-Thumbnail-4.png 1002w"/>
+                                    <img class="project-details_image" src="../assets/images/projects/o-house/render_o-house_front_blue.webp" alt="[HERO — Hal 2: tampak depan simetris]" loading="lazy" />
                                 </div>
                             </div>
 
                             <!-- Premium Share Widget -->
                             <div class="berka-share-widget">
                                 <span class="share-label">Bagikan:</span>
-                                <a href="https://api.whatsapp.com/send?text=Lihat%20mahakarya%20arsitektur%20ini:%20https://studioberka.com" target="_blank" rel="noopener noreferrer" class="share-btn wa" data-tooltip="Bagikan ke WhatsApp">
+                                <a href="https://api.whatsapp.com/send?text=Lihat%20mahakarya%20arsitektur%20ini:%20https://studioberka.com/projects/o-house.html" target="_blank" rel="noopener noreferrer" class="share-btn wa" data-tooltip="Bagikan ke WhatsApp">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                                 </a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://studioberka.com" target="_blank" rel="noopener noreferrer" class="share-btn fb" data-tooltip="Bagikan ke Facebook">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://studioberka.com/projects/o-house.html" target="_blank" rel="noopener noreferrer" class="share-btn fb" data-tooltip="Bagikan ke Facebook">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                                 </a>
                                 <button class="share-btn link" data-tooltip="Salin Tautan">
@@ -163,26 +191,28 @@
                 <div class="padding-global-2">
                     <div class="container-large-2">
                         <div class="project-galerry_component">
+                            
+                            <!-- 1. Image Slider Galeri Utama -->
                             <div data-delay="4000" data-animation="slide" class="slider w-slider" data-autoplay="false" data-easing="ease" data-hide-arrows="false" data-disable-swipe="true" data-autoplay-limit="0" data-nav-spacing="0" data-duration="500" data-infinite="false">
                                 <div class="overflow-visible w-slider-mask">
                                     <div class="slide_item is-gallery w-slide">
                                         <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png" class="gallery-lightbox">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png" loading="lazy" alt="[Hal 3: isometric eksterior]" class="full-image"/>
                                         </a>
                                     </div>
                                     <div class="slide_item is-gallery w-slide">
                                         <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png" class="gallery-lightbox">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png" loading="lazy" alt="[Hal 1: isometric eksterior angle lain]" class="full-image"/>
                                         </a>
                                     </div>
                                     <div class="slide_item is-gallery w-slide">
                                         <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" class="gallery-lightbox">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" loading="lazy" alt="[Placeholder Galeri 3]" class="full-image"/>
                                         </a>
                                     </div>
                                     <div class="slide_item is-gallery w-slide">
                                         <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png" class="gallery-lightbox">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png" loading="lazy" width="632" height="474" alt="" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4-p-500.png 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4-p-800.png 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png 1002w" sizes="(max-width: 767px) 100vw, 632px" class="full-image"/>
+                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png" loading="lazy" alt="[Placeholder Galeri 4]" class="full-image"/>
                                         </a>
                                     </div>
                                 </div>
@@ -200,24 +230,71 @@
                                 </div>
                                 <div class="hide w-slider-nav"></div>
                             </div>
-                            <div id="eksekusi" class="project-info_component">
-                                <div class="title-small-2 light">Eksekusi &amp; Solusi</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">
-                                    Intervensi desain kami fokuskan secara agresif pada efisiensi spasial dan pemanfaatan material yang esensial. Kami menerapkan konsep ruang terbuka di area komunal dan mengintegrasikan [elemen teknis, misal: <em>skylight</em>
-                                    strategis / partisi <em>custom</em>
-                                    ] untuk memaksimalkan fungsi setiap meter perseginya.<br/>
-                                    <br/>
-                                    Penggunaan paduan material [sebutkan material, misal: beton ekspos dan kayu <em>solid</em>
-                                    ] dipilih bukan sekadar untuk mengejar estetika visual, melainkan untuk menjamin daya tahan mekanis dan menekan biaya pemeliharaan jangka panjang.
-                                </p>
+
+                            <!-- 3. Text Kebutuhan -->
+                            <div id="kebutuhan" class="project-info_component" style="border-top: none; padding-top: 0;">
+                                <div class="title-small-2 light">Kekhawatiran Klien</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Seperti banyak orang yang akan merenovasi, klien menghadapi tiga kekhawatiran. Takut biaya membengkak, takut salah memilih kontraktor, dan takut hasilnya bermasalah setelah selesai. Mereka ingin rumah yang sejuk, terang, dan terisi penuh, tanpa harus menanggung risiko itu.</p>
                             </div>
-                            <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" class="gallery-lightbox">
-                                <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" loading="lazy" width="1280" height="720" alt="" class="full-image"/>
+
+                            <!-- 4. Image Living Room -->
+                            <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" class="gallery-lightbox">
+                                <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" alt="[Hal 7: living room + tangga + rak buku]" class="full-image story-image" loading="lazy" />
                             </a>
-                            <div id="hasil" class="project-info_component">
-                                <div class="title-small-2 light">Hasil Akhir</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Hasilnya adalah sebuah ruang yang secara visual jujur, fungsional, dan selaras dengan ritme hidup penghuninya. Sesuai dengan prinsip Studio Berka, seluruh proses ini dikawal dengan transparansi anggaran absolut dari fase rancang hingga konstruksi akhir, memastikan tidak ada biaya siluman yang disembunyikan. Kami tidak sekadar merakit tumpukan bata dan semen, melainkan mewujudkan ketenangan pikiran dari hari pertama pengerjaan hingga kunci diserahterimakan.</p>
+
+                            <!-- 5. Text Tantangan -->
+                            <div id="sirkulasi" class="project-info_component" style="border-top: none; padding-top: 0;">
+                                <div class="title-small-2 light">Sirkulasi &amp; Pencahayaan</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Setiap ruangan dirancang memiliki jendela, sehingga udara segar dan cahaya matahari masuk merata ke seluruh rumah. Pintu geser dan jendela besar membuat udara mengalir bebas, sementara area tangga mengalirkan udara panas ke atas. Rumah tetap sejuk tanpa bergantung pada pendingin ruangan.</p>
                             </div>
+
+                            <!-- 6. Image Dapur & Kaca (2 Kolom) -->
+                            <div class="project-image-grid">
+                                <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png" class="gallery-lightbox">
+                                    <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf5b_slider_4.png" alt="[Hal 13: living room + bukaan kaca ke taman]" class="full-image grid-image" loading="lazy" />
+                                </a>
+                                <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" class="gallery-lightbox">
+                                    <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" alt="[Hal 8: dapur & dining]" class="full-image grid-image" loading="lazy" />
+                                </a>
+                            </div>
+
+                            <!-- 7. Text Solusi -->
+                            <div id="solusi" class="project-info_component" style="border-top: none; padding-top: 0;">
+                                <div class="title-small-2 light">Bagaimana Kami Menjawabnya</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Klien menerima Rencana Anggaran Biaya yang rinci sejak awal, sehingga tidak ada biaya yang muncul tiba tiba. Furnitur dirancang multifungsi dan material dipilih dari produk lokal terbaik, agar dana bisa difokuskan untuk melengkapi seluruh ruangan tanpa mengorbankan tampilan. Setiap pekerjaan disertai garansi sebagai jaminan tanggung jawab kami.</p>
+                            </div>
+
+                            <!-- 8. Image Tangga -->
+                            <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png" class="gallery-lightbox">
+                                <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf7d_slider_1.png" alt="[Hal 11: tangga arsitektural + pencahayaan]" class="full-image story-image" loading="lazy" />
+                            </a>
+
+                            <!-- 9. Closing Narrative & Final Gallery -->
+                            <div id="hasil" class="project-info_component" style="border-top: none; padding-top: 0;">
+                                <div class="title-small-2 light">Hasil</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Proyek selesai tepat waktu dalam enam bulan, sesuai anggaran yang disepakati, tanpa biaya tak terduga. Klien menerima rumah yang terang, sejuk, dan siap huni sepenuhnya. Bukti bahwa anggaran terbatas tetap bisa menghasilkan hunian berkualitas.</p>
+                            </div>
+                            <div class="final-gallery">
+                                <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" class="gallery-lightbox">
+                                    <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf6a_project_main.png" alt="[Hal 25: closing eksterior depan]" class="full-image story-image" loading="lazy" />
+                                </a>
+                                <div class="project-image-grid">
+                                    <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png" class="gallery-lightbox">
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf71_slider_2.png" alt="[Hal 17: walk-in closet]" class="full-image grid-image" loading="lazy" />
+                                    </a>
+                                    <a href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" class="gallery-lightbox">
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69fc9b78d19e758e75e0cf77_slider_3.png" alt="[Hal 19: kamar mandi marmer]" class="full-image grid-image" loading="lazy" />
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- 10. Call To Action -->
+                            <div id="mulai-proyek" class="berka-case-cta">
+                                <h2>Punya rencana membangun atau merenovasi?</h2>
+                                <p>Konsultasi, survei lokasi, dan rencana anggaran awal tanpa biaya. Setiap proyek bergaransi.</p>
+                                <a href="https://wa.me/6285187662466" target="_blank" rel="noopener noreferrer" class="berka-case-cta-btn">Jadwalkan Konsultasi Gratis</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -227,7 +304,8 @@
                     <div>
                         <div class="grid-2-column-3">
                             <div id="w-node-e1bcad69-47e1-3a15-6f67-1f970fa1957b-0c4a52ce">
-                                <h2 id="w-node-e1bcad69-47e1-3a15-6f67-1f970fa1957c-0c4a52ce" class="display-3 second _5rem">Jelajahi karya kami</h2>
+                                <h2 id="w-node-e1bcad69-47e1-3a15-6f67-1f970fa1957c-0c4a52ce" class="display-3 second _5rem">
+Lihat bagaimana kami mewujudkan hunian lain.</h2>
                             </div>
                             <div id="w-node-e1bcad69-47e1-3a15-6f67-1f970fa1957e-0c4a52ce">
                                 <h2 class="display-3 second _1-7-rem">©21 — 25</h2>

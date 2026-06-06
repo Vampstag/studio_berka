@@ -18,37 +18,6 @@
         <meta content="Webflow" name="generator"/>
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/css/veilbounds-sublime-site-554b3f.webflow.shared.80c118a2e.css" rel="stylesheet" type="text/css" integrity="sha384-gMEYouqxNClJK2XeYYuEky4LmyD3vYmYixZGrGeS2nu1mtTbwYAeEcQx6VV2R9eB" crossorigin="anonymous"/>
         <style>
-            @media (min-width: 992px) {
-                html.w-mod-js:not(.w-mod-ix) [data-w-id="56eea3e3-1616-1423-3252-5cac61c5d9af"] {
-                    -webkit-transform:translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                }
-
-                html.w-mod-js:not(.w-mod-ix) [data-w-id="56eea3e3-1616-1423-3252-5cac61c5d9b1"] {
-                    -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                }
-
-                html.w-mod-js:not(.w-mod-ix) [data-w-id="a900cfec-e074-dda9-47fd-538088aa97f3"] {
-                    -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                }
-
-                html.w-mod-js:not(.w-mod-ix) [data-w-id="a900cfec-e074-dda9-47fd-538088aa97f5"] {
-                    -webkit-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0, 0%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-                }
-            }
-        </style>
-        <style>
             html.w-mod-js:not(.w-mod-ix3) :is(.hero-main-title, [data-load-text], .display-2.second._5rem) {
                 visibility: hidden !important;
             }
@@ -89,25 +58,39 @@
             </svg>
             <span class="wa-text">Konsultasi Gratis</span>
         </a>
-        <section id="home" class="top-logo">
-            <div data-poster-url="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_poster.0000000.jpg" data-video-urls="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_mp4.mp4,https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="bg-video w-background-video w-background-video-atom">
+        <!-- Premium Back to Top Button -->
+        <button class="berka-back-to-top" id="back-to-top" aria-label="Kembali ke Atas">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </button>
+        <!-- Premium Background Music Player -->
+        <audio id="berka-bgm" loop>
+            <source src="assets/sound/music/jazz_bgm.mp3" type="audio/mpeg">
+        </audio>
+        <button class="berka-music-toggle" id="berka-music-toggle" aria-label="Toggle Background Music" data-tooltip="Putar/Jeda Musik">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        </button>
+        <section id="home" class="berka-fullscreen-hero">
+            <div data-poster-url="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_poster.0000000.jpg" data-video-urls="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_mp4.mp4,https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="bg-video w-background-video w-background-video-atom berka-hero-video-wrap">
                 <video id="9d7050ab-fd7c-d976-be21-aa48e5c5eebd-video" autoplay="" loop="" style="background-image:url(&quot;https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_poster.0000000.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
                     <source src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_mp4.mp4" data-wf-ignore="true"/>
                     <source src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_webm.webm" data-wf-ignore="true"/>
                 </video>
-                <div class="hero-note">
-                    <div class="head-note">
-                        <strong>Studio Berka</strong>
-                        adalah Biro Arsitektur dan Desain Interior yang berbasis di Bandung.
-                    
-                    </div>
-                </div>
+                <div class="berka-video-overlay"></div>
             </div>
-            <div class="text-big">
-                <div class="container">
-                    <div>
-                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca15c79900bbbfe8c2ee3_Logotype%20White%20BERKA.svg" loading="lazy" alt="" class="logo-svg"/>
-                    </div>
+            
+            
+            <div class="berka-hero-bottom">
+                <div class="berka-hero-large-logo">
+                    <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca15c79900bbbfe8c2ee3_Logotype%20White%20BERKA.svg" loading="eager" alt="Studio Berka" class="logo-svg"/>
+                </div>
+                <div class="berka-hero-subtitle">
+                    <p class="hero-center-desc">Studio Berka adalah Biro Arsitektur dan Desain Interior yang berbasis di Bandung.</p>
+                </div>
+                <div class="berka-scroll-indicator">
+                    <div class="scroll-line"></div>
                 </div>
             </div>
         </section>
@@ -131,68 +114,61 @@
             <a href="#portofolio" class="berka-mobile-link mobile-close">Portofolio</a>
             <a href="#ratecard" class="berka-mobile-link mobile-close">Ratecard</a>
         </div>
-        <div>
+        <main class="main-wrapper home-wrapper">
             <section id="top" data-w-id="7314af82-d05c-2b84-d3a9-223e8e39f664" class="section_home-hero main">
                 <div class="container">
                     <div class="our-story">
                         <div class="grid-2-column">
+                            <div class="hero-illustration">
+                                <img src="assets/images/projects/o-house/render_o-house_front_red.webp" alt="Ilustrasi Arsitektur" class="story-illustration-img" loading="lazy">
+                            </div>
                             <div id="w-node-dc6f5de0-ae5d-fd02-9260-f90de93f090d-0c4a52ce">
                                 <h1 id="w-node-_7941846e-2626-bb9c-05c1-64c69e2f8ef4-0c4a52ce" class="display-1 second _5rem">
                                     Kawan membangun ruang.
                                 </h1>
                                 <p class="hero-description-smaller">
-                                    Berakar dari esensi 'Berkat', kami merancang hunian yang selaras dengan Anda. Sebuah komitmen pada proses konstruksi yang transparan dan tanpa friksi, karena fase membangun rumah seharusnya senyaman saat menempatinya.
+                                    Kami merancang dan membangun hunian yang selaras dengan Anda, lewat proses yang transparan dan terkendali. Karena membangun rumah seharusnya terasa setenang saat menempatinya.
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div id="portofolio" class="margin-100">
-                        <div>
-                            <div class="card-row">
-                                <div data-w-id="f02d5005-9aa8-c402-61f1-7e323a8e0b81" class="wrok-card-wrapper _1">
-                                    <a href="projects/template.html" class="work-wrapper w-inline-block">
-                                        <div class="work-title-wrapper">
-                                            <div class="work-title">Proyek 1</div>
-                                            <div class="work-title hide">—</div>
-                                            <div class="work-title light-text">Renovasi</div>
-                                        </div>
-                                        <div class="project-card-thumbnail-wrapper">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b28af7d5ce07885717_ec878fd69d086c229823d8017917aaee.jpg" loading="lazy" alt="" class="wrok-primay-photo"/>
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b393d9cef43a411ecd_1.jpg" loading="lazy" alt="" class="wrok-primay-photo second-photo"/>
-                                        </div>
-                                        <div class="overlay-main _01 less full"></div>
-                                    </a>
-                                </div>
-                                <div class="wrok-card-wrapper _2">
-                                    <a href="projects/template.html" class="work-wrapper w-inline-block">
-                                        <div class="work-title-wrapper">
-                                            <div class="work-title">Proyek 2</div>
-                                            <div class="work-title hide">—</div>
-                                            <div class="work-title light-text">Desain</div>
-                                        </div>
-                                        <div class="project-card-thumbnail-wrapper">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b393d9cef43a411ecd_1.jpg" loading="lazy" alt="" class="wrok-primay-photo"/>
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b2b8baf505d9128123_556661667a5ffb40d6ad97c988b563e0.jpg" loading="lazy" alt="" class="wrok-primay-photo second-photo"/>
-                                        </div>
-                                        <div class="overlay-main _01 less full"></div>
-                                    </a>
-                                </div>
+                        <!-- PURE CUSTOM PORTFOLIO CARDS (NO WEBFLOW JS) -->
+                        <div class="berka-custom-portfolio">
+                            <div class="bcp-row">
+                                <a href="projects/o-house.html" class="bcp-card color-blue">
+                                    <div class="bcp-image-container">
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b28af7d5ce07885717_ec878fd69d086c229823d8017917aaee.jpg" loading="lazy" alt="" class="bcp-img-main"/>
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b393d9cef43a411ecd_1.jpg" loading="lazy" alt="" class="bcp-img-hover"/>
+                                    </div>
+                                    <div class="bcp-info">
+                                        <h3 class="bcp-title">O House</h3>
+                                        <span class="bcp-category">— Design & Build</span>
+                                        <span class="bcp-budget">Rp 650.000.000</span>
+                                    </div>
+                                </a>
+                                <a href="projects/template.html" class="bcp-card color-green">
+                                    <div class="bcp-image-container">
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b393d9cef43a411ecd_1.jpg" loading="lazy" alt="" class="bcp-img-main"/>
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b2b8baf505d9128123_556661667a5ffb40d6ad97c988b563e0.jpg" loading="lazy" alt="" class="bcp-img-hover"/>
+                                    </div>
+                                    <div class="bcp-info">
+                                        <h3 class="bcp-title">Proyek 2</h3>
+                                        <span class="bcp-category">— Desain</span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="card-row second">
-                                <div class="wrok-card-wrapper _3">
-                                    <a href="projects/template.html" class="work-wrapper w-inline-block">
-                                        <div class="work-title-wrapper">
-                                            <div class="work-title">Proyek 3</div>
-                                            <div class="work-title hide">—</div>
-                                            <div class="work-title light-text">Perawatan</div>
-                                        </div>
-                                        <div class="project-card-thumbnail-wrapper">
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b318586eb7c9865c4e_2.jpg" loading="lazy" alt="" class="wrok-primay-photo"/>
-                                            <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b26388514ed0a865db_78284beeab1b06af4d81d264fb5e0b8d.jpg" loading="lazy" alt="" class="wrok-primay-photo second-photo"/>
-                                        </div>
-                                        <div class="overlay-main _01 less full"></div>
-                                    </a>
-                                </div>
+                            <div class="bcp-row full">
+                                <a href="projects/template.html" class="bcp-card color-red">
+                                    <div class="bcp-image-container">
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b318586eb7c9865c4e_2.jpg" loading="lazy" alt="" class="bcp-img-main"/>
+                                        <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca2b26388514ed0a865db_78284beeab1b06af4d81d264fb5e0b8d.jpg" loading="lazy" alt="" class="bcp-img-hover"/>
+                                    </div>
+                                    <div class="bcp-info">
+                                        <h3 class="bcp-title">Proyek 3</h3>
+                                        <span class="bcp-category">— Perawatan</span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -801,29 +777,29 @@
                                             <!-- Kolom 1 -->
                                 <div class="rc-item">
                                     <h4 class="rc-subtitle">Lantai (Flooring)</h4>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Vinyl (TACO / Setara)</span><span class="rc-pr-line"></span><span class="rc-pr-price">275k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">SPC Flooring</span><span class="rc-pr-line"></span><span class="rc-pr-price">425k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Granit Tile</span><span class="rc-pr-line"></span><span class="rc-pr-price">420k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Decking PVC</span><span class="rc-pr-line"></span><span class="rc-pr-price">1.65jt / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Skirting / Plint PVC</span><span class="rc-pr-line"></span><span class="rc-pr-price">120k / btg</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Vinyl (TACO / Setara)</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 275.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">SPC Flooring</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 425.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Granit Tile</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 420.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Decking PVC</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 1.650.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Skirting / Plint PVC</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 120.000 / btg</span></div>
                                 </div>
                                 <!-- Kolom 2 -->
                                 <div class="rc-item">
                                     <h4 class="rc-subtitle">Dinding & Pagar</h4>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Dinding Bata</span><span class="rc-pr-line"></span><span class="rc-pr-price">330k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Partisi Gypsum</span><span class="rc-pr-line"></span><span class="rc-pr-price">280k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Cat (Jotun/Setara)</span><span class="rc-pr-line"></span><span class="rc-pr-price">58k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Pintu Henderson</span><span class="rc-pr-line"></span><span class="rc-pr-price">1.2jt / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Railing Balkon</span><span class="rc-pr-line"></span><span class="rc-pr-price">700k / m¹</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Dinding Bata</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 330.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Partisi Gypsum</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 280.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Cat (Jotun/Setara)</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 58.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Pintu Henderson</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 1.200.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Railing Balkon</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 700.000 / m¹</span></div>
                                 </div>
                                 <!-- Kolom 3 -->
                                 <div class="rc-item">
                                     <h4 class="rc-subtitle">Atap & Ceiling</h4>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Alderon (Double)</span><span class="rc-pr-line"></span><span class="rc-pr-price">900k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Alderon (Single)</span><span class="rc-pr-line"></span><span class="rc-pr-price">600k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Plafon Gypsum</span><span class="rc-pr-line"></span><span class="rc-pr-price">180k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">Cat Plafon</span><span class="rc-pr-line"></span><span class="rc-pr-price">65k / m²</span></div>
-                                    <div class="rc-price-row"><span class="rc-pr-name">LED Strip Light</span><span class="rc-pr-line"></span><span class="rc-pr-price">130k / m¹</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Alderon (Double)</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 900.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Alderon (Single)</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 600.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Plafon Gypsum</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 180.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">Cat Plafon</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 65.000 / m²</span></div>
+                                    <div class="rc-price-row"><span class="rc-pr-name">LED Strip Light</span><span class="rc-pr-line"></span><span class="rc-pr-price">Rp 130.000 / m¹</span></div>
                                 </div>
                             </div>
                                     </div>
@@ -851,7 +827,7 @@
                                         <div class="rc-items-grid-3">
                                 <div class="rc-item">
                                     <div class="rc-item-header"><h3>Essential</h3></div>
-                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 4 - 5.5 Jt / m²</p>
+                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 4.000.000 - 5.500.000 / m²</p>
                                     <p class="rc-note" style="margin-bottom: 16px;">Fungsional, praktis, & efisien.</p>
                                     <ul class="rc-bullet-list">
                                         <li>Lantai Granit (60x60 Grade A)</li>
@@ -862,7 +838,7 @@
                                 </div>
                                 <div class="rc-item">
                                     <div class="rc-item-header"><h3>Elevated</h3></div>
-                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 5.5 - 8 Jt / m²</p>
+                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 5.500.000 - 8.000.000 / m²</p>
                                     <p class="rc-note" style="margin-bottom: 16px;">Material kaya & berkarakter.</p>
                                     <ul class="rc-bullet-list">
                                         <li>Engineered Marble / Granit Premium</li>
@@ -873,7 +849,7 @@
                                 </div>
                                 <div class="rc-item">
                                     <div class="rc-item-header"><h3>Signature Premium</h3></div>
-                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 8 - 12 Jt / m²</p>
+                                    <p class="rc-price" style="margin-bottom: 8px;">Rp 8.000.000 - 12.000.000 / m²</p>
                                     <p class="rc-note" style="margin-bottom: 16px;">Eksklusif tanpa kompromi.</p>
                                     <ul class="rc-bullet-list">
                                         <li>Lantai Marmer Impor</li>
@@ -1001,120 +977,13 @@
 
                 </div>
             </section>
-            <div class="animation-wrapper" style="display: none !important;">
-                <div data-w-id="528a429d-d8e0-bb7b-63db-ba5915b8ef51" class="hero-interaction"></div>
-                <div class="hero-first">
-                    <div class="hero-preview">
-                        <div class="hero-content">
-                            <div id="w-node-_528a429d-d8e0-bb7b-63db-ba5915b8ef55-15b8ef50" class="hero-text-wrapper">
-                                <div class="hero-home-flex">
-                                    <div class="hero-overflow-title">
-                                        <div class="top-title-overflow">
-                                            <h2 class="hero-main-title">STUDIO BERKA</h2>
-                                        </div>
-                                    </div>
-                                    <div class="main-strip">
-                                        <div id="w-node-_528a429d-d8e0-bb7b-63db-ba5915b8ef5c-15b8ef50" class="hero-images left">
-                                            <div class="main-image third">
-                                                <img width="1200" loading="eager" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5.webp" sizes="(max-width: 1919px) 100vw, 1200px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a0_team-5.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag _02">Elena</div>
-                                            </div>
-                                            <div class="main-image fourth">
-                                                <img width="1200" loading="eager" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3.webp" sizes="(max-width: 1919px) 100vw, 1200px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54b4_team-3.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag _03">Maya</div>
-                                            </div>
-                                            <div class="main-image seven"></div>
-                                            <div class="main-image eight"></div>
-                                        </div>
-                                    </div>
-                                    <div class="main-strip right">
-                                        <div id="w-node-_528a429d-d8e0-bb7b-63db-ba5915b8ef68-15b8ef50" class="hero-images right-slide">
-                                            <div class="main-image second">
-                                                <img width="360" loading="eager" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2.webp" sizes="(max-width: 479px) 100vw, 360px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a6_team-2.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag _01">Liam</div>
-                                            </div>
-                                            <div class="main-image first">
-                                                <img width="1200" loading="eager" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4.webp" sizes="(max-width: 1919px) 100vw, 1200px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a548e_team-4.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag">
-                                                    Ilham<br/>
-                                                </div>
-                                            </div>
-                                            <div class="main-image sixth">
-                                                <img loading="eager" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1.webp" alt="" sizes="(max-width: 2400px) 100vw, 2400px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a5494_team-1.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag _05">Marco</div>
-                                            </div>
-                                            <div class="main-image fifth">
-                                                <img width="1200" loading="eager" alt="" src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6.webp" sizes="(max-width: 1919px) 100vw, 1200px" srcset="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6-p-500.webp 500w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6-p-800.webp 800w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6-p-1080.webp 1080w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6-p-1600.webp 1600w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6-p-2000.webp 2000w, https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca11d8521d6490c4a54a3_team-6.webp 2400w" class="image-fill"/>
-                                                <div class="team-name-tag _04">
-                                                    Luna<br/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <section class="section with-z-index" style="display: none !important;">
-                <div class="container">
-                    <div class="grid-2-column reverse _15-gap">
-                        <div>
-                            <div class="max-w-left">
-                                <h2 id="w-node-_65ae50dc-c2e2-aac2-89ea-e734043c600e-043c6009" class="heading-style-h3">
-                                    Ikuti Perjalanan<br/>Kami!
-                                
-                                </h2>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="max-w-left">
-                                <h2 id="w-node-_65ae50dc-c2e2-aac2-89ea-e734043c6012-043c6009" class="heading-style-huge">@studioberka</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="margin-60 make-30">
-                        <div class="instragram-grid">
-                            <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6018">
-                                <a href="https://www.instagram.com/p/DNmjy7Py3cG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
-                                    <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c601a" class="image-wrap for-instagram">
-                                        <img width="904" loading="lazy" alt="Cover IG 1" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
-                                    </div>
-                                </a>
-                            </div>
-                            <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c601f">
-                                <a href="https://www.instagram.com/p/LINK_POST_2_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
-                                    <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6021" class="image-wrap for-instagram _02">
-                                        <img width="1200" loading="lazy" alt="Cover IG 2" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
-                                    </div>
-                                </a>
-                            </div>
-                            <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6026">
-                                <a href="https://www.instagram.com/p/LINK_POST_3_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
-                                    <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c6028" class="image-wrap for-instagram _04">
-                                        <img width="996" loading="lazy" alt="Cover IG 3" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
-                                    </div>
-                                </a>
-                            </div>
-                            <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c602d">
-                                <a href="https://www.instagram.com/p/LINK_POST_4_DISINI/" target="_blank" rel="noopener noreferrer" class="blog-main-wrapper flex-center w-inline-block">
-                                    <div data-w-id="65ae50dc-c2e2-aac2-89ea-e734043c602f" class="image-wrap for-instagram _03">
-                                        <img width="904" loading="lazy" alt="Cover IG 4" src="assets/images/footer/cta_ig/post 1_who we are.webp" class="paralax-image"/>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <div class="footer">
                 <div class="container">
                     <div class="grid-2-column-2 reverse">
                         <div>
                             <h2 class="heading-style-huge light left">
                                 <strong>Sapa Kami,</strong>
-                                <br/>dan Ceritakan Rencanamu.
+                                <br/>dan Sampaikan Rencanamu.
                             
                             </h2>
                         </div>
@@ -1167,7 +1036,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
         <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=69cca11c8521d6490c4a5292" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G" crossorigin="anonymous"></script>
         <script src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/js/webflow.schunk.c8d91021ef2ace90.js" type="text/javascript" integrity="sha384-yzO1BN9y4H2H5CaU6ij4LdJaW6IeKcOnPuY1huRVynCMWQvlMI8pgWjBqW1GJCah" crossorigin="anonymous"></script>
