@@ -9,17 +9,14 @@ html, body {
     overflow-x: clip; /* Menggunakan 'clip' alih-alih 'hidden' untuk mengembalikan fungsi position: sticky */
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.2) #141414;
+    background-color: #000000; /* Mencegah kilatan background putih bawaan browser saat overscroll atau parallax */
 }
 
-/* --- Premium Film Grain Overlay --- */
-body::after {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; /* Memastikan tidak mengganggu klik */
-    z-index: 9998; /* Di bawah preloader, tapi menutupi seluruh background konten */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05; /* Sangat halus, memberikan tekstur kertas/matte */
+/* --- Force Remove Webflow TV-Dots / Noise Globally --- */
+.tv-dots, .noise-overlay, .w-background-video > .tv-dots {
+    display: none !important;
+    opacity: 0 !important;
+    background-image: none !important;
 }
 
 /* --- Global Sizing & Typography Symmetry --- */
@@ -84,6 +81,10 @@ h1, h2, h3, h4, h5, h6,
     align-items: center;
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     box-sizing: border-box;
+    border-bottom: 1px solid transparent; /* Mencegah layout shift (kilatan border) saat scroll pertama */
+    background: rgba(24, 24, 24, 0); /* Transisi warna transparan yang mulus */
+    backdrop-filter: blur(0px); /* Inisialisasi blur agar webkit/Safari tidak glitch */
+    -webkit-backdrop-filter: blur(0px);
 }
 .berka-navbar.scrolled {
     padding: 16px 5%;
@@ -116,7 +117,7 @@ h1, h2, h3, h4, h5, h6,
     text-decoration: none;
     font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600; /* Ditebalkan menjadi Semi-bold agar navigasi lebih jelas */
     letter-spacing: 0.5px;
     text-transform: uppercase;
     position: relative;
@@ -291,27 +292,80 @@ html.lenis, html.lenis body {
 }
 
 /* --- Animasi Premium Card Prinsip Kami --- */
-.benefit-card-2 {
-    border-radius: 0 !important; /* Memaksa sudut tajam bersiku */
-    border: none !important;
-    box-shadow: none !important;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease !important;
-    background-color: rgba(20, 20, 20, 0.2) !important;
-    transform: translateZ(0) !important; /* Akselerasi hardware anti-getar */
-    will-change: transform, box-shadow;
+.berka-principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    perspective: 1200px; /* Esensial untuk efek masuk 3D GSAP */
 }
-.benefit-card-2:hover {
-    background-color: rgba(255, 255, 255, 0.04) !important;
-    box-shadow: 0 0 32px rgba(255, 255, 255, 0.06) !important; /* Mempertahankan glow tanpa border */
-    transform: translateY(-6px) translateZ(0) !important;
+.berka-principle-card {
+    background: linear-gradient(145deg, #d34224 0%, #a8311a 100%); /* Gradasi halus memberikan ilusi cahaya 3D */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Garis pantulan cahaya di tepi */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2); /* Efek tebal fisik di bagian bawah */
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
 }
-.benefit-card-2 .icon img {
-    filter: grayscale(100%) opacity(60%);
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease, opacity 0.5s ease;
+/* Efek Kilapan Cahaya Kaca (Glass Shine Sweep) */
+.berka-principle-card::before {
+    content: ""; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 0; pointer-events: none;
 }
-.benefit-card-2:hover .icon img {
-    filter: grayscale(0%) opacity(100%);
-    transform: scale(1.15) !important; /* Hanya membesar dari tengah, tidak bergerak ke atas */
+.berka-principle-card:hover::before {
+    left: 200%; /* Cahaya menyapu dari kiri ke kanan saat disorot */
+}
+.berka-principle-card > * {
+    position: relative;
+    z-index: 1; /* Melindungi teks dan ikon agar tetap di atas efek cahaya */
+}
+.berka-principle-card:hover {
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3), 0 12px 24px rgba(188, 56, 30, 0.4); /* Bayangan dalam berlapis */
+    transform: translateY(-8px) scale(1.02) translateZ(0); /* Kartu melayang maju menyambut mata pengguna */
+}
+.berka-principle-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #f7db5d; /* Lingkaran kecil warna kuning */
+    border-radius: 50%; /* Membuat kotak menjadi lingkaran sempurna */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+}
+.berka-principle-icon img {
+    width: 32px; /* Ukuran ikon dikecilkan agar pas di dalam lingkaran */
+    height: 32px;
+    object-fit: contain;
+    filter: brightness(0) opacity(80%); /* Ikon diubah menjadi hitam elegan agar kontras dengan kuning */
+    transition: filter 0.5s ease, opacity 0.5s ease;
+}
+.berka-principle-card:hover .berka-principle-icon {
+    transform: scale(1.15) rotate(8deg); /* Lingkaran membesar dan sedikit berputar saat hover */
+    box-shadow: 0 0 0 6px rgba(247, 219, 93, 0.15), 0 8px 24px rgba(247, 219, 93, 0.5); /* Efek Cincin Ganda (Double Ring Glow) yang premium */
+}
+.berka-principle-card:hover .berka-principle-icon img {
+    filter: brightness(0) opacity(100%); /* Warna ikon jadi lebih pekat */
+}
+.berka-principle-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 16px 0;
+}
+.berka-principle-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    font-weight: 400;
 }
 
 /* --- Tampilan Harga (Price/Add-on) & Spasi Judul --- */
@@ -369,7 +423,7 @@ html.lenis, html.lenis body {
 p, .service-description-2, .body-display.small, .ratecard_desc {
     color: rgba(255, 255, 255, 0.7) !important;
     line-height: 1.7 !important; /* Nafas antar baris lebih lega */
-    font-weight: 300 !important;
+    font-weight: 400 !important; /* Ditebalkan dari Light ke Regular agar sangat mudah dibaca */
     transition: color 0.4s ease;
 }
 
@@ -431,15 +485,16 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     margin-bottom: 64px !important; /* Memberi jarak lega dengan kotak di bawahnya */
 }
 .values-top-header h2 {
-    margin-top: 0 !important; /* Membuang margin bawaan secara total */
+    margin-top: -6px !important; /* Tarikan optikal (Optical alignment) agar rata atas visual dengan teks h3 */
     text-align: left !important; /* Memastikan teks rata kiri */
+    line-height: 1.1 !important; /* Merapatkan jarak spasi antar baris agar simetris dan padat */
 }
 .values-top-header h3 {
     margin-top: 0 !important; 
     text-align: left !important; 
     font-size: 1.15rem !important; /* Ukuran font lebih nyaman dan proporsional untuk paragraf */
     line-height: 1.6 !important; /* Spasi antar baris yang lebih lega (breathing room) */
-    font-weight: 300 !important; /* Tipis (Light) agar elegan dan kontras dengan ketebalan Judul */
+    font-weight: 400 !important; /* Ditebalkan agar lebih nyata dan nyaman di mata */
     color: rgba(255, 255, 255, 0.75) !important; /* Warna abu-abu terang agar tidak menyaingi fokus utama */
     letter-spacing: normal !important;
 }
@@ -470,7 +525,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     font-size: 0.95rem !important;
     line-height: 1.6 !important;
     color: rgba(255, 255, 255, 0.75) !important;
-    font-weight: 300 !important;
+    font-weight: 500 !important; /* Medium - Ditebalkan agar list fitur terbaca jelas */
     margin: 0 !important;
     transition: color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
     cursor: default;
@@ -520,10 +575,13 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .ratecard .heading-style-h3-3 { font-size: 1.1rem !important; line-height: 1.3 !important; margin-bottom: 12px !important; }
     .ratecard .subhead-main { font-size: 0.9rem !important; line-height: 1.5 !important; }
     .ratecard .subhead-main.for-footer-title { font-size: 0.8rem !important; letter-spacing: 0.05em !important; opacity: 0.8; }
-    .ratecard .price { font-size: 1.2rem !important; margin-top: 2px !important; color: #ffffff !important; }
+    .ratecard .price { font-size: 1.2rem !important; margin-top: 2px !important; color: #ffffff !important; text-align: left !important; }
     .ratecard .text-size-md, .ratecard .list-build { font-size: 0.85rem !important; line-height: 1.6 !important; }
     .ratecard_desc { font-size: 0.85rem !important; line-height: 1.7 !important; letter-spacing: 0.01em !important; margin-bottom: 24px !important; }
-    .line-flex { flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; margin-bottom: 16px !important; }
+    .line-flex { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; margin-bottom: 16px !important; padding-bottom: 16px !important; }
+    .line-flex > div:last-child { text-align: left !important; }
+    .subhead-main.price, .list-build.price { text-align: left !important; }
+    .line-flex .note { text-align: left !important; }
     .ratecard_item-list li { padding-left: 24px !important; margin-bottom: 12px !important; }
     .ratecard_item-list li::before { top: 3px !important; width: 14px !important; height: 14px !important; }
 
@@ -650,14 +708,15 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 /* 1. Menghilangkan gap bawah section agar menempel rata dengan Footer */
 .section.with-z-index {
     padding-bottom: 0 !important; 
+    display: none !important; /* Menyembunyikan section sementara karena masih placeholder */
 }
 /* 2. Mengurangi gap atas agar lebih mepet dengan teks judul */
 .margin-60.make-30 {
     margin-top: 32px !important; 
     margin-bottom: 0 !important;
 }
-.instragram-grid {
-    display: grid !important;
+.instragram-grid, .instagram-grid {
+    display: none !important; /* Aslinya: grid !important; (Disembunyikan sementara) */
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 0 !important; /* Menghilangkan jarak antar cover */
     width: 100% !important;
@@ -754,7 +813,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     font-size: 1.15rem !important;
     line-height: 1.75 !important;
     color: rgba(255, 255, 255, 0.75) !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important; /* Regular */
     margin-bottom: 48px !important;
     text-align: justify !important; /* Rata kanan kiri agar blok teks terlihat rapi */
 }
@@ -915,7 +974,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     font-size: 1.25rem !important;
     line-height: 1.8 !important;
     color: rgba(255, 255, 255, 0.9) !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important; /* Regular */
     margin: 0 !important;
     text-align: justify !important;
 }
@@ -929,4 +988,415 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .project-galerry_component {
         gap: 64px !important;
     }
+}
+
+/* ==========================================================================
+   PREMIUM PAYMENT & MAINTENANCE SECTION (DESAIN BARU)
+   ========================================================================== */
+.berka-payment-section {
+    padding: 140px 5% !important;
+    background: #26589f; /* Background Biru Brand BERKA */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ambient Glow Background - Memberikan efek cahaya dramatis di latar */
+.berka-payment-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 80vh;
+    background: radial-gradient(circle, rgba(244, 231, 215, 0.08) 0%, transparent 70%); /* Glow krem lembut */
+    pointer-events: none;
+    z-index: 0;
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.payment-card {
+    background: rgba(244, 231, 215, 0.05); /* Kaca transparan dengan tint Krem */
+    border: 1px solid rgba(244, 231, 215, 0.1);
+    padding: 64px 48px;
+    transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+    position: relative;
+    top: 0;
+}
+
+.payment-card:hover {
+    background: rgba(244, 231, 215, 0.1);
+    border: 1px solid rgba(244, 231, 215, 0.25);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2), 0 0 32px rgba(244, 231, 215, 0.15);
+    top: -8px; /* Menggantikan translateY agar tidak bentrok dengan GSAP */
+}
+
+.payment-card-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 600; /* Ditebalkan menjadi Semi-Bold */
+    color: #F4E7D7; /* Teks Utama Krem */
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.payment-card-desc {
+    color: rgba(244, 231, 215, 0.75); /* Teks Deskripsi Krem Transparan */
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    font-weight: 400; /* Regular */
+}
+
+/* --- Interaktif Timeline (Skema Pembayaran) --- */
+.timeline-wrapper {
+    position: relative;
+    padding-left: 32px;
+}
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: linear-gradient(to bottom, rgba(244, 231, 215, 0.6) 0%, rgba(244, 231, 215, 0.1) 100%);
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+.timeline-indicator {
+    position: absolute;
+    left: -37px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background: #26589f; /* Bagian dalam indikator menggunakan warna biru */
+    border: 2px solid rgba(244, 231, 215, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(244, 231, 215, 0.2);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.timeline-item:hover .timeline-indicator {
+    background: #F4E7D7;
+    border-color: #F4E7D7;
+    box-shadow: 0 0 16px rgba(244, 231, 215, 0.5);
+    transform: scale(1.4);
+}
+.timeline-content h4 {
+    color: #F4E7D7;
+    font-size: 1.15rem;
+    margin: 0 0 8px 0;
+    font-weight: 600; /* Ditebalkan */
+}
+.timeline-content p {
+    color: rgba(244, 231, 215, 0.8);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 400; /* Regular */
+}
+.timeline-percentage {
+    display: inline-block;
+    background: rgba(244, 231, 215, 0.15);
+    color: #F4E7D7;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 12px;
+    vertical-align: text-bottom;
+}
+
+/* --- Maintenance Feature List (Pemeliharaan) --- */
+.maintenance-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.maintenance-feature-item {
+    display: flex;
+    align-items: flex-start;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 24px;
+    border: 1px solid rgba(244, 231, 215, 0.05);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-left-color 0.3s ease;
+    border-left: 2px solid transparent;
+}
+.maintenance-feature-item:hover {
+    background: rgba(244, 231, 215, 0.1);
+    transform: translateX(8px);
+    border-left-color: #F4E7D7;
+}
+.maintenance-feature-item h4 { color: #F4E7D7; font-size: 1.1rem; margin: 0 0 6px 0; font-weight: 600; }
+.maintenance-feature-item p { color: rgba(244, 231, 215, 0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; font-weight: 400; }
+
+/* ==========================================================================
+   PREMIUM RATECARD SECTION (NEW GRID LAYOUT)
+   ========================================================================== */
+.berka-ratecard-section {
+    padding: 140px 5% !important;
+    background: #26589f; /* Background Biru Brand BERKA */
+    position: relative;
+}
+.rc-container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+.rc-header {
+    text-align: center;
+    margin-bottom: 80px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.rc-main-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #F4E7D7;
+    margin-bottom: 24px;
+}
+.rc-main-desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(244, 231, 215, 0.8);
+}
+.rc-main-desc strong { color: #F4E7D7; }
+.rc-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    perspective: 1200px; /* Untuk efek 3D flip dari GSAP */
+}
+.rc-card {
+    background: rgba(244, 231, 215, 0.05);
+    border: 1px solid rgba(244, 231, 215, 0.1);
+    transition: top 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+    position: relative; /* Penting untuk efek kilapan kaca */
+    top: 0;
+    overflow: hidden;
+}
+/* Efek Premium Kilapan Kaca (Glass Shine) */
+.rc-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(244, 231, 215, 0.08), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 0;
+    pointer-events: none;
+}
+.rc-card:hover {
+    background: rgba(244, 231, 215, 0.08);
+    border-color: rgba(244, 231, 215, 0.2);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    top: -4px; /* Menggantikan translateY agar tidak bentrok dengan GSAP */
+}
+.rc-card:hover::before {
+    left: 200%; /* Menyapukan cahaya dari kiri ke kanan */
+}
+.rc-card > * {
+    position: relative;
+    z-index: 1; /* Teks harus berada di atas efek cahaya */
+}
+.rc-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 48px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+.rc-toggle:hover {
+    background: rgba(244, 231, 215, 0.03);
+}
+.rc-title-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.rc-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(244, 231, 215, 0.05);
+    border: 1px solid rgba(244, 231, 215, 0.15);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.rc-arrow svg {
+    width: 20px;
+    height: 20px;
+    color: #F4E7D7;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.rc-card.is-open .rc-arrow {
+    background: #F4E7D7;
+    border-color: #F4E7D7;
+    transform: translateY(2px);
+}
+.rc-card.is-open .rc-arrow svg {
+    color: #26589f;
+    transform: rotate(180deg);
+}
+.rc-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.rc-card.is-open .rc-content-wrapper {
+    grid-template-rows: 1fr;
+}
+.rc-content-inner {
+    overflow: hidden;
+}
+.rc-content-padder {
+    padding: 0 48px 48px 48px;
+    border-top: 1px solid rgba(244, 231, 215, 0.1);
+    margin-top: 0;
+    padding-top: 40px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.rc-card.is-open .rc-content-padder {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+.rc-card-icon {
+    width: 36px;
+    height: 36px;
+    color: rgba(244, 231, 215, 0.7);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.4s ease;
+}
+.rc-card:hover .rc-card-icon {
+    color: #F4E7D7;
+    transform: scale(1.15) rotate(8deg); /* Ikon membesar dan sedikit berputar menyambut kursor */
+}
+.rc-card-title {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 2rem;
+    color: #F4E7D7;
+    margin: 0; /* Reset karena sudah ditangani oleh pembungkus barunya */
+}
+.rc-items-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.rc-items-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.rc-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+.rc-item-header h3 { font-size: 1.25rem; color: #F4E7D7; margin: 0; font-weight: 600; }
+.rc-price { font-size: 1.15rem; color: #F4E7D7; font-weight: 600; white-space: nowrap; }
+.rc-note { font-size: 0.9rem; color: rgba(244, 231, 215, 0.6); margin: 0 0 16px 0; font-style: italic; }
+.rc-subtitle { font-size: 1.1rem; color: #F4E7D7; font-weight: 600; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 0.05em; }
+.rc-feature h4 { font-size: 0.95rem; color: #F4E7D7; margin: 0 0 12px 0; }
+.rc-feature p { font-size: 0.95rem; color: rgba(244, 231, 215, 0.8); line-height: 1.6; margin: 0; }
+.rc-bullet-list { list-style: none; padding: 0; margin: 0; }
+.rc-bullet-list li {
+    position: relative; padding-left: 20px; font-size: 0.95rem; color: rgba(244, 231, 215, 0.8); margin-bottom: 8px; line-height: 1.5;
+}
+.rc-bullet-list li::before {
+    content: '✦'; position: absolute; left: 0; top: 0; color: rgba(244, 231, 215, 0.4); font-size: 0.8rem;
+}
+.rc-addon-row { margin-top: 32px; padding-top: 32px; border-top: 1px dashed rgba(244, 231, 215, 0.1); }
+
+/* --- Dotted Price Line --- */
+.rc-price-row { display: flex; align-items: baseline; margin-bottom: 16px; width: 100%; gap: 12px; }
+.rc-pr-name { font-size: 0.95rem; color: rgba(244, 231, 215, 0.9); }
+.rc-pr-line { flex-grow: 1; border-bottom: 1px dashed rgba(244, 231, 215, 0.2); margin: 0 4px; }
+.rc-pr-price { font-size: 1rem; color: #F4E7D7; font-weight: 600; white-space: nowrap; }
+
+/* Mobile Responsiveness */
+@media (max-width: 991px) {
+    .berka-ratecard-section { padding: 80px 5% !important; }
+    .rc-main-title { font-size: 2.5rem; }
+    .rc-toggle { padding: 24px; }
+    .rc-content-padder { padding: 0 24px 32px 24px; padding-top: 24px; }
+    .rc-items-grid-2, .rc-items-grid-3 { grid-template-columns: 1fr; gap: 40px; }
+    .rc-item-header { flex-direction: column; gap: 8px; }
+}
+@media (max-width: 479px) {
+    .rc-price-row { flex-direction: column; align-items: flex-start; gap: 4px; border-bottom: 1px solid rgba(244, 231, 215, 0.1); padding-bottom: 12px; }
+    .rc-pr-line { display: none; }
+    .rc-pr-name { font-size: 0.9rem; }
+    .rc-pr-price { font-size: 0.95rem; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991px) {
+    .berka-payment-section { padding: 80px 5% !important; }
+    .payment-grid { grid-template-columns: 1fr; gap: 40px; }
+    .payment-card { padding: 40px 24px; }
+    .timeline-wrapper { padding-left: 24px; }
+    .timeline-indicator { left: -29px; }
+}
+
+/* ==========================================================================
+   PREMIUM PORTFOLIO HOVER EFFECT (CROSSFADE & ZOOM)
+   ========================================================================== */
+.project-card-thumbnail-wrapper {
+    position: relative !important;
+    overflow: hidden !important;
+    transform: translateZ(0); /* Hardware acceleration anti-lag */
+}
+
+/* 1. Gambar Pertama (Default) - Zoom In saat Hover (Warna Solid Asli Dipertahankan) */
+.wrok-primay-photo:not(.second-photo) {
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform;
+}
+.work-wrapper:hover .wrok-primay-photo:not(.second-photo),
+.work-wrapper-2:hover .wrok-primay-photo:not(.second-photo) {
+    transform: scale(1.1) !important; /* Membesar */
+}
+
+/* 2. Gambar Kedua (Hover) - Fade In & Zoom Out perlahan (Crossfade) */
+.wrok-primay-photo.second-photo {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 0 !important;
+    transform: scale(1.15) !important; /* Mulai dari ukuran besar */
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.work-wrapper:hover .wrok-primay-photo.second-photo,
+.work-wrapper-2:hover .wrok-primay-photo.second-photo {
+    opacity: 1 !important; /* Muncul elegan */
+    transform: scale(1) !important; /* Mengecil ke ukuran normal */
+}
+
+/* 4. Efek Interaksi pada Judul Proyek */
+.work-title-wrapper, .work-title-wrapper-2 {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.work-wrapper:hover .work-title-wrapper,
+.work-wrapper-2:hover .work-title-wrapper-2 {
+    transform: translateY(-8px) !important; /* Terangkat saat disorot */
 }

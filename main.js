@@ -77,6 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Close Menu on Click Outside (Menutup menu jika klik area di luar menu)
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
     // --- Animasi GSAP SplitText Hero H1 ---
     const heroTitle = document.querySelector('.display-1.second._5rem');
     const heroDesc = document.querySelector('.hero-description-smaller');
@@ -200,6 +207,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- ScrollSpy: Menyorot Tautan Navigasi yang Aktif ---
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('a[href^="#"]');
+    
+    if (sections.length > 0 && navItems.length > 0) {
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) { // Offset 200px dari atas
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(link => {
+                link.classList.remove('active'); // Pastikan Anda memiliki class .active di CSS Anda
+                if (current && link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    }
+
     // --- UX/Performance: Pause video saat tidak di layar ---
     const videos = document.querySelectorAll('video');
     if (videos.length > 0 && 'IntersectionObserver' in window) {
@@ -223,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     
     // Memilih elemen-elemen yang ingin diberi efek masuk (Reveal)
-    const revealElements = document.querySelectorAll('.benefit-card-2, .service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image');
+    const revealElements = document.querySelectorAll('.service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image, .payment-card');
     
     revealElements.forEach((el) => {
         gsap.fromTo(el, 
@@ -241,6 +271,78 @@ document.addEventListener('DOMContentLoaded', () => {
                 force3D: true // Memastikan animasi ringan di HP
             }
         );
+    });
+
+    // --- Animasi Premium Masuk 1-per-1 (Non-3D) untuk Kartu Prinsip Kami ---
+    const principleCardsAnim = document.querySelectorAll('.berka-principle-card');
+    if (principleCardsAnim.length > 0) {
+        gsap.from(principleCardsAnim, {
+            scrollTrigger: {
+                trigger: ".berka-principles-grid",
+                start: "top 85%", // Mulai saat elemen masuk sedikit ke layar agar efek cascade terlihat jelas
+                toggleActions: "play none none none"
+            },
+            y: 60, // Meluncur lembut dari bawah
+            opacity: 0,
+            duration: 1, // Durasi elegan
+            stagger: 0.15, // Jeda yang tegas agar muncul satu per satu berurutan (cascade)
+            ease: "expo.out", // Kurva deselerasi yang sangat mulus dan premium di akhir gerakan
+            force3D: true,
+            clearProps: "transform" // Melepaskan gaya agar efek CSS Hover berfungsi lancar
+        });
+    }
+
+    // --- Animasi Premium 3D Flip untuk Ratecard ---
+    const rcCards = document.querySelectorAll('.rc-card');
+    if (rcCards.length > 0) {
+        gsap.from(rcCards, {
+            scrollTrigger: {
+                trigger: ".berka-ratecard-section",
+                start: "top 75%", // Mulai animasi saat judul ratecard masuk ke layar
+                toggleActions: "play none none none"
+            },
+            y: 80,
+            opacity: 0,
+            rotationX: -15, // Efek kartu terlipat dari bawah ke atas (3D)
+            transformOrigin: "bottom center",
+            duration: 1.2,
+            stagger: 0.15, // Muncul beruntun satu per satu
+            ease: "power3.out",
+            force3D: true,
+            clearProps: "transform" // Membersihkan sisa animasi inline GSAP agar bersih
+        });
+    }
+
+    // --- Accordion Interaktif untuk Ratecard ---
+    const rcToggles = document.querySelectorAll('.rc-toggle');
+    rcToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const card = toggle.closest('.rc-card');
+            const isOpen = card.classList.contains('is-open');
+            
+            // Menutup seluruh kartu yang sedang terbuka
+            document.querySelectorAll('.rc-card').forEach(c => {
+                c.classList.remove('is-open');
+            });
+
+            // Membuka kartu yang di-klik jika sebelumnya tertutup
+            if (!isOpen) {
+                card.classList.add('is-open');
+                
+                // UX Tambahan: Scroll otomatis agar kartu yang baru dibuka berada nyaman di layar
+                setTimeout(() => {
+                    const yOffset = card.getBoundingClientRect().top + window.scrollY - 120; // 120px offset untuk header navbar
+                    if (typeof lenis !== 'undefined') {
+                        lenis.scrollTo(yOffset, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                    } else {
+                        window.scrollTo({ top: yOffset, behavior: 'smooth' });
+                    }
+                }, 300); // Eksekusi persis ketika animasi kartu terbuka sedang memantul
+            }
+            
+            // Refresh sistem posisi dari GSAP ScrollTrigger
+            setTimeout(() => { ScrollTrigger.refresh(); }, 600);
+        });
     });
 
     // --- Inisialisasi GLightbox untuk Galeri ---
