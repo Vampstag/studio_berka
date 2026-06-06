@@ -42,8 +42,12 @@ h1, h2, h3, h4, h5, h6,
     hyphens: none; /* Mematikan tanda hubung otomatis di browser lain */
 }
 .heading-style-huge {
-    white-space: nowrap !important; /* Mengunci teks @studioberka agar selalu 1 baris */
-    text-wrap: nowrap !important;
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: clamp(2.5rem, 5vw, 4.5rem) !important; /* Skala responsif dinamis dari mobile ke desktop */
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+    white-space: normal !important; /* Izinkan turun baris secara alami agar tidak meluber */
+    text-wrap: balance !important; /* Memastikan patahan baris teks seimbang & estetik */
 }
 
 /* --- UI/UX Premium Enhancements --- */
@@ -590,6 +594,79 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 }
 .div-block-3 > img { width: 100% !important; max-width: 800px !important; margin: 0 auto !important; display: block; }
 
+/* --- Tipografi & Responsibilitas Footer --- */
+.footer .display-2.second._1-7-rem {
+    font-family: 'Noto Sans', sans-serif !important;
+    font-size: clamp(1rem, 1.5vw, 1.25rem) !important; /* Teks alamat/kontak fluid */
+    line-height: 1.6 !important;
+    font-weight: 400 !important; /* Regular, bersih dan mudah dibaca */
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+/* --- Interaksi Hover Teks Kontak Footer --- */
+.footer .grid-2-column-2 .display-2.second._1-7-rem {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s ease !important;
+    transform-origin: left center;
+}
+.footer .grid-2-column-2 .display-2.second._1-7-rem::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 1px;
+    background-color: #f7db5d; transform: scaleX(0); transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.footer .grid-2-column-2 .display-2.second._1-7-rem:hover {
+    transform: scale(1.05); /* Membesar sedikit */
+    color: #ffffff !important;
+}
+.footer .grid-2-column-2 .display-2.second._1-7-rem:hover::after {
+    transform: scaleX(1); transform-origin: left; /* Garis emas menyapu dari kiri */
+}
+.footer .footnote {
+    font-size: 0.85rem !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* --- Fix Crop Animasi Ikon Sosial (Footer) --- */
+.social-content.left {
+    display: flex !important;
+    gap: 16px !important;
+}
+.social-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+/* Menyembunyikan gambar kedua (bekas animasi lama yang bikin kepotong) */
+.social-wrapper img:nth-child(2) {
+    display: none !important;
+}
+.social-icon, .social-icon.second {
+    display: block !important;
+    width: 18px !important;
+    height: 18px !important;
+    filter: brightness(0) invert(1) opacity(0.7) !important; /* Menyamakan semua warna ikon jadi putih elegan */
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.social-wrapper:hover {
+    background-color: #f7db5d !important;
+    border-color: #f7db5d !important;
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 24px rgba(247, 219, 93, 0.25) !important;
+}
+.social-wrapper:hover .social-icon {
+    filter: brightness(0) invert(0) !important; /* Ikon berubah hitam pekat menyesuaikan background emas */
+    transform: scale(1.2) !important;
+}
+}
+
 /* --- Responsibilitas Font Ratecard (Mobile) --- */
 @media (max-width: 767px) {
     .ratecard .large-heading { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; line-height: 1.1 !important; margin-bottom: 16px !important; }
@@ -638,7 +715,6 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     /* Typography Adjustments for Readability */
     .display-1.second._5rem { font-size: clamp(2.2rem, 10vw, 3.5rem) !important; line-height: 1.2 !important; } /* Menggunakan clamp agar ukuran font membal/elastis dan tidak kepotong */
     .display-2.second._1-7-rem { font-size: clamp(1.1rem, 4vw, 1.3rem) !important; line-height: 1.5 !important; }
-    .heading-style-huge { font-size: clamp(2rem, 7vw, 2.5rem) !important; line-height: 1.2 !important; }
     .service-title, .service-title.alternate { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; } /* Mengganti vw absolut dengan clamp */
     
     /* Perbaikan posisi teks dan gambar ilustrasi di HP/Tablet */
@@ -1537,6 +1613,50 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .maintenance-feature-item p { color: rgba(244, 231, 215, 0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; font-weight: 400; }
 
 /* ==========================================================================
+   PROSES KAMI (WORKFLOW STEPS)
+   ========================================================================== */
+.steps-description,
+.steps-description .process-title,
+.steps-description .display-1 {
+    text-align: left !important;
+}
+
+/* --- Premium Responsive Sticky Video --- */
+@media (min-width: 992px) {
+    .steps-grid {
+        align-items: start !important; /* Wajib agar elemen sticky bisa bekerja (tidak tertarik setinggi konten sebelah) */
+    }
+    .steps-sticky-card {
+        position: sticky !important;
+        top: 0 !important;
+        height: 100vh !important; /* Kontainer mengambil tinggi 100% dari layar Anda */
+        display: flex !important;
+        flex-direction: column !important; /* Menumpuk vertikal mutlak */
+        justify-content: center !important; /* Mengunci rata tengah dari sisa ruang yang ada */
+        align-items: center !important;
+        padding-top: 120px !important; /* Dorongan besar ke bawah agar video menjauhi Navbar */
+        border: none !important; /* Menghapus border siluman bawaan */
+        outline: none !important;
+    }
+}
+.background-video-2 {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4 !important; /* Rasio Portrait Editorial 3:4 yang sangat premium & fokus */
+    border-radius: 0 !important; /* Sudut tajam & kaku konsisten dengan estetika arsitektural */
+    border: none !important; /* Memastikan video bersih dari garis batas pinggir */
+    outline: none !important;
+    overflow: hidden !important;
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4) !important; /* Bayangan kedalaman agar video terlihat mengambang mewah */
+}
+.background-video-2 video {
+    object-fit: cover !important; /* Memastikan isi video tidak distorsi di rasio apa pun */
+}
+@media (max-width: 991px) {
+    .background-video-2 { aspect-ratio: 16 / 9 !important; margin-bottom: 40px !important; } /* Kembali ke rasio lanskap standar di HP */
+}
+
+/* ==========================================================================
    PREMIUM RATECARD SECTION (NEW GRID LAYOUT)
    ========================================================================== */
 .berka-ratecard-section {
@@ -1780,6 +1900,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     flex: 1.2; /* Kartu yang disorot membesar mendesak kartu sebelahnya */
     background-color: #181818;
     border-color: rgba(255, 255, 255, 0.15);
+    z-index: 10; /* Memastikan kartu yang disorot berada di lapisan teratas */
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5); /* Bayangan ekstra untuk efek pop-out */
 }
 
 /* --- Varian Warna Kartu Portofolio --- */
@@ -2082,7 +2204,14 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     padding: 18px 48px;
     border-radius: 0; /* Sudut siku tajam, konsisten dengan gaya arsitektural kartu proyek */
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.berka-case-cta-btn::before {
+    content: ""; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg); transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .berka-case-cta-btn:hover {
     background-color: #f7db5d;
@@ -2090,6 +2219,9 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     color: #111111;
     transform: translateY(-4px);
     box-shadow: none; /* Efek glow dihapus sepenuhnya */
+}
+.berka-case-cta-btn:hover::before {
+    left: 200%; /* Cahaya menyapu dari kiri ke kanan dengan presisi */
 }
 
 /* ==========================================================================
@@ -2282,4 +2414,112 @@ body.project-page .main-wrapper {
 }
 @media (max-width: 767px) {
     .berka-dots-nav { display: none; } /* Disembunyikan di HP agar layar tetap luas */
+}
+
+/* ==========================================================================
+   PREMIUM READING PROGRESS BAR
+   ========================================================================== */
+.berka-reading-progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%; height: 2px;
+    background-color: #f7db5d; /* Emas Berka */
+    z-index: 99999;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(247, 219, 93, 0.5);
+}
+
+/* ==========================================================================
+   PREMIUM PARTNER & DEVELOPER MARQUEE
+   ========================================================================== */
+.berka-marquee-section {
+    padding: 64px 0;
+    background-color: #08522d; /* Hijau elegan, menyelaraskan dengan warna brand Berka */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: none; /* Dihilangkan agar menyatu tanpa batas dengan area footer di bawahnya */
+    overflow: hidden;
+}
+.marquee-title-wrapper {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 0 5%;
+}
+.marquee-subtitle {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+    margin: 0;
+}
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+/* Gradient mask untuk memberikan efek memudar di ujung kiri dan kanan layar */
+.marquee-container::before,
+.marquee-container::after {
+    content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
+}
+.marquee-container::before { left: 0; background: linear-gradient(to right, #08522d 0%, transparent 100%); }
+.marquee-container::after { right: 0; background: linear-gradient(to left, #08522d 0%, transparent 100%); }
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scrollMarquee 30s linear infinite;
+    will-change: transform; /* Akselerasi hardware agar animasi sangat mulus (seamless) */
+}
+
+.marquee-group { 
+    display: flex; 
+    align-items: center; 
+    gap: 80px; 
+    padding-right: 80px; 
+    flex-shrink: 0; /* Mencegah grup menyusut tertekan layar */
+}
+.marquee-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    flex-shrink: 0; /* Menjaga ukuran logo tetap utuh konsisten */
+}
+.marquee-logo {
+    height: 48px; /* Tinggi seragam untuk semua logo di desktop */
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.4) brightness(200%); /* Membuat logo berwarna menjadi abu-abu silver elegan */
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.marquee-item:hover .marquee-logo {
+    filter: grayscale(0%) opacity(1) brightness(100%); /* Warna asli logo kembali menyala penuh saat di-hover */
+    transform: scale(1.1);
+}
+
+/* --- Menyamakan Warna Footer dengan Marquee Hijau --- */
+.footer {
+    background-color: #08522d;
+}
+
+@keyframes scrollMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-25%); } /* Bergerak presisi 1 grup dari total 4 grup untuk infinite loop sempurna */
+}
+
+@media (max-width: 991px) {
+    .marquee-group { gap: 56px; padding-right: 56px; }
+    .marquee-logo { height: 40px; }
+}
+@media (max-width: 767px) {
+    .berka-marquee-section { padding: 48px 0; }
+    .marquee-title-wrapper { margin-bottom: 32px; }
+    .marquee-group { gap: 40px; padding-right: 40px; }
+    .marquee-logo { height: 32px; }
+    .marquee-container::before, .marquee-container::after { width: 10%; }
 }

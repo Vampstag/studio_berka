@@ -527,4 +527,39 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', autoPlayMusic, { passive: true });
         window.addEventListener('keydown', autoPlayMusic);
     }
+
+    // --- Premium UX Utility: Reading Progress Bar ---
+    // Fitur ini hanya menyala di halaman Studi Kasus Proyek
+    if (document.body.classList.contains('project-page')) {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'berka-reading-progress';
+        document.body.appendChild(progressBar); // Suntikkan garis ke dalam HTML
+
+        const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (scrollHeight > 0) {
+                const progress = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = progress + '%';
+            }
+        };
+
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress(); // Inisialisasi kalkulasi saat halaman pertama kali dimuat
+    }
+
+    // --- Premium Marquee Interaction: Melambat Halus saat di-hover ---
+    const marqueeTracks = document.querySelectorAll('.marquee-track');
+    marqueeTracks.forEach(track => {
+        track.addEventListener('mouseenter', () => {
+            track.getAnimations().forEach(anim => {
+                gsap.to(anim, { playbackRate: 0.15, duration: 0.6, ease: "power2.out" }); // Melambat jadi 15% secara halus
+            });
+        });
+        track.addEventListener('mouseleave', () => {
+            track.getAnimations().forEach(anim => {
+                gsap.to(anim, { playbackRate: 1, duration: 0.6, ease: "power2.inOut" }); // Kembali ke kecepatan normal
+            });
+        });
+    });
 });
