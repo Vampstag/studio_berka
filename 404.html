@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Ruang Tidak Ditemukan — Studio BERKA</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="https://fonts.googleapis.com" rel="preconnect"/>
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="/style.css" rel="stylesheet" type="text/css"/> <!-- Menggunakan / absolute path agar CSS termuat di URL sedalam apa pun -->
+        <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb31d5e0b23aee617bb_Favicon_Light_BERKA.jpg" rel="icon" type="image/png" sizes="32x32"/>
+        <style>
+            html, body.error-404 {
+                overflow: hidden !important; /* Mematikan fungsi scroll sepenuhnya */
+                height: 100vh !important; /* Mengunci tinggi layar agar mutlak pas di layar (tidak kurang/lebih) */
+                margin: 0 !important;
+            }
+            .berka-404-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #bc381e; /* Warna merah pastel khas Berka */
+                text-align: center;
+                padding: 0 5%;
+                position: relative;
+                overflow: hidden;
+            }
+            .berka-404-wrapper::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background-image: url('/assets/images/projects/o-house/render_o-house_front_red.webp');
+                background-size: cover;
+                background-position: center;
+                opacity: 0.12; /* Sangat tipis menyerupai watermark sketsa */
+                mix-blend-mode: multiply; /* Menyatu dengan warna krem */
+                filter: grayscale(100%);
+                z-index: 0;
+                pointer-events: none;
+            }
+            .berka-404-code {
+                font-family: 'Noto Sans', sans-serif;
+                font-size: clamp(6rem, 15vw, 12rem);
+                font-weight: 700;
+                color: rgba(244, 231, 215, 0.4); /* Krem Berka transparan */
+                line-height: 1;
+                margin-bottom: 24px;
+                letter-spacing: -0.05em;
+            }
+            .berka-404-desc { margin-bottom: 48px; max-width: 500px; }
+            .berka-404-wrapper > * {
+                position: relative;
+                z-index: 1; /* Melindungi elemen agar tetap di atas watermark */
+            }
+            .berka-404-btn {
+                color: #f4e7d7 !important;
+                border-color: rgba(244, 231, 215, 0.4) !important;
+            }
+            .berka-404-btn::before {
+                background: linear-gradient(to right, transparent, rgba(244, 231, 215, 0.15), transparent) !important;
+            }
+        </style>
+    </head>
+    <body class="error-404">
+        <!-- Premium Navbar -->
+        <nav class="berka-navbar scrolled" id="berka-navbar">
+            <a href="/" class="logo-link">
+                <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca15c79900bbbfe8c2ee3_Logotype%20White%20BERKA.svg" alt="Studio BERKA">
+            </a>
+            <div class="berka-nav-links">
+                <a href="/#top" class="berka-nav-link">Beranda</a>
+                <a href="/#portofolio" class="berka-nav-link">Portofolio</a>
+                <a href="/#ratecard" class="berka-nav-link">Ratecard</a>
+            </div>
+            <button class="berka-burger" id="berka-burger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="berka-mobile-menu">
+                <div class="berka-burger-line top"></div>
+                <div class="berka-burger-line bottom"></div>
+            </button>
+        </nav>
+        <div class="berka-mobile-menu" id="berka-mobile-menu">
+            <a href="/#top" class="berka-mobile-link mobile-close">Beranda</a>
+            <a href="/#portofolio" class="berka-mobile-link mobile-close">Portofolio</a>
+            <a href="/#ratecard" class="berka-mobile-link mobile-close">Ratecard</a>
+        </div>
+
+        <div class="berka-404-wrapper">
+            <div class="berka-404-code">404</div>
+            <h1 class="display-1 second _5rem" style="color: #f4e7d7 !important; font-size: clamp(2rem, 5vw, 3.5rem) !important; text-align: center !important; margin-bottom: 16px !important;">Ruang Tidak Ditemukan</h1>
+            <p class="hero-description-smaller berka-404-desc" style="color: rgba(244, 231, 215, 0.85) !important; text-align: center !important; margin-top: 0 !important;">Maaf, halaman yang Anda tuju mungkin telah dipindahkan, dihapus, atau memang tidak pernah ada dalam denah kami.</p>
+            <a href="/" class="berka-case-cta-btn berka-404-btn">Kembali ke Beranda</a>
+        </div>
+
+        <!-- Menyuntikkan Skrip Utama agar Navbar Mobile berfungsi normal -->
+        <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js"></script>
+        <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js"></script>
+        <script src="/main.js"></script>
+    </body>
+</html>

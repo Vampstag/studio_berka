@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroTitle = document.querySelector('.display-1.second._5rem');
     const heroDesc = document.querySelector('.hero-description-smaller');
     
-    if (heroTitle) {
+    if (heroTitle && !document.body.classList.contains('error-404')) {
         gsap.set(heroTitle, { visibility: 'visible' });
         
         // Memecah berdasarkan kata saja agar tidak merusak native line-height & align justify

@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# 0. Paksa koneksi aman (Force HTTPS / SSL)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Mematikan tampilan index direktori untuk keamanan
+Options -Indexes
+
+# 1. Hapus ekstensi .html secara eksternal (Redirect 301)
+# Jika ada yang mengakses URL dengan .html, alihkan secara paksa ke URL bersih
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# 2. Proses URL tanpa ekstensi secara internal
+# Jika file .html ada di server, layani halaman tanpa menunjukkan ekstensinya
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*?)/?$ $1.html [NC,L]
+
+# 3. Mengarahkan URL yang salah/mati ke halaman kustom Berka
+ErrorDocument 404 /404.html
