@@ -10,18 +10,185 @@ gsap.ticker.add((time) => { lenis.raf(time * 1000); });
 gsap.ticker.lagSmoothing(0);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Premium UI Sound Effect (Web Audio API) ---
+    // Inisialisasi Web Audio API untuk efek suara ketukan (click) UI yang elegan
+    let uiAudioCtx;
+    const playClickSound = () => {
+        try {
+            if (!uiAudioCtx) uiAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (uiAudioCtx.state === 'suspended') uiAudioCtx.resume();
+            
+            const osc = uiAudioCtx.createOscillator();
+            const gain = uiAudioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(uiAudioCtx.destination);
+            
+            osc.type = 'sine'; // Suara bulat dan halus
+            osc.frequency.setValueAtTime(600, uiAudioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, uiAudioCtx.currentTime + 0.05); // Pitch drop sangat cepat
+            
+            gain.gain.setValueAtTime(0.15, uiAudioCtx.currentTime); // Volume rendah (15%) agar terasa elegan
+            gain.gain.exponentialRampToValueAtTime(0.001, uiAudioCtx.currentTime + 0.05); // Fade out cepat
+            
+            osc.start();
+            osc.stop(uiAudioCtx.currentTime + 0.05); // Durasi sangat singkat (50ms)
+        } catch (e) {
+            // Abaikan jika browser lawas tidak mendukung
+        }
+    };
+
+    // Suara saat elemen disorot (Hover Tick) - Sangat pelan dan singkat
+    const playHoverSound = () => {
+        try {
+            if (!uiAudioCtx) uiAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (uiAudioCtx.state === 'suspended') uiAudioCtx.resume();
+            
+            const osc = uiAudioCtx.createOscillator();
+            const gain = uiAudioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(uiAudioCtx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, uiAudioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, uiAudioCtx.currentTime + 0.03); 
+            
+            gain.gain.setValueAtTime(0.015, uiAudioCtx.currentTime); // Sangat pelan (1.5% volume) agar tidak mengganggu
+            gain.gain.exponentialRampToValueAtTime(0.001, uiAudioCtx.currentTime + 0.03); 
+            
+            osc.start();
+            osc.stop(uiAudioCtx.currentTime + 0.03); // Sangat singkat
+        } catch (e) {}
+    };
+
+    // Suara Notifikasi Sukses (Crystal Chime) - Bernada tinggi dengan gema panjang
+    const playSuccessSound = () => {
+        try {
+            if (!uiAudioCtx) uiAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (uiAudioCtx.state === 'suspended') uiAudioCtx.resume();
+            
+            const osc = uiAudioCtx.createOscillator();
+            const gain = uiAudioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(uiAudioCtx.destination);
+            
+            osc.type = 'triangle'; // Karakter suara marimba/bell kristal
+            osc.frequency.setValueAtTime(900, uiAudioCtx.currentTime); // Nada tinggi cerah
+            
+            gain.gain.setValueAtTime(0.08, uiAudioCtx.currentTime); // Volume sedang-pelan (8%)
+            gain.gain.exponentialRampToValueAtTime(0.001, uiAudioCtx.currentTime + 0.8); // Gema (sustain) memudar pelan
+            
+            osc.start();
+            osc.stop(uiAudioCtx.currentTime + 0.8);
+        } catch (e) {}
+    };
+
+    // Suara Hembusan Angin (Swoosh) saat Preloader Terbuka
+    const playSwooshSound = () => {
+        try {
+            if (!uiAudioCtx) uiAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (uiAudioCtx.state === 'suspended') uiAudioCtx.resume();
+            
+            const bufferSize = uiAudioCtx.sampleRate * 1.5; // Durasi 1.5 detik
+            const buffer = uiAudioCtx.createBuffer(1, bufferSize, uiAudioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1; // Membuat white noise (statis) dasar
+            }
+            
+            const noise = uiAudioCtx.createBufferSource();
+            noise.buffer = buffer;
+            
+            const filter = uiAudioCtx.createBiquadFilter();
+            filter.type = 'lowpass'; // Memotong frekuensi tinggi agar terdengar seperti angin (bukan statis TV)
+            filter.frequency.setValueAtTime(100, uiAudioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(1000, uiAudioCtx.currentTime + 0.5); // Frekuensi angin membesar
+            filter.frequency.exponentialRampToValueAtTime(100, uiAudioCtx.currentTime + 1.2); // Frekuensi angin mereda
+            
+            const gain = uiAudioCtx.createGain();
+            gain.gain.setValueAtTime(0, uiAudioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.08, uiAudioCtx.currentTime + 0.5); // Volume perlahan naik ke 8%
+            gain.gain.linearRampToValueAtTime(0, uiAudioCtx.currentTime + 1.2); // Fade out perlahan
+            
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(uiAudioCtx.destination);
+            
+            noise.start();
+        } catch (e) {}
+    };
+
+    // Suara Menutup Panel (Close Bloop) - Nada lebih rendah dan turun
+    const playCloseSound = () => {
+        try {
+            if (!uiAudioCtx) uiAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (uiAudioCtx.state === 'suspended') uiAudioCtx.resume();
+            
+            const osc = uiAudioCtx.createOscillator();
+            const gain = uiAudioCtx.createGain();
+            
+            osc.connect(gain);
+            gain.connect(uiAudioCtx.destination);
+            
+            osc.type = 'sine'; // Suara bulat
+            osc.frequency.setValueAtTime(300, uiAudioCtx.currentTime); // Mulai dari nada lebih rendah dari klik standar
+            osc.frequency.exponentialRampToValueAtTime(50, uiAudioCtx.currentTime + 0.08); // Turun dengan cepat ke nada bass
+            
+            gain.gain.setValueAtTime(0.15, uiAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, uiAudioCtx.currentTime + 0.08); 
+            
+            osc.start();
+            osc.stop(uiAudioCtx.currentTime + 0.08); 
+        } catch (e) {}
+    };
+
+    // Terapkan suara klik ke elemen navigasi
+    const navClickElements = document.querySelectorAll('.berka-nav-link, .berka-mobile-link, .logo-link, .dot-link, .berka-burger, .berka-back-to-top, .berka-scroll-indicator');
+    navClickElements.forEach(el => {
+        el.addEventListener('click', () => {
+            playClickSound();
+        });
+    });
+
+    // Terapkan suara hover (Hover Tick) ke elemen kartu dan tombol interaktif
+    const hoverElements = document.querySelectorAll('.bcp-card, .berka-case-cta-btn, .p-tab-btn, .share-btn, .slider_arrow, .berka-scroll-indicator');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            playHoverSound();
+        });
+    });
+
     // --- Cinematic Preloader Animation ---
     const preloader = document.getElementById('berka-preloader');
     const preloaderLogo = document.getElementById('berka-preloader-logo');
+    const preloaderCounter = document.getElementById('preloader-counter');
+    const preloaderProgress = document.getElementById('preloader-progress');
     
     if (preloader && preloaderLogo) {
         document.body.style.overflow = 'hidden'; // Kunci scroll bawaan
         if (typeof lenis !== 'undefined') lenis.stop(); // Kunci scroll Lenis
 
         const tl = gsap.timeline();
-        tl.to(preloaderLogo, { opacity: 1, duration: 1, ease: "power2.out", delay: 0.2 })
-          .to(preloaderLogo, { scale: 1.05, duration: 1, ease: "power2.out" }, "-=0.5")
-          .to(preloader, { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, "+=0.3")
+        const counter = { val: 0 };
+        
+        tl.to(counter, { val: 100, duration: 1.5, ease: "power3.inOut", onUpdate: () => { if(preloaderCounter) preloaderCounter.innerText = Math.round(counter.val) + '%'; } }, 0)
+          .to(preloaderProgress, { width: "100%", duration: 1.5, ease: "power3.inOut" }, 0)
+          .to(preloaderLogo, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 0.2)
+          .to(preloaderCounter, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 0.3)
+          .to([preloaderLogo, preloaderCounter], { y: -20, opacity: 0, duration: 0.6, ease: "power2.in" }, 1.7)
+          .to(preloader, { 
+              yPercent: -100, 
+              duration: 1.2, 
+              ease: "expo.inOut",
+              onStart: () => {
+                  playSwooshSound(); // Mainkan suara hembusan angin saat tirai preloader mulai naik
+              }
+          }, 1.8)
+          .from('.berka-hero-large-logo', { y: 60, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.0)
+          .from('.hero-center-desc', { y: 30, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.4)
+          .from('.berka-scroll-indicator', { opacity: 0, duration: 1, ease: "power2.out" }, 2.6)
           .call(() => {
               document.body.style.overflow = '';
               if (typeof lenis !== 'undefined') lenis.start(); // Kembalikan fungsionalitas scroll
@@ -110,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             duration: 1.2,
             stagger: 0.03,
             ease: "power4.out",
-            delay: 2.5, // Waktu tunda agar sinkron dengan terbukanya Cinematic Preloader
+            delay: 2.2, // Sinkronisasi alur waktu baru yang lebih gesit
             force3D: true // Akselerasi Hardware (Mencegah patah-patah di HP murah)
         });
         
@@ -120,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 opacity: 0,
                 duration: 1.2,
                 ease: "power4.out",
-                delay: 2.8, // Muncul sedikit setelah judul utama
+                delay: 2.5, // Muncul sedikit setelah judul utama
                 force3D: true
             });
         }
@@ -132,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 opacity: 0,
                 duration: 1.5,
                 ease: "power3.out",
-                delay: 2.6, // Muncul seirama sesaat setelah teks Hero pertama muncul
+                delay: 2.3, // Muncul seirama sesaat setelah teks Hero pertama muncul
                 force3D: true
             });
         }
@@ -149,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const splitTemplate = new SplitText(templateTitle, { type: "words,chars" });
 
         // Cek jika preloader ada di halaman, beri delay lebih lama. Jika tidak ada, jalankan lebih cepat
-        const delayTime = document.getElementById('berka-preloader') ? 2.5 : 0.5;
+        const delayTime = document.getElementById('berka-preloader') ? 2.2 : 0.5;
 
         const tl = gsap.timeline({ delay: delayTime });
         tl.from(splitTemplate.chars, {
@@ -216,6 +383,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 end: "bottom top",
                 scrub: true // Animasi mengikuti kecepatan scroll pengguna (Lenis)
             }
+        });
+    }
+
+    // --- Efek Magnetic / Mouse Parallax di Hero (Non-HP) ---
+    const heroSection = document.querySelector('.berka-fullscreen-hero');
+    const heroLogo = document.querySelector('.berka-hero-large-logo');
+    const heroSub = document.querySelector('.berka-hero-subtitle');
+
+    if (heroSection && window.matchMedia("(pointer: fine)").matches) {
+        heroSection.addEventListener('mousemove', (e) => {
+            // Normalisasi posisi X dan Y menjadi rentang -1 hingga 1
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            // Bergerak berlawanan arah dengan pergerakan kursor (Parallax Illusion)
+            gsap.to(heroLogo, { x: x * -20, y: y * -20, duration: 1, ease: "power2.out" });
+            gsap.to(heroSub, { x: x * -10, y: y * -10, duration: 1.2, ease: "power2.out" }); // Bergerak lebih lambat dari logo
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            // Memantul kembali ke titik tengah awal saat mouse keluar layar
+            gsap.to([heroLogo, heroSub], { x: 0, y: 0, duration: 1.5, ease: "elastic.out(1, 0.3)" });
         });
     }
 
@@ -291,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     
     // Memilih elemen-elemen yang ingin diberi efek masuk (Reveal)
-    const revealElements = document.querySelectorAll('.service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image, .payment-card');
+    const revealElements = document.querySelectorAll('.service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image');
     
     revealElements.forEach((el) => {
         gsap.fromTo(el, 
@@ -330,6 +519,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Animasi Premium Masuk 3D untuk Payment Cards ---
+    const paymentCardsAnim = document.querySelectorAll('.payment-card');
+    if (paymentCardsAnim.length > 0) {
+        gsap.from(paymentCardsAnim, {
+            scrollTrigger: {
+                trigger: ".berka-payment-section",
+                start: "top 75%",
+                toggleActions: "play none none none"
+            },
+            y: 100,
+            opacity: 0,
+            rotationX: -10, // Efek tilt lipatan 3D dari bawah 
+            transformOrigin: "bottom center",
+            duration: 1.2,
+            stagger: 0.2, // Muncul berurutan dengan elegan
+            ease: "power3.out",
+            force3D: true,
+            clearProps: "transform" // Bersihkan sisa animasi agar fitur tilt mousemove tidak bentrok
+        });
+    }
+
+    // --- Premium Footer Parallax Reveal ---
+    const footerReveal = document.querySelector('.footer');
+    if (footerReveal) {
+        gsap.fromTo(footerReveal, 
+            { yPercent: -35 }, // Memulai ditarik ke atas (tersembunyi di balik section sebelumnya)
+            {
+                yPercent: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: footerReveal,
+                    start: "top bottom", // Berjalan ketika atas footer mulai masuk layar
+                    end: "bottom bottom", // Berakhir presisi ketika scroll mentok ke paling bawah
+                    scrub: true // Animasi menempel (terikat) dengan kecepatan scroll Lenis Anda
+                }
+            }
+        );
+    }
+
     // --- Animasi Premium 3D Flip untuk Ratecard ---
     const rcCards = document.querySelectorAll('.rc-card');
     if (rcCards.length > 0) {
@@ -357,6 +585,12 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.addEventListener('click', () => {
             const card = toggle.closest('.rc-card');
             const isOpen = card.classList.contains('is-open');
+            
+            if (isOpen) {
+                playCloseSound(); // Memainkan nada rendah/turun jika panel sedang ditutup
+            } else {
+                playClickSound(); // Memainkan ketukan tinggi/standar jika panel baru dibuka
+            }
             
             // Menutup seluruh kartu yang sedang terbuka
             document.querySelectorAll('.rc-card').forEach(c => {
@@ -473,6 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
         copyBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 navigator.clipboard.writeText(window.location.href).then(() => {
+                    playSuccessSound(); // Memainkan nada lonceng kristal
                     // Memunculkan toast
                     toast.classList.add('show');
                     clearTimeout(toastTimeout);
@@ -490,42 +725,88 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggle = document.getElementById('berka-music-toggle');
 
     if (bgMusic && musicToggle) {
-        bgMusic.volume = 0.4; // Volume elegan (40%) agar tidak mengagetkan
-        let isUserInteracted = false;
+        // Membangun elemen Toast khusus Musik
+        const musicToast = document.createElement('div');
+        musicToast.className = 'berka-toast';
+        document.body.appendChild(musicToast);
+        let musicToastTimeout;
 
+        // --- 1. Memori Status Musik Lintas Halaman (Session Storage) ---
+        const savedTime = sessionStorage.getItem('berkaBgMusicTime');
+        const isPlaying = sessionStorage.getItem('berkaBgMusicPlaying') === 'true';
+
+        if (savedTime) {
+            bgMusic.currentTime = parseFloat(savedTime); // Kembalikan ke detik terakhir lagu
+        }
+
+        if (isPlaying) {
+            bgMusic.volume = 0; // Mulai dari 0 untuk fade-in otomatis
+            bgMusic.play().then(() => {
+                musicToggle.classList.add('playing');
+                gsap.to(bgMusic, { volume: 0.15, duration: 2, ease: "power2.inOut" }); // Fade-in saat pindah halaman
+            }).catch(() => {
+                // Jika browser memblokir autoplay di halaman baru, reset ke pause
+                sessionStorage.setItem('berkaBgMusicPlaying', 'false');
+                bgMusic.volume = 0.15;
+            });
+        } else {
+            bgMusic.volume = 0.15;
+        }
+
+        // Simpan waktu pemutaran setiap 1 detik
+        setInterval(() => {
+            if (!bgMusic.paused) {
+                sessionStorage.setItem('berkaBgMusicTime', bgMusic.currentTime);
+            }
+        }, 1000);
+
+        // Simpan status pasti tepat sebelum pengunjung pindah halaman
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('berkaBgMusicTime', bgMusic.currentTime);
+            sessionStorage.setItem('berkaBgMusicPlaying', !bgMusic.paused);
+        });
+
+        // --- 2. Efek Fade-in & Fade-out Playback ---
         const toggleMusic = () => {
             if (bgMusic.paused) {
+                bgMusic.volume = 0; // Persiapan Fade-in
                 bgMusic.play();
                 musicToggle.classList.add('playing');
+                gsap.killTweensOf(bgMusic); // Hentikan transisi volume sebelumnya jika ada
+                gsap.to(bgMusic, { volume: 0.15, duration: 1.5, ease: "power2.inOut" }); // Fade-in 1.5 detik
+                sessionStorage.setItem('berkaBgMusicPlaying', 'true');
+
+                // Munculkan toast notifikasi dengan ikon nada
+                musicToast.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg> Ambience on. Take your time.`;
+                musicToast.classList.add('show');
+                clearTimeout(musicToastTimeout);
+                musicToastTimeout = setTimeout(() => { musicToast.classList.remove('show'); }, 3000);
             } else {
-                bgMusic.pause();
                 musicToggle.classList.remove('playing');
+                gsap.killTweensOf(bgMusic);
+                // Efek Fade-out mewah sebelum benar-benar berhenti
+                gsap.to(bgMusic, { 
+                    volume: 0, 
+                    duration: 1, 
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        bgMusic.pause(); // Lagu benar-benar berhenti setelah suaranya habis
+                        sessionStorage.setItem('berkaBgMusicPlaying', 'false');
+                    }
+                });
+
+                // Munculkan toast notifikasi dengan ikon senyap (mute)
+                musicToast.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg> Silence, then.`;
+                musicToast.classList.add('show');
+                clearTimeout(musicToastTimeout);
+                musicToastTimeout = setTimeout(() => { musicToast.classList.remove('show'); }, 3000);
             }
         };
 
         musicToggle.addEventListener('click', (e) => {
             e.stopPropagation(); // Mencegah trigger dari event listener window
-            isUserInteracted = true; // Tandai bahwa user sengaja mengontrol musik
             toggleMusic();
         });
-
-        // Coba autoplay saat pengguna mulai berinteraksi dengan website
-        const autoPlayMusic = () => {
-            if (!isUserInteracted && bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    musicToggle.classList.add('playing');
-                    window.removeEventListener('click', autoPlayMusic);
-                    window.removeEventListener('scroll', autoPlayMusic);
-                    window.removeEventListener('keydown', autoPlayMusic);
-                }).catch(() => {
-                    // Gagal (kebijakan browser mengharuskan klik), akan dicoba lagi pada interaksi berikutnya
-                });
-            }
-        };
-
-        window.addEventListener('click', autoPlayMusic);
-        window.addEventListener('scroll', autoPlayMusic, { passive: true });
-        window.addEventListener('keydown', autoPlayMusic);
     }
 
     // --- Premium UX Utility: Reading Progress Bar ---
@@ -548,18 +829,94 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgress(); // Inisialisasi kalkulasi saat halaman pertama kali dimuat
     }
 
-    // --- Premium Marquee Interaction: Melambat Halus saat di-hover ---
-    const marqueeTracks = document.querySelectorAll('.marquee-track');
-    marqueeTracks.forEach(track => {
-        track.addEventListener('mouseenter', () => {
-            track.getAnimations().forEach(anim => {
-                gsap.to(anim, { playbackRate: 0.15, duration: 0.6, ease: "power2.out" }); // Melambat jadi 15% secara halus
+    // --- Premium 3D Magnetic Tilt & Spotlight Glow untuk Payment Cards ---
+    // Interaksi tingkat tinggi ala Awwwards khusus pengguna desktop
+    const paymentCards = document.querySelectorAll('.payment-card');
+    if (paymentCards.length > 0 && window.matchMedia("(pointer: fine)").matches) {
+        paymentCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Set variabel CSS dinamis untuk mengatur posisi cahaya senter kaca
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                // Kalkulasi sudut kemiringan (tilt) berlawanan dengan arah pergerakan mouse
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6; // Maksimal miring 6 derajat
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    transformPerspective: 1000 // Menyalakan ruang dimensi 3D mutlak
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Kembalikan posisi kartu menjadi rata dengan efek pantulan karet (elastic recoil)
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.4)" 
+                });
             });
         });
-        track.addEventListener('mouseleave', () => {
-            track.getAnimations().forEach(anim => {
-                gsap.to(anim, { playbackRate: 1, duration: 0.6, ease: "power2.inOut" }); // Kembali ke kecepatan normal
+    }
+
+    // --- Premium Scroll Greetings (Narrator Personality) ---
+    // Fitur narator cerdas pembangun ikatan emosional (Subtle UX)
+    const greetingToast = document.createElement('div');
+    greetingToast.className = 'berka-scroll-greeting';
+    document.body.appendChild(greetingToast);
+    let greetingTimeout;
+
+    const showGreeting = (msg) => {
+        greetingToast.innerHTML = `<span class="greeting-sparkle">✦</span> ${msg}`;
+        greetingToast.classList.add('show');
+        clearTimeout(greetingTimeout);
+        greetingTimeout = setTimeout(() => {
+            greetingToast.classList.remove('show');
+        }, 4500); // Tampil selama 4.5 detik lalu menghilang
+    };
+
+    const greetingSections = [
+        // Sapaan Halaman Beranda
+        { selector: '.our-story', msg: "Setiap ruang punya cerita di baliknya." },
+        { selector: '.service-component', msg: "Kami merancang, bukan cuma membangun." },
+        { selector: '.values-top-header', msg: "Hal-hal yang tidak kami kompromikan." },
+        { selector: '.our-workflow', msg: "Biar kami yang urus bagian rumitnya." },
+        { selector: '.berka-custom-portfolio', msg: "Ruang yang sudah kami wujudkan." },
+        { selector: '.berka-ratecard-section', msg: "Tanpa biaya tersembunyi. Jelas sejak awal." },
+        { selector: '.berka-payment-section', msg: "Langkahnya jelas, jadi Anda bisa tenang." },
+        
+        // Sapaan Halaman Detail Proyek (O-House)
+        { selector: '#project-hero', msg: "Terima kasih telah meluangkan waktu menyelami karya kami.", sound: true },
+        { selector: '#project-gallery', msg: "Setiap sudut kami pikirkan baik-baik." },
+        { selector: '#kebutuhan', msg: "Memahami apa yang Anda butuhkan." },
+        { selector: '#sirkulasi', msg: "Cahaya dan udara yang mengalir bebas." },
+        { selector: '#solusi', msg: "Bagaimana kami menyelesaikannya." },
+        { selector: '#hasil', msg: "Hasil akhirnya." },
+        { selector: '#mulai-proyek', msg: "Sekarang, giliran rumah Anda." }
+    ];
+
+    greetingSections.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) {
+            ScrollTrigger.create({
+                trigger: el,
+                start: "top 60%", // Memicu sapaan saat judul section baru masuk agak ke tengah layar
+                onEnter: () => {
+                    showGreeting(item.msg);
+                    if (item.sound) playSuccessSound(); // Memutar nada Crystal Chime
+                }
             });
-        });
+        }
     });
 });

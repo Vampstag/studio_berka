@@ -78,6 +78,8 @@
         <!-- Cinematic Preloader -->
         <div class="berka-preloader" id="berka-preloader">
             <img src="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69cca15c79900bbbfe8c2ee3_Logotype%20White%20BERKA.svg" alt="Studio BERKA" class="berka-preloader-logo" id="berka-preloader-logo">
+            <div class="preloader-counter" id="preloader-counter">0%</div>
+            <div class="preloader-progress-track"><div class="preloader-progress-bar" id="preloader-progress"></div></div>
         </div>
         <!-- Premium Minimalist WA Widget -->
         <a href="https://wa.me/6285187662466" target="_blank" rel="noopener noreferrer" class="berka-wa-widget">
@@ -99,7 +101,11 @@
         </audio>
         <button class="berka-music-toggle" id="berka-music-toggle" aria-label="Toggle Background Music" data-tooltip="Putar/Jeda Musik">
             <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <div class="equalizer">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+            </div>
         </button>
         <section id="home" class="berka-fullscreen-hero">
             <div data-poster-url="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_poster.0000000.jpg" data-video-urls="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_mp4.mp4,https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292%2F69cca16d55311a577438feb2_home-hero_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="bg-video w-background-video w-background-video-atom berka-hero-video-wrap">
@@ -118,9 +124,12 @@
                 <div class="berka-hero-subtitle">
                     <p class="hero-center-desc">Studio Berka adalah Biro Arsitektur dan Desain Interior yang berbasis di Bandung.</p>
                 </div>
-                <div class="berka-scroll-indicator">
-                    <div class="scroll-line"></div>
-                </div>
+                <a href="#top" class="berka-scroll-indicator" aria-label="Explore Projects">
+                    <span class="scroll-text">Explore</span>
+                    <div class="scroll-line-track">
+                        <div class="scroll-line"></div>
+                    </div>
+                </a>
             </div>
         </section>
         <!-- Premium Navbar -->
@@ -1007,56 +1016,13 @@
                 </div>
             </section>
 
-            <!-- Premium Partner Marquee -->
-            <section class="berka-marquee-section">
-                <div class="marquee-title-wrapper">
-                    <h3 class="marquee-subtitle">Mitra &amp; Developer Terpercaya</h3>
-                </div>
-                <div class="marquee-container">
-                    <div class="marquee-track">
-                        <div class="marquee-group">
-                            <div class="marquee-item"><img src="assets/images/logo-1.png" alt="Kota Baru Parahyangan" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-2.png" alt="Summarecon Bandung" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-3.png" alt="Podomoro Park" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-4.png" alt="Kota Bali Residence" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-5.png" alt="Agung Sedayu" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-6.png" alt="Istana Group" class="marquee-logo"></div>
-                        </div>
-                        <div class="marquee-group" aria-hidden="true">
-                            <div class="marquee-item"><img src="assets/images/logo-1.png" alt="Kota Baru Parahyangan" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-2.png" alt="Summarecon Bandung" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-3.png" alt="Podomoro Park" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-4.png" alt="Kota Bali Residence" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-5.png" alt="Agung Sedayu" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-6.png" alt="Istana Group" class="marquee-logo"></div>
-                        </div>
-                        <div class="marquee-group" aria-hidden="true">
-                            <div class="marquee-item"><img src="assets/images/logo-1.png" alt="Kota Baru Parahyangan" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-2.png" alt="Summarecon Bandung" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-3.png" alt="Podomoro Park" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-4.png" alt="Kota Bali Residence" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-5.png" alt="Agung Sedayu" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-6.png" alt="Istana Group" class="marquee-logo"></div>
-                        </div>
-                        <div class="marquee-group" aria-hidden="true">
-                            <div class="marquee-item"><img src="assets/images/logo-1.png" alt="Kota Baru Parahyangan" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-2.png" alt="Summarecon Bandung" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-3.png" alt="Podomoro Park" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-4.png" alt="Kota Bali Residence" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-5.png" alt="Agung Sedayu" class="marquee-logo"></div>
-                            <div class="marquee-item"><img src="assets/images/logo-6.png" alt="Istana Group" class="marquee-logo"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <div class="footer">
                 <div class="container">
                     <div class="grid-2-column-2 reverse">
                         <div>
                             <h2 class="heading-style-huge light left">
                                 <strong>Sapa Kami,</strong>
-                                <br/>dan Sampaikan Rencana.
+                            <br/>dan Sampaikan Rencanamu.
                             </h2>
                         </div>
                         <div class="grid-2-column-2">
