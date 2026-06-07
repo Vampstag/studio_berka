@@ -1038,40 +1038,6 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .berka-music-toggle::after { display: none; } /* Sembunyikan tooltip di HP */
 }
 
-/* --- Premium Scroll Greeting (Narrator) --- */
-.berka-scroll-greeting {
-    position: fixed;
-    bottom: 104px; /* Sejajar dengan tombol Back to Top di sisi berlawanan */
-    left: 40px;
-    z-index: 9988;
-    background-color: rgba(24, 24, 24, 0.45);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 0.75rem; /* Dikecilkan agar lebih subtle */
-    font-style: italic; /* Memberikan kesan puitis / voice-over narator */
-    padding: 8px 16px; /* Dikecilkan paddingnya */
-    border-radius: 8px; /* Bentuk squircle dipertajam menjadi 8px ala editorial/arsitektural */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) translateZ(0);
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    pointer-events: none; /* Tidak mengganggu / tidak bisa diklik */
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.berka-scroll-greeting.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) translateZ(0);
-}
-.greeting-sparkle { color: #f7db5d; font-style: normal; font-size: 0.65rem; } /* Bintang juga ikut dikecilkan */
-@media (max-width: 767px) { .berka-scroll-greeting { bottom: 84px; left: 24px; font-size: 0.65rem; padding: 6px 14px; } }
-
 /* --- Customization for Instagram Feed --- */
 /* 1. Menghilangkan gap bawah section agar menempel rata dengan Footer */
 .section.with-z-index {
@@ -2565,6 +2531,14 @@ body.project-page .main-wrapper {
     flex-direction: column;
     align-items: center; /* Memastikan titik dan kapsul tetap rata tengah */
     gap: 16px; /* Jarak dirapatkan agar lebih rapi */
+    /* --- Solusi Kontras: Floating Glass Pill --- */
+    background-color: rgba(24, 24, 24, 0.35); /* Background gelap elegan disamakan dengan WA widget */
+    backdrop-filter: blur(24px); 
+    -webkit-backdrop-filter: blur(24px);
+    padding: 24px 14px; /* Memberikan ruang nafas pembungkus di sekeliling titik */
+    border-radius: 40px; /* Bentuk kapsul (pill) membulat */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Garis tepi kaca tipis */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15); /* Bayangan kedalaman */
 }
 .berka-dots-nav::before {
     display: none !important; /* Menghilangkan garis vertikal agar 100% minimalis & bersih */
@@ -2573,7 +2547,7 @@ body.project-page .main-wrapper {
     width: 6px; /* Titik jauh lebih kecil (Micro-dot) */
     height: 6px;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.2); /* Putih transparan */
+    background-color: rgba(255, 255, 255, 0.35); /* Dicerahkan sedikit agar makin pop-out di atas kapsul gelap */
     border: none; /* Tanpa garis tepi */
     transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     position: relative;
@@ -2592,7 +2566,7 @@ body.project-page .main-wrapper {
 .dot-link::after {
     content: attr(data-tooltip);
     position: absolute;
-    right: 24px; /* Muncul di sisi kiri dengan jarak yang presisi */
+    right: 32px; /* Jarak diperlebar agar kotak tooltip menempel presisi di luar batas kapsul kaca */
     top: 50%;
     transform: translateY(-50%) translateX(8px);
     background-color: rgba(30, 30, 30, 0.65); /* Apple Frosted Glass */
@@ -2642,4 +2616,59 @@ body.project-page .main-wrapper {
     z-index: 99999;
     pointer-events: none;
     box-shadow: 0 0 8px rgba(247, 219, 93, 0.5);
+}
+
+/* ==========================================================================
+   PREMIUM BIG MARQUEE (3 LINES)
+   ========================================================================== */
+.berka-marquee-section {
+    background-color: #26589f; /* Biru Berka */
+    padding: 80px 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Jarak antar baris */
+    position: relative;
+    z-index: 2;
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+/* Kecepatan dibedakan untuk efek paralaks dinamis */
+.track-1 { animation: marquee-left 40s linear infinite; }
+.track-2 { animation: marquee-right 45s linear infinite; }
+.track-3 { animation: marquee-left 35s linear infinite; }
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+    padding-right: 32px; /* Celah penyeimbang */
+    gap: 32px;
+}
+.marquee-text {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #F4E7D7; /* Krem Solid */
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+.marquee-star {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: rgba(244, 231, 215, 0.4); /* Bintang Krem Transparan */
+}
+
+/* Animasi Loop Mulus (Ke Kiri & Kanan) */
+@keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+/* Pause animasi saat kursor diarahkan ke area marquee */
+.berka-marquee-section:hover .marquee-track { animation-play-state: paused; }
+
+@media (max-width: 767px) {
+    .berka-marquee-section { padding: 48px 0; gap: 8px; }
 }
