@@ -238,7 +238,7 @@ h1, h2, h3, h4, h5, h6,
     .service-feature-grid { gap: 16px !important; } /* Merapatkan list kotak Layanan agar tidak terpotong ke kanan */
     .ratecard .large-heading { font-size: 3rem !important; } /* Mencegah judul besar Ratecard kepotong di mode Portrait */
     .display-1.second._5rem { font-size: clamp(2.8rem, 6vw, 4.5rem) !important; } /* Adaptasi Judul Hero khusus Tablet */
-    .div-block-3 > img { max-width: 600px !important; } /* Mencegah logo footer meraksasa dan melebar di tablet */
+    .berka-footer-brand > img { max-width: 600px !important; } /* Mencegah logo footer meraksasa dan melebar di tablet */
 }
 
 /* --- Lenis Smooth Scroll Base CSS --- */
@@ -261,6 +261,21 @@ html.lenis, html.lenis body {
     border-radius: 0 !important; /* Memaksa sudut menjadi tajam kaku */
     padding: 40px 32px !important; /* Memberikan ruang (padding) yang lebih lega */
     border: none !important;
+    position: relative !important; /* Mengunci konteks posisi untuk tumpukan z-index */
+}
+/* FIX: Memastikan teks layanan selalu berada di atas gambar */
+.service-content-block,
+.service-arrow-wrap {
+    position: relative !important;
+    z-index: 10 !important; /* Mendorong teks ke lapisan teratas mutlak */
+}
+.service-image-absolute {
+    z-index: 1 !important; /* Menahan gambar di lapisan bawah (background) */
+}
+/* Menambahkan overlay gelap agar teks tetap kontras (mudah dibaca) saat gambar terang muncul */
+.service-image-absolute::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.65); z-index: 2; pointer-events: none;
 }
 .service-content-wrapper:hover {
     background-color: rgba(255, 255, 255, 0.05);
@@ -618,11 +633,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 }
 
 /* --- Footer Logo Full Width --- */
-.div-block-3 {
+.berka-footer-brand {
     text-align: center !important;
     width: 100% !important;
 }
-.div-block-3 > img { width: 100% !important; max-width: 800px !important; margin: 0 auto !important; display: block; }
+.berka-footer-brand > img { width: 100% !important; max-width: 800px !important; margin: 0 auto !important; display: block; }
 
 /* --- Tipografi & Responsibilitas Footer --- */
 .footer .heading-style-huge {
@@ -763,9 +778,22 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     
     /* Footer Specific Adjustments */
     .footer { padding: 80px 5% 48px 5% !important; } /* Padding atas diperbesar agar gap tidak terlalu dekat di HP */
-    .div-block-3 > img { width: 100% !important; max-width: 400px !important; margin-bottom: 24px !important; } /* Logo footer mengecil secara presisi di HP */
+    .berka-footer-brand > img { width: 100% !important; max-width: 400px !important; margin-bottom: 24px !important; } /* Logo footer mengecil secara presisi di HP */
     .social-content.left { justify-content: flex-start !important; gap: 16px; flex-wrap: wrap; }
     .footnote { font-size: 0.8rem !important; line-height: 1.4 !important; }
+
+    /* --- FIX: Tipografi & Readability Mobile --- */
+    /* 1. Mencegah link menu (seperti "Portofolio") terpotong/keluar batas di layar HP sempit */
+    .berka-mobile-link { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; }
+    
+    /* 2. Menghindari celah spasi bolong-bolong (Rivers of White Space) akibat teks Justify di kolom sempit */
+    .project-details_description p, 
+    .project-info_component p { font-size: 1.05rem !important; text-align: left !important; }
+    
+    /* 3. Mencegah judul dan tombol CTA (Call to Action) meraksasa dan memakan seluruh layar HP */
+    .berka-case-cta h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
+    .berka-case-cta p { font-size: 1rem !important; }
+    .berka-case-cta-btn { padding: 14px 32px !important; font-size: 1rem !important; width: 100%; text-align: center; }
 }
 
 /* --- Cinematic Preloader --- */
@@ -1677,77 +1705,61 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     font-weight: 400; /* Regular */
 }
 
-/* --- Interaktif Timeline (Skema Pembayaran) --- */
-.timeline-wrapper {
-    position: relative;
-    padding-left: 0;
-    margin-left: 32px; /* Menggeser ke kanan untuk area garis */
+/* --- Premium Termin List (Skema Pembayaran) --- */
+.berka-payment-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
-.timeline-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: -32px; /* Ditarik kembali ke kiri menempel di batas wrapper */
-    width: 2px;
-    height: calc(100% - 8px);
-    background: linear-gradient(to bottom, rgba(244, 231, 215, 0.3) 0%, rgba(244, 231, 215, 0.05) 100%);
+.berka-payment-item {
+    display: flex;
+    align-items: flex-start; /* Sejajar atas agar angka % tidak turun jika teks di sebelahnya menjadi 2 baris */
+    gap: 32px; /* Ruang nafas antar angka dan teks diperlebar */
+    padding: 32px 0; /* Jarak vertikal diperlega agar tidak sesak */
+    border-bottom: 1px solid rgba(244, 231, 215, 0.08); /* Garis lurus solid tipis yang jauh lebih elegan */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s ease;
 }
-.timeline-item {
-    position: relative;
-    margin-bottom: 40px;
+.berka-payment-item:first-child {
+    padding-top: 0;
 }
-.timeline-item:last-child {
-    margin-bottom: 0;
+.berka-payment-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
-.timeline-indicator {
-    position: absolute;
-    left: -39px; /* Presisi letak bulatan dengan garis */
-    top: 4px;
-    width: 14px;
-    height: 14px;
-    background: #26589f; /* Warna biru original menyesuaikan background baru */
-    border: 2px solid rgba(244, 231, 215, 0.5);
-    border-radius: 0; /* Kotak/Kubus tajam tegas */
-    box-shadow: 0 0 0 0 rgba(244, 231, 215, 0); /* Reset bayangan bawaan */
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+.berka-payment-item:hover {
+    transform: translateX(8px); /* Sedikit geser ke kanan saat di-hover */
 }
-.timeline-item:hover .timeline-indicator {
-    background: #F4E7D7;
-    border-color: #F4E7D7;
-    box-shadow: 0 0 16px rgba(244, 231, 215, 0.6);
-    transform: scale(1.2) rotate(45deg); /* Berubah menjadi Diamond/Belah Ketupat geometris saat dihover */
+.bp-pct {
+    flex-shrink: 0;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.5rem; /* Ukuran dipertegas agar menjadi fokus utama */
+    line-height: 1.2;
+    font-weight: 700;
+    color: #f7db5d; /* Emas Berka */
+    width: 64px; /* Ruang absolut diperlebar */
+    text-align: left;
+    letter-spacing: 0.05em;
+    transition: text-shadow 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: left center; /* Titik tumpu perbesaran di kiri agar tetap rata secara presisi */
 }
-.timeline-content h4 {
-    color: #F4E7D7;
+.berka-payment-item:hover .bp-pct {
+    text-shadow: 0 0 16px rgba(247, 219, 93, 0.6); /* Glow keemasan */
+    color: #ffffff; /* Berubah putih terang saat dihover agar lebih dinamis */
+    transform: scale(1.15); /* Efek membesar memanggil perhatian */
+}
+.bp-text {
+    flex-grow: 1;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 1.15rem;
-    margin: 0 0 8px 0;
-    font-weight: 600; /* Ditebalkan */
-}
-.timeline-content p {
-    color: rgba(244, 231, 215, 0.8);
-    font-size: 0.95rem;
+    font-weight: 400; /* Regular, kontras dengan persentase Bold */
+    color: rgba(244, 231, 215, 0.85);
     margin: 0;
-    line-height: 1.6;
-    font-weight: 400; /* Regular */
+    line-height: 1.6; /* Spasi antar baris diperlega */
+    padding-top: 2px; /* Optical alignment: Penyesuaian agar posisi huruf sejajar sempurna dengan besarnya teks 50% */
+    transition: color 0.4s ease;
 }
-.timeline-percentage {
-    display: inline-block;
-    background: transparent;
-    color: #F4E7D7;
-    padding: 4px 12px;
-    border-radius: 0; /* Kotak tajam (Sharp Edges) */
-    border: 1px solid rgba(244, 231, 215, 0.3);
-    box-shadow: none; /* Hilangkan glow inset agar benar-benar flat */
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-left: 12px;
-    vertical-align: text-bottom;
-    transition: all 0.4s ease;
-}
-.timeline-item:hover .timeline-percentage {
-    background: rgba(244, 231, 215, 0.1);
-    border-color: rgba(244, 231, 215, 0.6);
-    text-shadow: 0 0 8px rgba(244, 231, 215, 0.5);
+.berka-payment-item:hover .bp-text {
+    color: #ffffff;
 }
 
 /* --- Maintenance Feature List (Pemeliharaan) --- */
@@ -2021,19 +2033,23 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .rc-main-title { font-size: 2.5rem; }
     .rc-toggle { padding: 24px; }
     .rc-content-padder { padding: 0 24px 32px 24px; padding-top: 24px; }
+    .rc-grid { gap: 32px; } /* Jarak antar kartu dipersempit di tablet & HP */
     .rc-items-grid-2, .rc-items-grid-3 { grid-template-columns: 1fr; gap: 40px; }
     .rc-item-header { flex-direction: column; gap: 8px; }
     .berka-payment-section { padding: 80px 5% !important; }
     .payment-grid { grid-template-columns: 1fr; gap: 40px; }
     .payment-card { padding: 40px 24px; }
-    .timeline-wrapper { margin-left: 24px; }
-    .timeline-indicator { left: -31px; }
 }
 @media (max-width: 479px) {
     .rc-price-row { flex-direction: column; align-items: flex-start; gap: 4px; border-bottom: 1px solid rgba(244, 231, 215, 0.1); padding-bottom: 12px; }
     .rc-pr-line { display: none; }
     .rc-pr-name { font-size: 0.9rem; }
     .rc-pr-price { font-size: 0.95rem; }
+    
+    /* Responsiveness Termin Pembayaran */
+    .berka-payment-item { padding: 24px 0 !important; gap: 20px !important; }
+    .bp-pct { font-size: 1.25rem !important; width: 52px !important; }
+    .bp-text { font-size: 1.05rem !important; padding-top: 0 !important; }
 }
 
 /* ==========================================================================

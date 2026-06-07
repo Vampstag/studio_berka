@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     
     // Memilih elemen-elemen yang ingin diberi efek masuk (Reveal)
-    const revealElements = document.querySelectorAll('.service-content-wrapper, .ratecard_block, .slider.w-slider, .project-info_component, .full-image');
+    const revealElements = document.querySelectorAll('.service-content-wrapper, .slider.w-slider, .project-info_component, .full-image');
     
     revealElements.forEach((el) => {
         gsap.fromTo(el, 
@@ -499,6 +499,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
     });
+
+    // --- Animasi Stagger Masuk untuk Kartu Portofolio (Mencegah tampilan kaku) ---
+    const bcpCards = document.querySelectorAll('.bcp-card');
+    if (bcpCards.length > 0) {
+        gsap.from(bcpCards, {
+            scrollTrigger: {
+                trigger: ".berka-custom-portfolio",
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15, // Berurutan 
+            ease: "power3.out",
+            force3D: true,
+            clearProps: "transform"
+        });
+    }
+
+    // --- Animasi Stagger Masuk untuk List Proses Kami (Langkah 1-6) ---
+    const stepCards = document.querySelectorAll('.steps-card');
+    if (stepCards.length > 0) {
+        gsap.from(stepCards, {
+            scrollTrigger: {
+                trigger: ".steps-cards",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            x: 30, // Meluncur halus dari arah kanan (karena ada video di sebelah kiri)
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out",
+            force3D: true,
+            clearProps: "transform"
+        });
+    }
 
     // --- Animasi Premium Masuk 1-per-1 (Non-3D) untuk Kartu Prinsip Kami ---
     const principleCardsAnim = document.querySelectorAll('.berka-principle-card');
@@ -539,6 +577,28 @@ document.addEventListener('DOMContentLoaded', () => {
             clearProps: "transform" // Bersihkan sisa animasi agar fitur tilt mousemove tidak bentrok
         });
     }
+
+    // --- Animasi Masuk Elegan untuk List Termin Pembayaran ---
+    const paymentLists = document.querySelectorAll('.berka-payment-list');
+    paymentLists.forEach(list => {
+        const items = list.querySelectorAll('.berka-payment-item');
+        if (items.length > 0) {
+            gsap.from(items, {
+                scrollTrigger: {
+                    trigger: list,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                y: 20, // Muncul normal dari bawah
+                opacity: 0,
+                duration: 0.8, // Sedikit dipercepat agar terasa natural
+                stagger: 0.15, // Muncul berurutan satu per satu
+                ease: "power2.out", // Kurva animasi standar yang lebih santai
+                force3D: true,
+                clearProps: "transform"
+            });
+        }
+    });
 
     // --- Premium Footer Parallax Reveal ---
     const footerReveal = document.querySelector('.footer');
