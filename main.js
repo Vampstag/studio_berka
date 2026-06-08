@@ -495,7 +495,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     start: "top 85%", // Mulai animasi saat elemen menyentuh 85% layar dari atas
                     toggleActions: "play none none none" // Mainkan hanya sekali
                 },
-                force3D: true // Memastikan animasi ringan di HP
+                force3D: true, // Memastikan animasi ringan di HP
+                clearProps: "transform,opacity" // FIX: Menghapus sisa inline style GSAP agar tidak merusak Interaksi Webflow IX2 (Dropdown Layanan)
             }
         );
     });
@@ -600,42 +601,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Premium Footer Parallax Reveal ---
+    // --- Premium Footer Overlap Parallax ---
     const footerReveal = document.querySelector('.footer');
     if (footerReveal) {
-        gsap.fromTo(footerReveal, 
-            { yPercent: -35 }, // Memulai ditarik ke atas (tersembunyi di balik section sebelumnya)
-            {
-                yPercent: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: footerReveal,
-                    start: "top bottom", // Berjalan ketika atas footer mulai masuk layar
-                    end: "bottom bottom", // Berakhir presisi ketika scroll mentok ke paling bawah
-                    scrub: true // Animasi menempel (terikat) dengan kecepatan scroll Lenis Anda
+        const prevSection = footerReveal.previousElementSibling;
+        if (prevSection) {
+            gsap.fromTo(prevSection, 
+                { y: 0 }, 
+                {
+                    y: 150, // Section sebelumnya turun perlahan menciptakan ilusi tertutup oleh footer
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: footerReveal,
+                        start: "top bottom", // Mulai saat atap footer terlihat
+                        end: "bottom bottom", // Berakhir saat scroll halaman mentok
+                        scrub: true 
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     // --- Animasi Premium 3D Flip untuk Ratecard ---
     const rcCards = document.querySelectorAll('.rc-card');
     if (rcCards.length > 0) {
-        gsap.from(rcCards, {
-            scrollTrigger: {
-                trigger: ".berka-ratecard-section",
-                start: "top 75%", // Mulai animasi saat judul ratecard masuk ke layar
-                toggleActions: "play none none none"
-            },
-            y: 80,
-            opacity: 0,
-            rotationX: -15, // Efek kartu terlipat dari bawah ke atas (3D)
-            transformOrigin: "bottom center",
-            duration: 1.2,
-            stagger: 0.15, // Muncul beruntun satu per satu
-            ease: "power3.out",
-            force3D: true,
-            clearProps: "transform" // Membersihkan sisa animasi inline GSAP agar bersih
+        rcCards.forEach((card) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%", // Mulai animasi saat SETIAP KARTU masuk ke layar (bukan menunggu section-nya)
+                    toggleActions: "play none none none"
+                },
+                y: 80,
+                opacity: 0,
+                rotationX: -15, // Efek kartu terlipat dari bawah ke atas (3D)
+                transformOrigin: "bottom center",
+                duration: 1.2,
+                ease: "power3.out",
+                force3D: true,
+                clearProps: "transform" // Membersihkan sisa animasi inline GSAP agar bersih
+            });
         });
     }
 
@@ -663,13 +668,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // UX Tambahan: Scroll otomatis agar kartu yang baru dibuka berada nyaman di layar
                 setTimeout(() => {
-                    const yOffset = card.getBoundingClientRect().top + window.scrollY - 120; // 120px offset untuk header navbar
+                    const yOffset = card.getBoundingClientRect().top + window.scrollY - 140; // 140px offset yang lebih lega agar tak tertutup navbar
                     if (typeof lenis !== 'undefined') {
                         lenis.scrollTo(yOffset, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
                     } else {
                         window.scrollTo({ top: yOffset, behavior: 'smooth' });
                     }
-                }, 300); // Eksekusi persis ketika animasi kartu terbuka sedang memantul
+                }, 400); // Diperlambat ke 400ms: menunggu kartu lain nyaris selesai menutup, sehingga kalkulasi koordinat Y tidak meleset
             }
             
             // Refresh sistem posisi dari GSAP ScrollTrigger
@@ -929,5 +934,52 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Smart Auto-Scroll & Tap Support untuk Dropdown Layanan Kami ---
+    const serviceWrappers = document.querySelectorAll('.service-content-wrapper');
+    let hoverScrollTimeout; // Variabel untuk mencegah scroll liar (glitch)
+
+    serviceWrappers.forEach(wrapper => {
+        // --- 1. Auto-Scroll saat diketuk/diklik (Mobile & Layar Sentuh) ---
+        wrapper.addEventListener('click', () => {
+            wrapper.classList.toggle('is-open');
+            serviceWrappers.forEach(w => {
+                if (w !== wrapper) w.classList.remove('is-open'); // Menutup kartu lain secara otomatis
+            });
+
+            // Gulir layar halus setelah kartu mulai terbuka
+            if (wrapper.classList.contains('is-open')) {
+                setTimeout(() => {
+                    const yOffset = wrapper.getBoundingClientRect().top + window.scrollY - 140; // Offset 140px untuk menghindari tertutup Navbar
+                    if (typeof lenis !== 'undefined') {
+                        lenis.scrollTo(yOffset, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                    } else {
+                        window.scrollTo({ top: yOffset, behavior: 'smooth' });
+                    }
+                }, 300);
+            }
+        });
+
+        // --- 2. Auto-Scroll Cerdas saat disorot/hover (Desktop) ---
+        if (window.matchMedia("(pointer: fine)").matches) {
+            wrapper.addEventListener('mouseenter', () => {
+                clearTimeout(hoverScrollTimeout);
+                // Beri jeda 300ms. Jika pengunjung hanya tak sengaja lewat, scroll batal.
+                // Jika ia diam untuk membaca, layar otomatis menyesuaikan presisi.
+                hoverScrollTimeout = setTimeout(() => {
+                    const yOffset = wrapper.getBoundingClientRect().top + window.scrollY - 140;
+                    if (typeof lenis !== 'undefined') {
+                        lenis.scrollTo(yOffset, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                    } else {
+                        window.scrollTo({ top: yOffset, behavior: 'smooth' });
+                    }
+                }, 300);
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                clearTimeout(hoverScrollTimeout); // Membatalkan perintah scroll jika kursor pergi
+            });
+        }
+    });
 
 });

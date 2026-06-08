@@ -234,7 +234,11 @@ h1, h2, h3, h4, h5, h6,
     
     /* --- Penyesuaian Layar Tablet (iPad) untuk Mencegah Overflow / Squeezing --- */
     .section { padding-left: 5% !important; padding-right: 5% !important; } /* Mengunci lebar konten ke area aman */
-    .service-content-wrapper { padding: 32px 24px !important; } /* Menyesuaikan padding kotak agar teks di dalamnya tidak mendesak batas (squeezed) */
+    .service-content-wrapper { padding: 32px 24px !important; flex-direction: column !important; gap: 24px !important; }
+    .service-visual-block { width: 100%; justify-content: space-between; flex-direction: row-reverse; align-items: center; }
+    .service-image-reveal { height: 140px; }
+    .service-content-wrapper:hover .service-image-reveal, .service-content-wrapper.is-open .service-image-reveal { width: 220px; }
+    .service-image { width: 220px !important; }
     .service-feature-grid { gap: 16px !important; } /* Merapatkan list kotak Layanan agar tidak terpotong ke kanan */
     .ratecard .large-heading { font-size: 3rem !important; } /* Mencegah judul besar Ratecard kepotong di mode Portrait */
     .display-1.second._5rem { font-size: clamp(2.8rem, 6vw, 4.5rem) !important; } /* Adaptasi Judul Hero khusus Tablet */
@@ -257,43 +261,77 @@ html.lenis, html.lenis body {
 
 /* --- Animasi Hover Card Layanan Kami --- */
 .service-content-wrapper {
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    gap: 40px !important;
+    transition: background-color 0.4s ease; /* JANGAN gunakan 'all', karena akan merusak animasi Webflow IX (Dropdown) saat height berekspansi */
     border-radius: 0 !important; /* Memaksa sudut menjadi tajam kaku */
-    padding: 40px 32px !important; /* Memberikan ruang (padding) yang lebih lega */
+    padding: 48px !important; /* Memberikan ruang (padding) yang lebih lega */
     border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     position: relative !important; /* Mengunci konteks posisi untuk tumpukan z-index */
+    overflow: hidden !important;
 }
 /* FIX: Memastikan teks layanan selalu berada di atas gambar */
-.service-content-block,
-.service-arrow-wrap {
+.service-content-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 100%;
     position: relative !important;
     z-index: 10 !important; /* Mendorong teks ke lapisan teratas mutlak */
 }
-.service-image-absolute {
-    z-index: 1 !important; /* Menahan gambar di lapisan bawah (background) */
+.service-visual-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+    flex-shrink: 0;
+    z-index: 10 !important;
+    position: relative;
 }
-/* Menambahkan overlay gelap agar teks tetap kontras (mudah dibaca) saat gambar terang muncul */
-.service-image-absolute::after {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(10, 10, 10, 0.65); z-index: 2; pointer-events: none;
+.service-image-reveal {
+    width: 0px; 
+    height: 220px; 
+    opacity: 0; 
+    visibility: hidden;
+    overflow: hidden;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, visibility 0.5s;
+    transform: translateZ(0); 
+}
+.service-content-wrapper:hover .service-image-reveal,
+.service-content-wrapper.is-open .service-image-reveal {
+    width: 320px; 
+    opacity: 1;
+    visibility: visible;
 }
 .service-content-wrapper:hover {
     background-color: rgba(255, 255, 255, 0.05);
 }
-.service-image-wrapper {
-    overflow: hidden;
-    border-radius: 0 !important; /* Menghilangkan sudut membulat pada gambar */
+.service-image {
+    width: 320px !important; 
+    height: 100% !important;
+    object-fit: cover !important; /* Memastikan gambar berekspansi penuh tanpa terdistorsi/stuck */
+    transform: scale(1.1);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.service-image-wrapper .service-image {
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+.service-content-wrapper:hover .service-image,
+.service-content-wrapper.is-open .service-image {
+    transform: scale(1);
 }
-.service-content-wrapper:hover .service-image {
-    transform: scale(1.08);
+.service-arrow-wrap {
+    display: flex;
+    align-items: center;
+    height: 48px; /* Menyamakan tinggi dengan teks judul agar panah sejajar lurus */
 }
 .service-arrow-2 {
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.service-content-wrapper:hover .service-arrow-2 {
+.service-content-wrapper:hover .service-arrow-2,
+.service-content-wrapper.is-open .service-arrow-2 {
     transform: translateX(12px) !important;
 }
 
@@ -308,12 +346,35 @@ html.lenis, html.lenis body {
     text-wrap: nowrap !important;
     text-align: left !important;
     line-height: 1.1 !important;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 .service-title.alternate {
     position: absolute !important;
     top: 100% !important; /* Meletakkan teks alternate persis di luar batas bawah kontainer */
     left: 0 !important;
     width: 100% !important;
+}
+
+/* --- PURE CSS DROPDOWN OVERRIDE (Bypass Webflow IX2 Bug) --- */
+.service-description-item-2 {
+    max-height: 0px !important; /* Menggembok tinggi awal */
+    height: auto !important; /* Menimpa inline-style height: 0px buatan Webflow */
+    overflow: hidden !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, margin-top 0.4s ease !important;
+}
+.service-content-wrapper:hover .service-description-item-2,
+.service-content-wrapper.is-open .service-description-item-2 {
+    max-height: 1200px !important; /* Ekspansi absolut ke bawah */
+    opacity: 1 !important;
+    margin-top: 32px !important;
+}
+.service-content-wrapper:hover .service-title:not(.alternate),
+.service-content-wrapper.is-open .service-title:not(.alternate),
+.service-content-wrapper:hover .service-title.alternate,
+.service-content-wrapper.is-open .service-title.alternate {
+    transform: translateY(-100%) !important;
 }
 
 /* --- Premium Hero Illustration Section --- */
@@ -622,12 +683,13 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .berka-payment-section,
 .section-3 {
     position: relative;
-    z-index: 2; /* Menutupi footer yang akan meluncur dari bawahnya */
-    box-shadow: 0 32px 48px -16px rgba(0, 0, 0, 0.4); /* Bayangan diarahkan mutlak HANYA ke bawah (negative spread) agar bagian atas menyatu sempurna */
+    z-index: 1; /* Berada di lapisan bawah agar tertutup oleh footer */
+    box-shadow: none; /* Bayangan dipindah ke footer */
 }
 .footer {
     position: relative;
-    z-index: 1; /* Bersembunyi di bawah konten sebelumnya saat parallax berjalan */
+    z-index: 2; /* Footer meluncur di atas menutupi section sebelumnya */
+    box-shadow: 0 -32px 48px -16px rgba(0, 0, 0, 0.4); /* Bayangan dipantulkan ke atas untuk ilusi kedalaman (overlap) */
     background-color: #08522d; /* Warna latar hijau elegan khas Berka */
     padding: 120px 5% 80px 5%; /* Menambah ruang nafas (gap) di bagian atas agar tidak terlalu dekat */
 }
@@ -794,6 +856,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .berka-case-cta h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
     .berka-case-cta p { font-size: 1rem !important; }
     .berka-case-cta-btn { padding: 14px 32px !important; font-size: 1rem !important; width: 100%; text-align: center; }
+
+    /* 4. Responsibilitas Layanan Gambar Kanan (Mobile) */
+    .service-image-reveal { height: 100px !important; }
+    .service-content-wrapper:hover .service-image-reveal, .service-content-wrapper.is-open .service-image-reveal { width: 160px !important; }
+    .service-image { width: 160px !important; }
 }
 
 /* --- Cinematic Preloader --- */
