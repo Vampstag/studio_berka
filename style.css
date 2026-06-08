@@ -243,6 +243,31 @@ h1, h2, h3, h4, h5, h6,
     .ratecard .large-heading { font-size: 3rem !important; } /* Mencegah judul besar Ratecard kepotong di mode Portrait */
     .display-1.second._5rem { font-size: clamp(2.8rem, 6vw, 4.5rem) !important; } /* Adaptasi Judul Hero khusus Tablet */
     .berka-footer-brand > img { max-width: 600px !important; } /* Mencegah logo footer meraksasa dan melebar di tablet */
+
+    /* --- FIX: Penumpukan Kolom Hero (Kawan Membangun Ruang) di Tablet --- */
+    .our-story .grid-2-column {
+        display: flex !important;
+        flex-direction: column-reverse !important; /* Teks di atas, Ilustrasi di bawah */
+        gap: 56px !important;
+        text-align: center !important;
+    }
+    .display-1.second._5rem, .hero-description-smaller {
+        text-align: center !important; /* Rata tengah agar elegan saat ditumpuk */
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .hero-description-smaller {
+        margin-top: 32px !important;
+        max-width: 600px !important;
+    }
+    .story-illustration-img { max-width: 80% !important; } /* Proporsi ideal untuk layar tablet */
+
+    /* --- Force Click untuk Layanan Kami (Mematikan Hover di Tablet/HP) --- */
+    .service-content-wrapper:not(.is-open) .service-description-item-2 { max-height: 0px !important; opacity: 0 !important; margin-top: 0 !important; }
+    .service-content-wrapper:not(.is-open) .service-title { transform: none !important; }
+    .service-content-wrapper:not(.is-open) .service-title.alternate { transform: none !important; }
+    .service-content-wrapper:not(.is-open) .service-image-reveal { width: 0px !important; opacity: 0 !important; visibility: hidden !important; }
+    .service-content-wrapper:not(.is-open) .service-arrow-2 { transform: none !important; }
 }
 
 /* --- Lenis Smooth Scroll Base CSS --- */
@@ -741,10 +766,44 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     letter-spacing: 0.05em !important;
 }
 
+/* --- Premium Footer Bottom (Copyright & Credit) --- */
+.berka-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+}
+.berka-footer-bottom .footnote { margin: 0 !important; }
+.mdkg-link {
+    color: #f7db5d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+.mdkg-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(247, 219, 93, 0.6);
+}
+
 /* --- Fix Crop Animasi Ikon Sosial (Footer) --- */
+.berka-footer-brand .margin-101,
+.berka-footer-brand .navigation-grid,
+.berka-footer-social {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
 .social-content.left {
     display: flex !important;
-    gap: 16px !important;
+    justify-content: center !important; /* Memaksa ikon rata tengah (center) secara mutlak */
+    margin-top: 48px !important; /* Memberikan gap/jarak yang sangat lega dari logo besar di atasnya */
+    gap: 24px !important; /* Menambah sedikit jarak antar ikon agar terasa lebih premium */
+    width: 100% !important;
 }
 .social-wrapper {
     display: flex !important;
@@ -834,15 +893,27 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .our-story .grid-2-column {
         display: flex !important;
         flex-direction: column-reverse !important; /* Teks di atas, Ilustrasi di bawah */
-        gap: 48px !important;
+        gap: 40px !important;
     }
-    .story-illustration-img { max-width: 65%; } /* Tetap dikunci 65% agar proporsional di HP/Tablet */
+    .story-illustration-img { max-width: 100% !important; } /* Diperbesar penuh agar presisi di layar HP yang sempit */
+    .hero-description-smaller { margin-top: 24px !important; } /* Jarak dirapatkan agar lebih padat di HP */
+    
+    /* Penyesuaian Ruang Padding Kartu Prinsip Kami (Mobile) agar tidak sesak */
+    .berka-principles-grid { grid-template-columns: 1fr !important; }
+    .berka-principle-card { padding: 32px 24px !important; gap: 24px !important; }
     
     /* Footer Specific Adjustments */
     .footer { padding: 80px 5% 48px 5% !important; } /* Padding atas diperbesar agar gap tidak terlalu dekat di HP */
     .berka-footer-brand > img { width: 100% !important; max-width: 400px !important; margin-bottom: 24px !important; } /* Logo footer mengecil secara presisi di HP */
-    .social-content.left { justify-content: flex-start !important; gap: 16px; flex-wrap: wrap; }
+    .social-content.left { justify-content: center !important; gap: 20px !important; flex-wrap: wrap; margin-top: 32px !important; }
     .footnote { font-size: 0.8rem !important; line-height: 1.4 !important; }
+
+    /* Menumpuk area copyright dan link MDKG ke tengah di layar HP */
+    .berka-footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
 
     /* --- FIX: Tipografi & Readability Mobile --- */
     /* 1. Mencegah link menu (seperti "Portofolio") terpotong/keluar batas di layar HP sempit */
@@ -858,9 +929,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .berka-case-cta-btn { padding: 14px 32px !important; font-size: 1rem !important; width: 100%; text-align: center; }
 
     /* 4. Responsibilitas Layanan Gambar Kanan (Mobile) */
-    .service-image-reveal { height: 100px !important; }
-    .service-content-wrapper:hover .service-image-reveal, .service-content-wrapper.is-open .service-image-reveal { width: 160px !important; }
-    .service-image { width: 160px !important; }
+    .service-image-reveal { display: none !important; } /* Gambar dihilangkan sepenuhnya karena kepotong di HP */
+    .service-visual-block { width: 100% !important; justify-content: flex-end !important; } /* Memastikan panah sejajar rata kanan */
 }
 
 /* --- Cinematic Preloader --- */
@@ -1526,6 +1596,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     overflow: hidden;
 }
 .gallery-lightbox .full-image {
+    width: 100% !important;
+    object-fit: cover !important;
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 .gallery-lightbox:hover .full-image {
@@ -1538,6 +1610,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .slider.w-slider {
     position: relative !important;
     margin-bottom: 72px !important; /* Jarak diperkecil agar panah lebih rapat ke gambar */
+}
+/* Memaksa semua gambar di dalam slider utama berukuran seragam 4:3 */
+.slider.w-slider .full-image {
+    aspect-ratio: 4 / 3 !important;
+    height: auto !important; /* Menimpa height bawaan agar tidak bentrok dengan rasio */
 }
 .slider_arrow {
     position: absolute !important;
@@ -1962,6 +2039,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     justify-content: center;
     width: 44px;
     height: 44px;
+    flex-shrink: 0; /* Mencegah lingkaran memipih menjadi lonjong saat judul sebelahnya menjadi 2 baris */
     border-radius: 50%;
     background: rgba(244, 231, 215, 0.05);
     border: 1px solid rgba(244, 231, 215, 0.15);
@@ -2378,7 +2456,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     /* FIX: Memaksa semua gambar di galeri akhir memiliki rasio yang sama di mobile agar simetris */
     .final-gallery .story-image,
     .final-gallery .grid-image {
-        aspect-ratio: 16 / 10 !important; /* Rasio sinematik yang konsisten */
+        aspect-ratio: 4 / 3 !important; /* Rasio 4:3 konsisten sesuai permintaan */
         height: auto !important; /* Menimpa aturan tinggi yang mungkin ada */
         max-height: none !important; /* Menimpa aturan max-height yang mungkin ada */
     }
@@ -2738,4 +2816,92 @@ body.project-page .main-wrapper {
 
 @media (max-width: 767px) {
     .berka-marquee-section { padding: 48px 0; gap: 8px; }
+}
+
+/* ==========================================================================
+   PREMIUM GALLERY OVERRIDE (MENCEGAH BUG BACKGROUND MOBILE WEBFLOW)
+   ========================================================================== */
+.team-background-image-2 {
+    background-image: none !important; /* Menghapus paksa semua gambar background Webflow di segala layar */
+}
+.berka-bts-img-override {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; /* Memastikan gambar menyesuaikan diri tanpa gepeng */
+    z-index: 0;
+    pointer-events: none;
+}
+.team-background-image-2 .overlay {
+    z-index: 1; /* Memastikan overlay gelap tetap ada di atas gambar kita */
+}
+
+/* ==========================================================================
+   PREMIUM RESPONSIVE OVERRIDES (TABLET & MOBILE)
+   Berada di paling bawah agar secara mutlak menimpa CSS Desktop
+   ========================================================================== */
+@media (max-width: 991px) {
+    /* --- 1. HERO SECTION: ILUSTRASI MUTLAK DI BAWAH TEKS --- */
+    .our-story .grid-2-column {
+        display: flex !important;
+        flex-direction: column-reverse !important; /* Teks di Atas, Ilustrasi di Bawah */
+        gap: 48px !important;
+        align-items: center !important;
+    }
+    .display-1.second._5rem, .hero-description-smaller {
+        text-align: center !important; /* Menimpa global text-align: left */
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .story-illustration-img { max-width: 100% !important; width: 100% !important; } /* Ilustrasi dibesarkan maksimal */
+
+    /* --- 2. LAYANAN KAMI: HIDE GAMBAR & WAJIB KLIK --- */
+    /* Struktur dikembalikan ke tata letak baris (row) agar panah rapi di sebelah judul */
+    .service-content-wrapper { padding: 32px 24px !important; flex-direction: row !important; align-items: flex-start !important; gap: 24px !important; }
+    .service-visual-block { width: auto !important; flex-shrink: 0 !important; justify-content: flex-end !important; }
+    .service-image-reveal { display: none !important; } /* Sembunyikan gambar yang memakan tempat */
+    
+    /* Mematikan efek Hover Desktop agar tidak bereaksi liar di layar sentuh */
+    .service-content-wrapper:not(.is-open) .service-description-item-2 { max-height: 0px !important; opacity: 0 !important; margin-top: 0 !important; }
+    .service-content-wrapper:not(.is-open) .service-title,
+    .service-content-wrapper:not(.is-open) .service-title:not(.alternate),
+    .service-content-wrapper:not(.is-open) .service-title.alternate { transform: none !important; }
+    .service-content-wrapper:not(.is-open) .service-arrow-2 { transform: none !important; }
+}
+
+@media (max-width: 767px) {
+    /* Merapatkan jarak khusus di layar HP yang sempit */
+    .our-story .grid-2-column { gap: 32px !important; }
+    .hero-description-smaller { margin-top: 24px !important; }
+
+    /* --- 3. RATECARD: UX TABEL PERBANDINGAN (MOBILE) --- */
+    /* Membungkus tiap grup item menjadi sub-kartu mandiri agar tidak terlihat seperti tembok teks */
+    .rc-items-grid-2 .rc-item,
+    .rc-items-grid-3 .rc-item {
+        background: rgba(244, 231, 215, 0.03) !important;
+        border: 1px solid rgba(244, 231, 215, 0.08) !important;
+        padding: 24px !important;
+        border-radius: 12px !important; /* Sudut membulat halus untuk kartu bagian dalam */
+    }
+    .rc-items-grid-2 { gap: 16px !important; }
+    
+    /* Fitur Horizontal Swipe (Geser Kanan-Kiri) khusus untuk perbandingan 3 kolom */
+    .rc-items-grid-3 {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important; /* Efek magnet saat digeser */
+        gap: 16px !important;
+        padding-bottom: 8px !important; /* Ruang ekstra interaksi sentuh */
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important; /* Sembunyikan scrollbar di Firefox */
+        margin-right: -24px !important; /* Trik agar swipe menembus batas kanan layar */
+        padding-right: 24px !important; /* Ruang akhir setelah kartu terakhir */
+    }
+    .rc-items-grid-3::-webkit-scrollbar { display: none !important; } /* Sembunyikan scrollbar di Chrome/Safari */
+    .rc-items-grid-3 .rc-item {
+        flex: 0 0 85% !important; /* Lebar 85% agar kartu sebelahnya "ngintip" memancing usapan */
+        scroll-snap-align: start !important; /* Penguncian magnetik presisi kiri */
+    }
 }
