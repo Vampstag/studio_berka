@@ -2411,7 +2411,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     align-items: flex-start !important;
     text-align: left !important;
     gap: 16px !important;
-    margin-bottom: 64px !important;
+    margin-bottom: 48px !important; /* Jarak disempurnakan menjadi standar editorial (tidak terlalu jauh) */
 }
 .display-3.second._5rem {
     font-family: 'Noto Sans', sans-serif !important;
@@ -2433,9 +2433,13 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     margin: 0 !important;
     text-align: left !important;
 }
+/* Membunuh margin siluman bawaan Webflow yang membuat jarak menumpuk ganda */
+.margin-104 {
+    margin-top: 0 !important;
+}
 @media (max-width: 767px) {
     .section-3 { padding: 80px 5% 24px 5% !important; }
-    .grid-2-column-3 { margin-bottom: 40px !important; gap: 12px !important; }
+    .grid-2-column-3 { margin-bottom: 32px !important; gap: 12px !important; } /* Jarak lebih rapat dan presisi di HP */
     .display-3.second._5rem { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
     .display-3.second._1-7-rem { font-size: 0.9rem !important; }
 }
