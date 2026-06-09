@@ -761,24 +761,35 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     transform: scaleX(1); transform-origin: left; /* Garis emas menyapu dari kiri */
 }
 .footer .footnote {
-    font-size: 0.85rem !important;
     color: rgba(255, 255, 255, 0.5) !important;
-    letter-spacing: 0.05em !important;
+    letter-spacing: 0 !important; /* Menghilangkan spasi antar huruf agar lebih hemat ruang */
 }
 
 /* --- Premium Footer Bottom (Copyright & Credit) --- */
 .berka-footer-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
     margin-top: 48px;
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     width: 100%;
+    text-align: center;
+    overflow: hidden; /* Mencegah layar bergeser (horizontal scroll) */
 }
-.berka-footer-bottom .footnote { margin: 0 !important; }
+.berka-footer-bottom .footnote { 
+    margin: 0 auto !important; 
+    font-size: 13px !important; /* Ukuran pasti yang terbaca jelas di desktop */
+    line-height: 1.6 !important;
+    white-space: normal !important; /* Teks diizinkan turun baris secara alami */
+    width: 100%;
+    text-align: center !important; /* Dijamin rata tengah simetris */
+}
+.footer-separator {
+    margin: 0 10px;
+    opacity: 0.3;
+    display: inline-block;
+}
 .mdkg-link {
     color: #f7db5d;
     text-decoration: none;
@@ -906,13 +917,23 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .footer { padding: 80px 5% 48px 5% !important; } /* Padding atas diperbesar agar gap tidak terlalu dekat di HP */
     .berka-footer-brand > img { width: 100% !important; max-width: 400px !important; margin-bottom: 24px !important; } /* Logo footer mengecil secara presisi di HP */
     .social-content.left { justify-content: center !important; gap: 20px !important; flex-wrap: wrap; margin-top: 32px !important; }
-    .footnote { font-size: 0.8rem !important; line-height: 1.4 !important; }
 
     /* Menumpuk area copyright dan link MDKG ke tengah di layar HP */
     .berka-footer-bottom {
-        flex-direction: column;
         justify-content: center;
         text-align: center;
+        padding-top: 16px !important;
+        margin-top: 32px !important;
+    }
+    .berka-footer-bottom .footnote {
+        font-size: 11.5px !important; /* Ukuran nyaman dibaca untuk layar HP */
+    }
+    .footer-separator {
+        display: block !important; /* Memaksa turun baris layaknya tag <br> */
+        height: 6px !important; /* Jarak vertikal antar baris PT dan MDKG */
+        margin: 0 !important;
+        color: transparent !important; /* Sembunyikan karakter "|" */
+        overflow: hidden !important;
     }
 
     /* --- FIX: Tipografi & Readability Mobile --- */
@@ -1389,6 +1410,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     transform: translateX(-50%) translateY(0); /* Meluncur mulus ke atas */
 }
 
+@media (max-width: 767px) {
+    /* Sembunyikan tooltip bagikan di HP agar teksnya tidak meluber (overflow) ke luar layar saat tombol disentuh */
+    .share-btn::after { display: none !important; }
+}
+
 @media (max-width: 991px) {
     .berka-share-widget { margin-top: 48px; margin-bottom: 0; padding-top: 24px; }
 }
@@ -1425,7 +1451,24 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     height: 16px !important;
 }
 @media (max-width: 767px) {
-    .berka-toast { bottom: 24px; padding: 8px 16px; font-size: 0.75rem; width: max-content; }
+        .berka-toast { 
+            top: auto !important; 
+            bottom: 80px !important; /* Muncul tepat di atas tombol musik kiri bawah */
+            left: 24px !important; /* Sejajar di sebelah kiri */
+            padding: 8px 12px !important; /* Padding sangat mungil */
+            font-size: 0.65rem !important; /* Teks jauh lebih kecil */
+            width: max-content !important; 
+            max-width: 70vw !important; 
+            border-radius: 6px !important; 
+            transform: translateX(-150vw) translateY(0) !important; /* Sembunyi jauh ke luar batas kiri layar */
+        }
+        .berka-toast.show {
+            transform: translateX(0) translateY(0) !important; /* Meluncur mulus masuk dari kiri */
+        }
+        .berka-toast svg {
+            width: 14px !important; /* Ikon ikut dikecilkan */
+            height: 14px !important;
+        }
 }
 
 .project-details_content {
