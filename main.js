@@ -982,4 +982,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Update Current Year in Footer ---
+    const updateFooterYear = () => {
+        const yearElements = document.querySelectorAll('.current-year');
+        const now = new Date();
+
+        if (yearElements.length > 0) {
+            const currentYear = now.getFullYear();
+            yearElements.forEach(el => {
+                el.innerText = currentYear;
+            });
+        }
+    };
+
+    updateFooterYear(); // Hanya perlu dijalankan sekali saat halaman dimuat
+
 });
