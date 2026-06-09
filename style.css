@@ -453,7 +453,7 @@ html.lenis, html.lenis body {
     z-index: 1; /* Melindungi teks dan ikon agar tetap di atas efek cahaya */
 }
 .berka-principle-card:hover {
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3), 0 12px 24px rgba(188, 56, 30, 0.4); /* Bayangan dalam berlapis */
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3); /* Bayangan dalam berlapis */
     transform: translateY(-8px) scale(1.02) translateZ(0); /* Kartu melayang maju menyambut mata pengguna */
 }
 .berka-principle-icon {
@@ -475,7 +475,7 @@ html.lenis, html.lenis body {
 }
 .berka-principle-card:hover .berka-principle-icon {
     transform: scale(1.15) rotate(8deg); /* Lingkaran membesar dan sedikit berputar saat hover */
-    box-shadow: 0 0 0 6px rgba(247, 219, 93, 0.15), 0 8px 24px rgba(247, 219, 93, 0.5); /* Efek Cincin Ganda (Double Ring Glow) yang premium */
+    box-shadow: 0 0 0 6px rgba(247, 219, 93, 0.15); /* Efek Cincin Ganda (Double Ring Glow) yang premium */
 }
 .berka-principle-card:hover .berka-principle-icon img {
     filter: brightness(0) opacity(100%); /* Warna ikon jadi lebih pekat */
@@ -553,7 +553,7 @@ html.lenis, html.lenis body {
 .ratecard_item-list li:hover::before {
     background: #F4E7D7;
     border-color: #F4E7D7;
-    box-shadow: 0 0 8px rgba(244, 231, 215, 0.6);
+    box-shadow: none;
     transform: scale(1.4) rotate(45deg);
 }
 
@@ -764,7 +764,6 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     color: rgba(255, 255, 255, 0.5) !important;
     letter-spacing: 0 !important; /* Menghilangkan spasi antar huruf agar lebih hemat ruang */
 }
-
 /* --- Premium Footer Bottom (Copyright & Credit) --- */
 .berka-footer-bottom {
     display: flex;
@@ -774,21 +773,27 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     width: 100%;
+}
+.footnote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px; /* Jarak antara copyright dan credit */
+    flex-wrap: wrap; /* Izinkan turun baris jika tidak muat */
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
     text-align: center;
-    overflow: hidden; /* Mencegah layar bergeser (horizontal scroll) */
 }
-.berka-footer-bottom .footnote { 
-    margin: 0 auto !important; 
-    font-size: 13px !important; /* Ukuran pasti yang terbaca jelas di desktop */
-    line-height: 1.6 !important;
-    white-space: normal !important; /* Teks diizinkan turun baris secara alami */
-    width: 100%;
-    text-align: center !important; /* Dijamin rata tengah simetris */
+.copyright-info, .credit-info {
+    white-space: nowrap; /* Mencegah teks terpotong di tengah */
 }
-.footer-separator {
-    margin: 0 10px;
+/* Membuat separator "|" dengan pseudo-element untuk kebersihan kode */
+.copyright-info::after {
+    content: '|';
+    margin-left: 12px;
     opacity: 0.3;
-    display: inline-block;
 }
 .mdkg-link {
     color: #f7db5d;
@@ -798,7 +803,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 }
 .mdkg-link:hover {
     color: #ffffff;
-    text-shadow: 0 0 12px rgba(247, 219, 93, 0.6);
+    text-shadow: none;
 }
 
 /* --- Fix Crop Animasi Ikon Sosial (Footer) --- */
@@ -920,20 +925,17 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 
     /* Menumpuk area copyright dan link MDKG ke tengah di layar HP */
     .berka-footer-bottom {
-        justify-content: center;
-        text-align: center;
         padding-top: 16px !important;
         margin-top: 32px !important;
     }
-    .berka-footer-bottom .footnote {
-        font-size: 11.5px !important; /* Ukuran nyaman dibaca untuk layar HP */
+    .footnote {
+        flex-direction: column; /* Menumpuk vertikal di mobile */
+        gap: 6px; /* Jarak antar baris lebih rapat */
+        font-size: 11.5px;
     }
-    .footer-separator {
-        display: block !important; /* Memaksa turun baris layaknya tag <br> */
-        height: 6px !important; /* Jarak vertikal antar baris PT dan MDKG */
-        margin: 0 !important;
-        color: transparent !important; /* Sembunyikan karakter "|" */
-        overflow: hidden !important;
+    /* Sembunyikan separator di mobile */
+    .copyright-info::after {
+        display: none;
     }
 
     /* --- FIX: Tipografi & Readability Mobile --- */
@@ -1028,7 +1030,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .berka-wa-widget:hover {
     background-color: rgba(8, 82, 45, 0.85); /* Berubah menjadi hijau gelap transparan yang elegan */
     border-color: rgba(165, 214, 167, 0.4); /* Garis tepi sedikit kehijauan */
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 24px rgba(165, 214, 167, 0.15); /* Improvisasi: Glow hijau WA lembut saat di-hover */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); /* Improvisasi: Glow hijau WA lembut saat di-hover */
     transform: translateY(-6px) translateZ(0);
 }
 .wa-status-dot {
@@ -1096,7 +1098,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .berka-back-to-top:hover {
     background-color: #26589f; /* Warna biru Berka */
     border-color: rgba(244, 231, 215, 0.4);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 24px rgba(38, 88, 159, 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     color: #F4E7D7; /* Teks Krem */
     transform: translateY(-6px) translateZ(0);
 }
@@ -1183,7 +1185,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    box-shadow: none;
 }
 .berka-music-toggle:hover::after {
     opacity: 1;
@@ -1401,7 +1403,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    box-shadow: none;
     z-index: 10;
 }
 .share-btn:hover::after {
@@ -1432,7 +1434,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     font-family: 'Noto Sans', sans-serif;
     font-size: 0.85rem; /* Ukuran font toast diperkecil */
     font-weight: 600;
-    box-shadow: 0 12px 32px rgba(247, 219, 93, 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     z-index: 99999;
     opacity: 0;
     visibility: hidden;
@@ -1523,7 +1525,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     transition: text-shadow 0.4s ease, color 0.4s ease;
 }
 .bpi-row:hover .bpi-label {
-    text-shadow: 0 0 12px rgba(247, 219, 93, 0.4); /* Efek glow elegan pada label emas */
+    text-shadow: none; /* Efek glow elegan pada label emas */
 }
 .bpi-value {
     width: 65%;
@@ -1776,20 +1778,6 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     overflow: hidden;
 }
 
-/* Ambient Glow Background - Memberikan efek cahaya dramatis di latar */
-.berka-payment-section::before {
-    content: '';
-    position: absolute;
-    top: 50%; /* Dipindah ke tengah agar tidak ada garis potongan cahaya yang tajam di atas */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(244, 231, 215, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-}
-
 .payment-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1814,25 +1802,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     will-change: transform;
 }
 
-/* Glow senter yang akan mengikuti arah kursor dengan JS */
-.payment-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(244, 231, 215, 0.08), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
 .payment-card:hover {
     background: rgba(244, 231, 215, 0.06);
     border-color: rgba(244, 231, 215, 0.3);
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
 }
-.payment-card:hover::after { opacity: 1; }
 
 .payment-card > * {
     position: relative;
@@ -1896,7 +1870,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     transform-origin: left center; /* Titik tumpu perbesaran di kiri agar tetap rata secara presisi */
 }
 .berka-payment-item:hover .bp-pct {
-    text-shadow: 0 0 16px rgba(247, 219, 93, 0.6); /* Glow keemasan */
+    text-shadow: none; /* Glow keemasan */
     color: #ffffff; /* Berubah putih terang saat dihover agar lebih dinamis */
     transform: scale(1.15); /* Efek membesar memanggil perhatian */
 }
@@ -2171,7 +2145,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     content: ''; position: absolute; left: 0; top: 6px; width: 8px; height: 8px; background: transparent; border: 1.5px solid rgba(244, 231, 215, 0.4); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .rc-bullet-list li:hover::before {
-    background: #F4E7D7; border-color: #F4E7D7; box-shadow: 0 0 8px rgba(244, 231, 215, 0.6); transform: scale(1.4) rotate(45deg);
+    background: #F4E7D7; border-color: #F4E7D7; box-shadow: none; transform: scale(1.4) rotate(45deg);
 }
 .rc-addon-row { margin-top: 32px; padding-top: 32px; border-top: 1px dashed rgba(244, 231, 215, 0.1); }
 
@@ -2807,7 +2781,7 @@ body.project-page .main-wrapper {
     background-color: #f7db5d; /* Emas Berka */
     z-index: 99999;
     pointer-events: none;
-    box-shadow: 0 0 8px rgba(247, 219, 93, 0.5);
+    box-shadow: none;
 }
 
 /* ==========================================================================

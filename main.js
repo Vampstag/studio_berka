@@ -478,28 +478,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Tambahan UX: Animasi Scroll Reveal ---
     // Membuat elemen-elemen card muncul perlahan dari bawah saat di-scroll
     gsap.registerPlugin(ScrollTrigger);
-    
-    // Memilih elemen-elemen yang ingin diberi efek masuk (Reveal)
-    const revealElements = document.querySelectorAll('.service-content-wrapper, .slider.w-slider, .project-info_component, .full-image');
-    
-    revealElements.forEach((el) => {
-        gsap.fromTo(el, 
-            { opacity: 0, y: 40 }, // State awal: transparan dan sedikit turun
-            {
-                opacity: 1, 
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
+
+    const isProjectPage = document.body.classList.contains('project-page');
+
+    if (isProjectPage) {
+        // --- Animasi Khusus Halaman Proyek (Lebih Ringan & Elegan) ---
+        const projectContent = document.querySelector('.project-galerry_component');
+        if (projectContent) {
+            // Mengambil semua anak elemen langsung dari komponen galeri
+            const contentItems = gsap.utils.toArray(projectContent.children);
+            
+            // Menerapkan satu animasi stagger yang jauh lebih performan
+            gsap.from(contentItems, {
+                opacity: 0,
+                y: 50, // Jarak muncul sedikit lebih jauh untuk efek lebih dramatis
+                duration: 1, // Durasi sedikit lebih lama untuk kesan premium
+                ease: "power3.out",
+                stagger: 0.2, // Animasikan satu per satu dengan jeda 0.2 detik
                 scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%", // Mulai animasi saat elemen menyentuh 85% layar dari atas
-                    toggleActions: "play none none none" // Mainkan hanya sekali
+                    trigger: projectContent,
+                    start: "top 80%", // Mulai saat kontainer masuk ke layar
+                    toggleActions: "play none none none",
                 },
-                force3D: true, // Memastikan animasi ringan di HP
-                clearProps: "transform,opacity" // FIX: Menghapus sisa inline style GSAP agar tidak merusak Interaksi Webflow IX2 (Dropdown Layanan)
-            }
-        );
-    });
+                force3D: true,
+                clearProps: "transform,opacity"
+            });
+        }
+    } else {
+        // --- Animasi Reveal Umum (Halaman Utama) ---
+        // `.full-image` dihapus dari selector ini karena sangat berat
+        const revealElements = document.querySelectorAll('.service-content-wrapper');
+        revealElements.forEach((el) => {
+            gsap.from(el, {
+                opacity: 0, y: 40, duration: 0.8, ease: "power2.out",
+                scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" },
+                force3D: true, clearProps: "transform,opacity"
+            });
+        });
+    }
 
     // --- Animasi Stagger Masuk untuk Kartu Portofolio (Mencegah tampilan kaku) ---
     const bcpCards = document.querySelectorAll('.bcp-card');
@@ -996,5 +1012,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     updateFooterYear(); // Hanya perlu dijalankan sekali saat halaman dimuat
+
+    // --- Hapus teks "-:-- WIB" dari footer secara dinamis ---
+    const removeTextNode = (node, text) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.nodeValue.includes(text)) {
+                node.nodeValue = node.nodeValue.replace(text, '').trim();
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            node.childNodes.forEach(child => removeTextNode(child, text));
+        }
+    };
+    
+    const footerBottom = document.querySelector('.berka-footer-bottom');
+    if (footerBottom) removeTextNode(footerBottom, '-:-- WIB');
 
 });
