@@ -1014,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFooterYear(); // Hanya perlu dijalankan sekali saat halaman dimuat
 
     // --- Pagination Logic untuk Swipe Ratecard di Mobile ---
-    const swipeGrids = document.querySelectorAll('.rc-items-grid-3');
+    const swipeGrids = document.querySelectorAll('.rc-items-grid-2, .rc-items-grid-3');
     swipeGrids.forEach(grid => {
         const pagination = grid.nextElementSibling;
         if (pagination && pagination.classList.contains('rc-swipe-pagination')) {

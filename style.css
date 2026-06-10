@@ -374,7 +374,9 @@ html.lenis, html.lenis body {
     text-wrap: nowrap !important;
     text-align: left !important;
     line-height: 1.1 !important;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    margin: 0 !important;
+    display: block !important;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important;
 }
 .service-title.alternate {
     position: absolute !important;
@@ -398,11 +400,14 @@ html.lenis, html.lenis body {
     opacity: 1 !important;
     margin-top: 32px !important;
 }
-.service-content-wrapper:hover .service-title:not(.alternate),
-.service-content-wrapper.is-open .service-title:not(.alternate),
 .service-content-wrapper:hover .service-title.alternate,
 .service-content-wrapper.is-open .service-title.alternate {
     transform: translateY(-100%) !important;
+}
+.service-content-wrapper:hover .service-title:not(.alternate),
+.service-content-wrapper.is-open .service-title:not(.alternate) {
+    transform: translateY(-100%) !important;
+    opacity: 0 !important; /* Memastikan sisa teks pertama menghilang total */
 }
 
 /* --- Premium Hero Illustration Section --- */
@@ -855,7 +860,6 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 .social-wrapper:hover .social-icon {
     filter: brightness(0) invert(0) !important; /* Ikon berubah hitam pekat menyesuaikan background emas */
     transform: scale(1.2) !important;
-}
 }
 
 /* --- Responsibilitas Font Ratecard (Mobile) --- */
@@ -2919,9 +2923,9 @@ body.project-page .main-wrapper {
         padding: 24px !important;
         border-radius: 12px !important; /* Sudut membulat halus untuk kartu bagian dalam */
     }
-    .rc-items-grid-2 { gap: 16px !important; }
     
-    /* Fitur Horizontal Swipe (Geser Kanan-Kiri) khusus untuk perbandingan 3 kolom */
+    /* Fitur Horizontal Swipe (Geser Kanan-Kiri) untuk SEMUA ratecard (2 dan 3 kolom) */
+    .rc-items-grid-2,
     .rc-items-grid-3 {
         display: flex !important;
         flex-direction: row !important;
@@ -2935,7 +2939,9 @@ body.project-page .main-wrapper {
         margin-right: -24px !important; /* Trik agar swipe menembus batas kanan layar */
         padding-right: 24px !important; /* Ruang akhir setelah kartu terakhir */
     }
+    .rc-items-grid-2::-webkit-scrollbar,
     .rc-items-grid-3::-webkit-scrollbar { display: none !important; } /* Sembunyikan scrollbar di Chrome/Safari */
+    .rc-items-grid-2 .rc-item,
     .rc-items-grid-3 .rc-item {
         flex: 0 0 85% !important; /* Lebar 85% agar kartu sebelahnya "ngintip" memancing usapan */
         scroll-snap-align: start !important; /* Penguncian magnetik presisi kiri */
@@ -2967,4 +2973,42 @@ body.project-page .main-wrapper {
     .rc-dot.active {
         background-color: #F4E7D7; width: 16px; border-radius: 4px;
     }
+}
+
+/* --- OVERRIDE ABSOLUT UNTUK KELUHAN MOBILE TERBARU (v7.1) --- */
+@media (max-width: 767px) {
+    /* 1. Gap Judul Layanan & Proses Kami dirapatkan ekstrem */
+    .section { padding: 16px 5% !important; margin-top: 0 !important; }
+    .padding-section-large { padding: 0 !important; margin: 0 0 12px 0 !important; }
+    .margin-100 { margin-top: 16px !important; }
+    .title-small, .title-small-2, .title-small.light { margin-top: 0 !important; margin-bottom: 8px !important; }
+    
+    /* 2. Marquee sangat rapat */
+    .berka-marquee-section { padding: 8px 0 !important; margin: 0 !important; gap: 4px !important; }
+    .marquee-text { font-size: 2.8rem !important; }
+    .marquee-star { font-size: 1.5rem !important; }
+    
+    /* 3. Arrow Layanan Kami dijamin terlihat & Teks mengecil */
+    .service-content-wrapper { padding: 12px 16px !important; gap: 12px !important; align-items: center !important; flex-wrap: nowrap !important; }
+    .service-content-block { min-width: 0 !important; flex: 1 1 auto !important; overflow: hidden !important; }
+    .service-title-wrap { display: flex !important; flex-wrap: nowrap !important; align-items: center !important; width: 100% !important; overflow: hidden !important; }
+    .service-title-item { flex: 1 1 auto !important; min-width: 0 !important; overflow: hidden !important; }
+    .service-title, .service-title.alternate { font-size: 0.8rem !important; white-space: normal !important; line-height: 1.3 !important; word-wrap: break-word !important; }
+    .service-visual-block { width: 32px !important; flex: 0 0 32px !important; justify-content: flex-end !important; }
+    .service-arrow-wrap { width: 100% !important; display: flex !important; justify-content: flex-end !important; }
+    .service-arrow-2 { width: 20px !important; height: 20px !important; transform: none !important; }
+    
+    /* 4. Judul Ratecard mengecil & Gap Panah diperlega */
+    .rc-toggle { padding: 12px 16px !important; gap: 16px !important; align-items: center !important; }
+    .rc-title-left { gap: 12px !important; width: calc(100% - 40px) !important; padding-right: 0 !important; display: flex !important; align-items: center !important; }
+    .rc-card-title { font-size: 0.85rem !important; line-height: 1.3 !important; white-space: normal !important; word-wrap: break-word !important; margin: 0 !important; flex: 1 !important; }
+    .rc-card-icon { width: 20px !important; height: 20px !important; flex-shrink: 0 !important; }
+    .rc-arrow { width: 32px !important; height: 32px !important; flex-shrink: 0 !important; }
+    .rc-arrow svg { width: 16px !important; height: 16px !important; }
+    
+    /* 5. Pagination Swipe Ratecard (Teks Tebal & Emas) */
+    .rc-swipe-pagination { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; align-items: center !important; width: 100% !important; margin-top: 16px !important; gap: 6px !important; visibility: visible !important; opacity: 1 !important; }
+    .rc-swipe-pagination::before { content: '← Geser untuk melihat opsi lainnya →' !important; display: block !important; width: 100% !important; text-align: center !important; font-size: 0.75rem !important; font-weight: 600 !important; color: #f7db5d !important; margin-bottom: 8px !important; }
+    .rc-dot { width: 6px !important; height: 6px !important; border-radius: 50% !important; background-color: rgba(244, 231, 215, 0.3) !important; transition: all 0.3s ease !important; }
+    .rc-dot.active { background-color: #F4E7D7 !important; width: 16px !important; border-radius: 4px !important; }
 }
