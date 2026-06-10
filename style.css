@@ -3036,3 +3036,8 @@ body.project-page .main-wrapper {
     .rc-dot { width: 8px !important; height: 8px !important; border-radius: 50% !important; background-color: rgba(244, 231, 215, 0.3) !important; transition: all 0.3s ease !important; }
     .rc-dot.active { background-color: #F4E7D7 !important; width: 20px !important; border-radius: 4px !important; }
 }
+
+/* --- Temporary Hide Class --- */
+.temp-hidden {
+    display: none !important;
+}
