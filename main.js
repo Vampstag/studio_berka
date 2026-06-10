@@ -427,34 +427,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- ScrollSpy: Menyorot Tautan Navigasi yang Aktif ---
-    const navItems = document.querySelectorAll('a[href^="#"]');
-    const sections = [];
-    navItems.forEach(link => {
-        const targetId = link.getAttribute('href').substring(1);
-        if (targetId) {
-            const el = document.getElementById(targetId);
-            if (el && !sections.includes(el)) sections.push(el);
-        }
-    });
-    
-    if (sections.length > 0 && navItems.length > 0) {
-        window.addEventListener('scroll', () => {
+    // --- Premium ScrollSpy: Menyorot Tautan Navigasi yang Aktif ---
+    const dotLinks = document.querySelectorAll('.dot-link');
+    if (dotLinks.length > 0) {
+        const sections = [];
+        dotLinks.forEach(link => {
+            const targetId = link.getAttribute('href').substring(1);
+            if (targetId) {
+                const el = document.getElementById(targetId);
+                if (el && !sections.includes(el)) sections.push(el);
+            }
+        });
+        
+        const updateScrollSpy = () => {
             let current = '';
+            const scrollY = window.scrollY;
+
             sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-                if (window.scrollY >= sectionTop - 200) { // Offset 200px dari atas
+                // Abaikan elemen yang sedang disembunyikan (display: none)
+                if (section.offsetHeight === 0) return;
+
+                const sectionTop = section.getBoundingClientRect().top + scrollY;
+                // Titik aktif saat atap section menyentuh 1/3 bagian atas layar
+                if (scrollY >= sectionTop - (window.innerHeight / 3)) {
                     current = section.getAttribute('id');
                 }
             });
             
-            navItems.forEach(link => {
-                link.classList.remove('active'); // Pastikan Anda memiliki class .active di CSS Anda
+            dotLinks.forEach(link => {
+                link.classList.remove('active');
                 if (current && link.getAttribute('href') === `#${current}`) {
                     link.classList.add('active');
                 }
             });
-        });
+        };
+
+        window.addEventListener('scroll', updateScrollSpy, { passive: true });
+        // Pemicu awal saat halaman dimuat agar titik pertama langsung menyala
+        updateScrollSpy();
     }
 
     // --- UX/Performance: Pause video saat tidak di layar ---
@@ -657,6 +667,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 force3D: true,
                 clearProps: "transform" // Membersihkan sisa animasi inline GSAP agar bersih
             });
+        });
+    }
+
+    // --- Animasi untuk Kartu Tantangan (O-House) ---
+    const challengeItems = document.querySelectorAll('.challenge-item');
+    if (challengeItems.length > 0) {
+        gsap.from(challengeItems, {
+            scrollTrigger: {
+                trigger: ".berka-challenge-grid",
+                start: "top 85%",
+                toggleActions: "play none none none",
+            },
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.1,
+            force3D: true,
+            clearProps: "transform,opacity"
         });
     }
 

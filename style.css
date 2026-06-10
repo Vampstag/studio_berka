@@ -1767,11 +1767,12 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 
 .project-info_component p {
     font-size: 1.25rem !important;
-    line-height: 1.8 !important;
+    line-height: 2.1 !important; /* Dibuat lebih renggang dan lega (breathing room) */
+    letter-spacing: 0.015em !important; /* Spasi antar huruf dirapatkan ala majalah arsitektur */
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 400 !important; /* Regular */
     margin: 0 !important;
-    text-align: justify !important;
+    text-align: justify !important; /* Rata kiri-kanan agar blok teks terlihat rapi dan premium */
 }
 
 @media (max-width: 991px) {
@@ -2502,6 +2503,56 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
         max-height: none !important; /* Menimpa aturan max-height yang mungkin ada */
     }
 }
+
+/* ==========================================================================
+   PREMIUM CHALLENGE GRID (O-HOUSE)
+   ========================================================================== */
+.berka-challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+.challenge-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.challenge-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+}
+.challenge-number {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f7db5d;
+    line-height: 1;
+}
+.challenge-text {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: normal !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+.challenge-intro-text {
+    font-size: 1.25rem !important;
+    line-height: 2.1 !important;
+    letter-spacing: 0.015em !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 400 !important;
+    text-align: left !important; /* Mengikuti estetika rata kiri utama */
+    max-width: 100%; /* Memastikan teks tidak terbatasi lebarnya */
+    margin-bottom: 32px !important;
+}
+@media (max-width: 767px) { .berka-challenge-grid { grid-template-columns: 1fr; gap: 16px; } .challenge-item { padding: 24px; } }
 
 /* ==========================================================================
    PREMIUM HORIZONTAL SCROLL GALLERY (GSAP PIN FIX)
