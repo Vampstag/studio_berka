@@ -233,7 +233,10 @@ h1, h2, h3, h4, h5, h6,
     .berka-burger { display: block; }
     
     /* --- Penyesuaian Layar Tablet (iPad) untuk Mencegah Overflow / Squeezing --- */
-    .section { padding-left: 5% !important; padding-right: 5% !important; } /* Mengunci lebar konten ke area aman */
+    .section { padding: 48px 5% !important; margin-top: 0 !important; } /* FIX GAP: Mencegah gap 140px turun ke Tablet/HP Landscape */
+    .padding-section-large { padding-bottom: 24px !important; margin-bottom: 24px !important; }
+    .berka-marquee-section { padding: 12px 0 !important; gap: 0 !important; }
+    
     .service-content-wrapper { padding: 32px 24px !important; flex-direction: column !important; gap: 24px !important; }
     .service-visual-block { width: 100%; justify-content: space-between; flex-direction: row-reverse; align-items: center; }
     .service-image-reveal { height: 140px; }
@@ -877,9 +880,9 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .logo-svg { max-width: 80% !important; height: auto !important; margin: 0 auto; display: block; }
     
     /* General Layout & Sections Spacing */
-    .section { padding: 80px 5% !important; }
-    .padding-section-large { padding-bottom: 48px !important; }
-    .margin-100 { margin-top: 80px !important; }
+    .section { padding: 24px 5% 32px 5% !important; margin-top: 0 !important; } /* Perlindungan margin-top mutlak agar rapat */
+    .padding-section-large { padding-bottom: 8px !important; margin-bottom: 12px !important; } 
+    .margin-100 { margin-top: 40px !important; }
     .margin-60 { margin-top: 48px !important; }
     .margin-102, .margin-103 { margin-top: 16px !important; }
     
@@ -903,7 +906,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     /* Typography Adjustments for Readability */
     .display-1.second._5rem { font-size: clamp(2.2rem, 10vw, 3.5rem) !important; line-height: 1.2 !important; } /* Menggunakan clamp agar ukuran font membal/elastis dan tidak kepotong */
     .display-2.second._1-7-rem { font-size: clamp(1.1rem, 4vw, 1.3rem) !important; line-height: 1.5 !important; }
-    .service-title, .service-title.alternate { font-size: clamp(1.8rem, 8vw, 2.5rem) !important; } /* Mengganti vw absolut dengan clamp */
+    .service-title, .service-title.alternate { font-size: 1rem !important; white-space: normal !important; word-break: break-word !important; } /* Diperkecil & diizinkan turun baris agar panah mutlak terlihat */
     
     /* Perbaikan posisi teks dan gambar ilustrasi di HP/Tablet */
     .our-story .grid-2-column {
@@ -953,7 +956,16 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 
     /* 4. Responsibilitas Layanan Gambar Kanan (Mobile) */
     .service-image-reveal { display: none !important; } /* Gambar dihilangkan sepenuhnya karena kepotong di HP */
-    .service-visual-block { width: 100% !important; justify-content: flex-end !important; } /* Memastikan panah sejajar rata kanan */
+    .service-visual-block { width: auto !important; flex-shrink: 0 !important; justify-content: flex-end !important; } /* FIX: Arrow dikunci agar tidak terdorong keluar layar */
+    .service-content-wrapper { padding: 20px 16px !important; gap: 16px !important; flex-wrap: nowrap !important; align-items: center !important; }
+    .service-arrow-wrap { height: auto !important; } /* Pastikan kontainer panah fleksibel */
+    
+    /* 5. Responsibilitas Judul Ratecard di Mobile */
+    .rc-card-title { font-size: 0.85rem !important; margin: 0 !important; line-height: 1.3 !important; }
+    .rc-card-icon { width: 24px !important; height: 24px !important; }
+    .rc-title-left { gap: 10px !important; width: calc(100% - 44px); padding-right: 16px !important; } /* Memberi gap lebih lega dengan panah */
+    .rc-toggle { padding: 16px !important; gap: 8px !important; }
+    .rc-arrow { width: 36px !important; height: 36px !important; }
 }
 
 /* --- Cinematic Preloader --- */
@@ -2149,6 +2161,9 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
 }
 .rc-addon-row { margin-top: 32px; padding-top: 32px; border-top: 1px dashed rgba(244, 231, 215, 0.1); }
 
+/* Sembunyikan pagination swipe di layar besar */
+.rc-swipe-pagination { display: none; }
+
 /* --- Dotted Price Line --- */
 .rc-price-row { display: flex; align-items: baseline; margin-bottom: 16px; width: 100%; gap: 12px; }
 .rc-pr-name { font-size: 0.95rem; color: rgba(244, 231, 215, 0.9); }
@@ -2836,7 +2851,7 @@ body.project-page .main-wrapper {
 .berka-marquee-section:hover .marquee-track { animation-play-state: paused; }
 
 @media (max-width: 767px) {
-    .berka-marquee-section { padding: 48px 0; gap: 8px; }
+    .berka-marquee-section { padding: 4px 0 !important; gap: 0 !important; } /* Sangat dirapatkan agar padat */
 }
 
 /* ==========================================================================
@@ -2924,5 +2939,32 @@ body.project-page .main-wrapper {
     .rc-items-grid-3 .rc-item {
         flex: 0 0 85% !important; /* Lebar 85% agar kartu sebelahnya "ngintip" memancing usapan */
         scroll-snap-align: start !important; /* Penguncian magnetik presisi kiri */
+    }
+    /* Desain Paginasi Swipe di Mobile */
+    .rc-swipe-pagination {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 24px !important;
+        width: 100%;
+    }
+    .rc-swipe-pagination::before {
+        content: '← Geser untuk melihat opsi lainnya →';
+        width: 100%;
+        display: block; /* Memaksa teks memakan 1 baris penuh ke bawah (tidak di samping titik) */
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #f7db5d; /* Warna emas Berka agar Eye-Catching */
+        margin-bottom: 8px;
+    }
+    .rc-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background-color: rgba(244, 231, 215, 0.3); transition: all 0.3s ease;
+    }
+    .rc-dot.active {
+        background-color: #F4E7D7; width: 16px; border-radius: 4px;
     }
 }

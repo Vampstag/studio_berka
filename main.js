@@ -1013,6 +1013,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateFooterYear(); // Hanya perlu dijalankan sekali saat halaman dimuat
 
+    // --- Pagination Logic untuk Swipe Ratecard di Mobile ---
+    const swipeGrids = document.querySelectorAll('.rc-items-grid-3');
+    swipeGrids.forEach(grid => {
+        const pagination = grid.nextElementSibling;
+        if (pagination && pagination.classList.contains('rc-swipe-pagination')) {
+            const dots = pagination.querySelectorAll('.rc-dot');
+            grid.addEventListener('scroll', () => {
+                const maxScroll = grid.scrollWidth - grid.clientWidth;
+                if (maxScroll <= 0) return;
+                
+                let index = Math.round((grid.scrollLeft / maxScroll) * (dots.length - 1));
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }, { passive: true });
+        }
+    });
+
     // --- Hapus teks "-:-- WIB" dari footer secara dinamis ---
     const removeTextNode = (node, text) => {
         if (node.nodeType === Node.TEXT_NODE) {
