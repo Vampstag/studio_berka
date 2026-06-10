@@ -485,8 +485,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Animasi Khusus Halaman Proyek (Lebih Ringan & Elegan) ---
         const projectContent = document.querySelector('.project-galerry_component');
         if (projectContent) {
-            // Mengambil semua anak elemen langsung dari komponen galeri
-            const contentItems = gsap.utils.toArray(projectContent.children);
+            // Mengambil semua anak elemen langsung dari komponen galeri, KECUALI bagian horizontal scroll
+            const contentItems = gsap.utils.toArray(projectContent.children).filter(el => !el.classList.contains('h-scroll-breakout'));
             
             // Menerapkan satu animasi stagger yang jauh lebih performan
             gsap.from(contentItems, {
@@ -657,6 +657,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 force3D: true,
                 clearProps: "transform" // Membersihkan sisa animasi inline GSAP agar bersih
             });
+        });
+    }
+
+    // --- Premium Horizontal Scroll Gallery (GSAP Robust Pin) ---
+    const hScrollBreakouts = document.querySelectorAll('.h-scroll-breakout');
+    if (hScrollBreakouts.length > 0) {
+        hScrollBreakouts.forEach(breakout => {
+            const pinElement = breakout.querySelector('.h-scroll-pin');
+            const track = breakout.querySelector('.horizontal-track');
+            
+            if (pinElement && track) {
+                // Dinamis menghitung jarak geser: Total panjang track dikurangi lebar layar, ditambah buffer 5vw
+                const getScrollAmount = () => track.scrollWidth - window.innerWidth + (window.innerWidth * 0.05);
+                
+                gsap.to(track, {
+                    x: () => -getScrollAmount(),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: breakout,
+                        pin: pinElement,
+                        start: "center center", // Kunci presisi saat elemen tepat memenuhi layar
+                        end: () => `+=${getScrollAmount()}`, // Durasi kunci sejauh total panjang gambar
+                        scrub: 1, // Smoothing gesekan scroll (1 detik inersia)
+                        invalidateOnRefresh: true,
+                    }
+                });
+            }
         });
     }
 

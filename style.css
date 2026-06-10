@@ -2503,6 +2503,55 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     }
 }
 
+/* ==========================================================================
+   PREMIUM HORIZONTAL SCROLL GALLERY (GSAP PIN FIX)
+   ========================================================================== */
+.h-scroll-breakout {
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    margin-top: 64px !important;
+    margin-bottom: 32px !important;
+    z-index: 10;
+}
+.h-scroll-pin {
+    width: 100% !important;
+    height: 100vh !important; /* Memenuhi layar saat terkunci */
+    display: flex !important;
+    align-items: center !important; /* Memusatkan galeri di tengah layar */
+    overflow: hidden !important;
+}
+.horizontal-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 32px !important;
+    padding: 0 5vw !important; /* Presisi selaras dengan padding kontainer utama */
+    width: max-content !important;
+    will-change: transform;
+}
+.h-item {
+    width: 70vw !important;
+    height: 75vh !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2) !important;
+    transform: translateZ(0); /* Hardware acceleration */
+    border-radius: 0 !important;
+}
+.h-item .gallery-lightbox { width: 100%; height: 100%; display: block; }
+.h-image {
+    width: 100% !important; height: 100% !important; object-fit: cover !important;
+    transform: scale(1.02); transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.h-item:hover .h-image { transform: scale(1.08); }
+
+@media (max-width: 991px) { .h-item { width: 80vw !important; height: 60vh !important; } }
+@media (max-width: 767px) { .h-item { width: 85vw !important; height: 50vh !important; } .horizontal-track { gap: 16px !important; padding: 0 5% !important; } }
+
 /* --- Premium Case Study CTA --- */
 .berka-case-cta {
     display: flex;
