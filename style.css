@@ -234,7 +234,8 @@ h1, h2, h3, h4, h5, h6,
     
     /* --- Penyesuaian Layar Tablet (iPad) untuk Mencegah Overflow / Squeezing --- */
     .section { padding: 48px 5% !important; margin-top: 0 !important; } /* FIX GAP: Mencegah gap 140px turun ke Tablet/HP Landscape */
-    .padding-section-large { padding-bottom: 24px !important; margin-bottom: 24px !important; }
+    .padding-section-large { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+    .our-workflow .padding-section-large { padding-bottom: 24px !important; margin-bottom: 24px !important; }
     .berka-marquee-section { padding: 12px 0 !important; gap: 0 !important; }
     
     .service-content-wrapper { padding: 32px 24px !important; flex-direction: column !important; gap: 24px !important; }
@@ -708,7 +709,11 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     margin-top: 120px !important; /* Ruang lebih lega antara Hero dan Portofolio */
 }
 .padding-section-large {
-    padding-bottom: 64px !important; /* Memisahkan judul seksi dengan grid secara elegan */
+    padding-bottom: 0 !important; /* Dikosongkan agar gap atas-bawah marquee simetris (140px vs 140px) */
+}
+/* Preserve jarak judul → steps khusus di section Proses Kami */
+.our-workflow .padding-section-large {
+    padding-bottom: 64px !important;
 }
 
 /* ==========================================================================
@@ -886,7 +891,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     
     /* General Layout & Sections Spacing */
     .section { padding: 24px 5% 32px 5% !important; margin-top: 0 !important; } /* Perlindungan margin-top mutlak agar rapat */
-    .padding-section-large { padding-bottom: 8px !important; margin-bottom: 12px !important; } 
+    .padding-section-large { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+    .our-workflow .padding-section-large { padding-bottom: 8px !important; margin-bottom: 12px !important; }
     .margin-100 { margin-top: 40px !important; }
     .margin-60 { margin-top: 48px !important; }
     .margin-102, .margin-103 { margin-top: 16px !important; }
@@ -952,11 +958,17 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     
     /* 2. Menghindari celah spasi bolong-bolong (Rivers of White Space) akibat teks Justify di kolom sempit */
     .project-details_description p, 
-    .project-info_component p { font-size: 1.05rem !important; text-align: left !important; }
+    .project-info_component p,
+    .challenge-intro-text,
+    .challenge-text { 
+        font-size: 0.95rem !important; 
+        line-height: 1.6 !important; 
+        text-align: left !important; 
+    }
     
     /* 3. Mencegah judul dan tombol CTA (Call to Action) meraksasa dan memakan seluruh layar HP */
     .berka-case-cta h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
-    .berka-case-cta p { font-size: 1rem !important; }
+    .berka-case-cta p { font-size: 0.95rem !important; }
     .berka-case-cta-btn { padding: 14px 32px !important; font-size: 1rem !important; width: 100%; text-align: center; }
 
     /* 4. Responsibilitas Layanan Gambar Kanan (Mobile) */
@@ -1503,7 +1515,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     color: rgba(255, 255, 255, 0.75) !important;
     font-weight: 400 !important; /* Regular */
     margin-bottom: 48px !important;
-    text-align: justify !important; /* Rata kanan kiri agar blok teks terlihat rapi */
+    text-align: left !important; /* Rata kiri untuk menghindari gap antar kata yang terlalu lebar */
 }
 
 /* ==========================================================================
@@ -1645,6 +1657,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .berka-premium-info { margin-top: 48px; }
     .bpi-row { flex-direction: column; gap: 12px; padding: 20px 0; }
     .bpi-label, .bpi-value { width: 100%; }
+    .bpi-value { font-size: 0.95rem !important; }
+    .bpi-list li { font-size: 0.95rem !important; }
 }
 
 /* ==========================================================================
@@ -1772,7 +1786,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 400 !important; /* Regular */
     margin: 0 !important;
-    text-align: justify !important; /* Rata kiri-kanan agar blok teks terlihat rapi dan premium */
+    text-align: left !important; /* Rata kiri untuk menghindari gap antar kata yang terlalu lebar */
 }
 
 @media (max-width: 991px) {
@@ -2229,7 +2243,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-decoration: none;
     /* Mengganti JS Webflow dengan transisi CSS Murni! */
-    transition: background-color 0.4s ease, border-color 0.4s ease, flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: background-color 0.4s ease, border-color 0.4s ease, flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
 }
 .bcp-row:hover .bcp-card {
     flex: 0.8; /* Saat baris di-hover, semua kartu menyusut halus */
@@ -3138,6 +3152,3 @@ body.project-page .main-wrapper {
 }
 
 /* --- Temporary Hide Class --- */
-.temp-hidden {
-    display: none !important;
-}

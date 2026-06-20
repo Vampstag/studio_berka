@@ -78,6 +78,10 @@
         <link href="https://cdn.prod.website-files.com/69cca11c8521d6490c4a5292/69d0bbb909ae6c8afa51d817_Webclip_Light_BERKA.jpg" rel="apple-touch-icon"/>
         <link rel="stylesheet" href="../style.css?v=8.2"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+        <!-- Performance: Preload LCP (Largest Contentful Paint) Image & First Gallery Image -->
+        <link rel="preload" as="image" href="../assets/images/projects/o-house/render_o-house_front_blue.webp" fetchpriority="high">
+        <link rel="preload" as="image" href="../assets/images/projects/o-house/front-luar-bts-konstruksi.webp">
+
         <style>
             /* Custom Grid for Storytelling Layout */
             .project-image-grid {
@@ -181,7 +185,7 @@
                             <div class="project-details_content">
                                 <div class="project-details_description">
                                     <div class="title-small-2 light" style="margin-bottom: 16px;">Overview</div>
-                                    <p data-load-text="" class="text-size-md-4">Klien membutuhkan rumah keluarga di lahan yang sempit dan memanjang tanpa mengorbankan kenyamanan. Tantangan utamanya adalah menciptakan ruang yang terasa lega, terang, memiliki sirkulasi udara yang baik, sekaligus tetap menjaga privasi penghuni.<br/><br/>Melalui pendekatan <em>open-plan</em>, <em>inner courtyard</em>, dan permainan fasad roster, O House dirancang untuk memaksimalkan cahaya alami, aliran udara, dan efisiensi ruang di seluruh area rumah.</p>
+                                    <p data-load-text="" class="text-size-md-4">Berdiri di lahan memanjang yang terbatas, O House dirancang untuk mematahkan kesan sempit. Melalui pendekatan <em>open-plan</em>, <em>inner courtyard</em>, dan fasad roster yang adaptif, rumah ini sukses memaksimalkan cahaya alami dan ruang napas bagi penghuninya tanpa mengorbankan privasi.</p>
                                     
                                     <div class="berka-premium-info">
                                         <div class="bpi-row">
@@ -205,7 +209,7 @@
                                     </div>
                                 </div>
                                 <div class="project-details_visual">
-                                    <img class="project-details_image" src="../assets/images/projects/o-house/render_o-house_front_blue.webp" alt="O House Blueprint Render" loading="lazy" />
+                                    <img class="project-details_image" src="../assets/images/projects/o-house/render_o-house_front_blue.webp" alt="O House Blueprint Render" fetchpriority="high" />
                                 </div>
                             </div>
 
@@ -277,28 +281,28 @@
                                 <div class="berka-challenge-grid">
                                     <div class="challenge-item">
                                         <span class="challenge-number">01</span>
-                                        <p class="challenge-text">Ruangan terasa sesak karena terlalu banyak sekat pembatas.</p>
+                                        <p class="challenge-text">Ruang terasa sesak akibat banyaknya dinding penyekat.</p>
                                     </div>
                                     <div class="challenge-item">
                                         <span class="challenge-number">02</span>
-                                        <p class="challenge-text">Cahaya alami sulit menjangkau area tengah rumah.</p>
+                                        <p class="challenge-text">Cahaya matahari sulit menembus hingga ke tengah rumah.</p>
                                     </div>
                                     <div class="challenge-item">
                                         <span class="challenge-number">03</span>
-                                        <p class="challenge-text">Sirkulasi udara kurang optimal dan terasa pengap.</p>
+                                        <p class="challenge-text">Sirkulasi udara terjebak dan membuat ruangan pengap.</p>
                                     </div>
                                     <div class="challenge-item">
                                         <span class="challenge-number">04</span>
-                                        <p class="challenge-text">Privasi penghuni berkurang karena posisi rumah yang dekat dengan jalan.</p>
+                                        <p class="challenge-text">Privasi terganggu akibat letak bangunan yang mepet dengan jalan.</p>
                                     </div>
                                 </div>
-                                <p data-load-text="" class="challenge-intro-text" style="margin-top: 32px !important;">Target desain kami adalah membuat rumah terasa lebih luas, terang, dan nyaman tanpa menambah luas bangunan.</p>
+                                <p data-load-text="" class="challenge-intro-text" style="margin-top: 32px !important;">Misi kami: Menciptakan ilusi ruang yang lebih luas, terang, dan privat tanpa harus memperlebar tapak bangunan.</p>
                             </div>
 
                             <!-- Section 1: Solusi 01 -->
                             <div id="solusi-1" class="project-info_component">
-                                <div class="title-small-2 light">Membawa Cahaya dan Udara ke Tengah Rumah</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Untuk mengatasi area tengah yang gelap dan pengap, kami menghadirkan taman dalam (<em>inner courtyard</em>) sebagai sumber cahaya dan ventilasi alami.<br/><br/>Area makan dan dapur mendapatkan akses langsung terhadap cahaya matahari serta aliran udara segar sehingga rumah terasa lebih terang dan sejuk sepanjang hari.</p>
+                                <div class="title-small-2 light">Membawa Cahaya ke Jantung Rumah</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Kami membedah area tengah dengan menghadirkan taman dalam (<em>inner courtyard</em>) sebagai paru-paru rumah. Hasilnya, dapur dan area makan kini bermandikan cahaya matahari dan sirkulasi silang yang menyejukkan sepanjang hari.</p>
                             </div>
                             <div class="final-gallery">
                                 <a href="../assets/images/projects/o-house/3d render/lorong-3d.jpg" class="gallery-lightbox">
@@ -308,8 +312,8 @@
 
                             <!-- Section 2: Solusi 02 -->
                             <div id="solusi-2" class="project-info_component">
-                                <div class="title-small-2 light">Membuka Ruang di Lantai Bawah</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Lantai dasar dirancang tanpa sekat antara ruang tamu, ruang makan, dan dapur.<br/><br/>Konsep <em>open-plan</em> ini membuat pandangan dapat mengalir dari depan hingga belakang rumah sehingga ruang terasa lebih luas dibanding ukuran sebenarnya. Dapur juga ditempatkan sebagai pusat aktivitas keluarga melalui <em>kitchen island</em> yang terhubung dengan area makan.<br/><br/>Area bawah tangga dimanfaatkan sebagai penyimpanan dan rak buku untuk mengoptimalkan setiap meter persegi ruang.</p>
+                                <div class="title-small-2 light">Bebas Sekat di Lantai Dasar</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Lantai dasar menerapkan konsep <em>open-plan</em> yang menyatukan ruang tamu, makan, dan dapur. Pandangan yang mengalir tanpa halangan menciptakan ilusi ruang yang jauh lebih luas. Setiap sudut juga dimaksimalkan, termasuk menyulap area bawah tangga menjadi rak penyimpanan yang fungsional.</p>
                             </div>
                             <div class="final-gallery">
                                 <a href="../assets/images/projects/o-house/3d render/living-room-1-3d.jpg" class="gallery-lightbox">
@@ -328,7 +332,7 @@
                             <!-- Section 3: Solusi 03 -->
                             <div id="solusi-3" class="project-info_component">
                                 <div class="title-small-2 light">Menjaga Privasi Tanpa Mengorbankan Ventilasi</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Fasad depan menggunakan kombinasi dinding beton dan roster vertikal.<br/><br/>Elemen ini membantu mengurangi paparan sinar matahari langsung dan menjaga privasi penghuni, terutama kamar di lantai dua, sambil tetap memungkinkan udara mengalir secara alami ke dalam rumah.</p>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Fasad depan dibalut dengan kombinasi dinding beton dan roster vertikal. Elemen ini bekerja ganda: menyaring panas matahari berlebih dan melindungi privasi penghuni dari pandangan luar, namun tetap membiarkan angin masuk dengan bebas.</p>
                             </div>
                             <div class="final-gallery">
                                 <a href="../assets/images/projects/o-house/front-luar-almostdone.webp" class="gallery-lightbox">
@@ -346,8 +350,8 @@
 
                             <!-- Section 4: Solusi 04 -->
                             <div id="solusi-4" class="project-info_component">
-                                <div class="title-small-2 light">Memisahkan Zona Publik dan Privat</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Lantai atas difokuskan sebagai area privat yang berisi tiga kamar tidur dan satu kamar mandi bersama.<br/><br/>Kamar utama ditempatkan di bagian depan dengan akses langsung ke balkon. Selain menjadi area relaksasi, balkon juga berfungsi sebagai peneduh untuk <em>carport</em> di bawahnya.</p>
+                                <div class="title-small-2 light">Zonasi Privat yang Efisien</div>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Seluruh aktivitas privat difokuskan di lantai dua yang diisi oleh 3 kamar tidur. Kamar utama memiliki akses langsung ke balkon depan, yang posisinya ditarik maju agar secara cerdas ikut berfungsi sebagai kanopi peneduh untuk <em>carport</em> di lantai bawah.</p>
                             </div>
                             <div class="h-scroll-breakout">
                                 <div class="h-scroll-pin">
@@ -379,7 +383,7 @@
                             <!-- Section 5: Hasil Akhir -->
                             <div id="hasil-akhir" class="project-info_component">
                                 <div class="title-small-2 light">Hasil Akhir</div>
-                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Melalui kombinasi tata ruang terbuka, pencahayaan alami, ventilasi silang, dan pengelolaan privasi yang tepat, O House berhasil mengubah keterbatasan lahan menjadi hunian yang terasa lebih luas, terang, dan nyaman untuk aktivitas sehari-hari.</p>
+                                <p data-load-text="" class="text-size-md-4 text-color-secondary">Keterbatasan lahan kini tak lagi terasa. Lewat perombakan tata ruang dan fasad yang responsif terhadap iklim, O House sukses bertransformasi menjadi hunian tropis yang cerdas—terang secara alami, sejuk tanpa henti, dan memberikan ruang napas yang melegakan.</p>
                             </div>
                             
                             <!-- 10. Call To Action -->

@@ -162,38 +162,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Cinematic Preloader Animation ---
     const preloader = document.getElementById('berka-preloader');
-    const preloaderLogo = document.getElementById('berka-preloader-logo');
-    const preloaderCounter = document.getElementById('preloader-counter');
-    const preloaderProgress = document.getElementById('preloader-progress');
-    
-    if (preloader && preloaderLogo) {
-        document.body.style.overflow = 'hidden'; // Kunci scroll bawaan
-        if (typeof lenis !== 'undefined') lenis.stop(); // Kunci scroll Lenis
+    if (preloader) {
+        const preloaderLogo = document.getElementById('berka-preloader-logo');
+        const preloaderCounter = document.getElementById('preloader-counter');
+        const preloaderProgress = document.getElementById('preloader-progress');
 
-        const tl = gsap.timeline();
+        document.body.style.overflow = 'hidden';
+        if (typeof lenis !== 'undefined') lenis.stop();
+
+        // --- FASE 1: Animasi Masuk Preloader (Instan) ---
+        const entryTl = gsap.timeline();
         const counter = { val: 0 };
-        
-        tl.to(counter, { val: 100, duration: 1.5, ease: "power3.inOut", onUpdate: () => { if(preloaderCounter) preloaderCounter.innerText = Math.round(counter.val) + '%'; } }, 0)
-          .to(preloaderProgress, { width: "100%", duration: 1.5, ease: "power3.inOut" }, 0)
-          .to(preloaderLogo, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 0.2)
-          .to(preloaderCounter, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 0.3)
-          .to([preloaderLogo, preloaderCounter], { y: -20, opacity: 0, duration: 0.6, ease: "power2.in" }, 1.7)
-          .to(preloader, { 
-              yPercent: -100, 
-              duration: 1.2, 
-              ease: "expo.inOut",
-              onStart: () => {
-                  playSwooshSound(); // Mainkan suara hembusan angin saat tirai preloader mulai naik
-              }
-          }, 1.8)
-          .from('.berka-hero-large-logo', { y: 60, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.0)
-          .from('.hero-center-desc', { y: 30, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.4)
-          .from('.berka-scroll-indicator', { opacity: 0, duration: 1, ease: "power2.out" }, 2.6)
-          .call(() => {
-              document.body.style.overflow = '';
-              if (typeof lenis !== 'undefined') lenis.start(); // Kembalikan fungsionalitas scroll
-              preloader.style.display = 'none';
-          });
+        entryTl.to(preloaderLogo, { y: 0, opacity: 1, duration: 1, ease: "power3.out" })
+               .to(preloaderCounter, { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, 0.1)
+               // Animasikan progress bar & counter ke 99% sambil menunggu, lalu 100% saat selesai
+               .to(counter, { val: 99, duration: 2.5, ease: "power2.out", onUpdate: () => { if(preloaderCounter) preloaderCounter.innerText = Math.round(counter.val) + '%'; } }, 0)
+               .to(preloaderProgress, { width: "99%", duration: 2.5, ease: "power2.out" }, 0);
+
+        // --- FASE 2: Fungsi untuk Menjalankan Animasi Keluar ---
+        const runExitAnimation = () => {
+            const exitTl = gsap.timeline();
+            
+            // Selesaikan progress bar & counter ke 100%
+            exitTl.to(counter, { val: 100, duration: 0.4, ease: "power1.in", onUpdate: () => { if(preloaderCounter) preloaderCounter.innerText = Math.round(counter.val) + '%'; } })
+                  .to(preloaderProgress, { width: "100%", duration: 0.4, ease: "power1.in" }, 0)
+                  // Animasi keluar elemen preloader
+                  .to([preloaderLogo, preloaderCounter], { y: -20, opacity: 0, duration: 0.6, ease: "power2.in" }, 0.2)
+                  .to(preloader, { 
+                      yPercent: -100, 
+                      duration: 1.2, 
+                      ease: "expo.inOut",
+                      onStart: () => playSwooshSound()
+                  }, 0.5);
+
+            // --- Animasi Masuk Konten Halaman (Kondisional) ---
+            if (document.querySelector('.berka-fullscreen-hero')) { // Halaman Utama
+                exitTl.from('.berka-hero-large-logo', { y: 60, opacity: 0, duration: 1.5, ease: "power3.out" }, 0.7)
+                      .from('.hero-center-desc', { y: 30, opacity: 0, duration: 1.5, ease: "power3.out" }, 1.1)
+                      .from('.berka-scroll-indicator', { opacity: 0, duration: 1, ease: "power2.out" }, 1.3);
+            } else if (document.body.classList.contains('project-page')) { // Halaman Proyek
+                const templateTitle = document.querySelector('.heading-style-h1');
+                if (templateTitle) {
+                    const splitTemplate = new SplitText(templateTitle, { type: "words,chars" });
+                    exitTl.from(splitTemplate.chars, {
+                        y: 40, opacity: 0, rotationX: -30, duration: 1, stagger: 0.02, ease: "power4.out", force3D: true
+                    }, 0.7);
+                }
+            }
+
+            // Panggilan akhir untuk membersihkan
+            exitTl.call(() => {
+                document.body.style.overflow = '';
+                if (typeof lenis !== 'undefined') lenis.start();
+                preloader.style.display = 'none';
+            });
+        };
+
+        // --- FASE 3: Trigger Cerdas ---
+        // Menunggu halaman selesai loading DAN animasi masuk preloader selesai (minimal 1.5 detik)
+        const pageLoadPromise = new Promise(resolve => {
+            window.addEventListener('load', resolve);
+        });
+        const minTimePromise = new Promise(resolve => {
+            setTimeout(resolve, 1500); // Minimal 1.5 detik agar animasi tidak terlalu cepat
+        });
+
+        Promise.all([pageLoadPromise, minTimePromise]).then(() => {
+            runExitAnimation();
+        });
     }
 
     const navbar = document.getElementById('berka-navbar');
@@ -258,89 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
-    }
-
-    // --- Animasi GSAP SplitText Hero H1 ---
-    const heroTitle = document.querySelector('.display-1.second._5rem');
-    const heroDesc = document.querySelector('.hero-description-smaller');
-    
-    if (heroTitle && !document.body.classList.contains('error-404')) {
-        gsap.set(heroTitle, { visibility: 'visible' });
-        
-        // Memecah berdasarkan kata saja agar tidak merusak native line-height & align justify
-        const split = new SplitText(heroTitle, { type: "words" });
-        
-        gsap.from(split.words, {
-            y: 80,
-            opacity: 0,
-            rotation: 3,
-            duration: 1.2,
-            stagger: 0.03,
-            ease: "power4.out",
-            delay: 2.2, // Sinkronisasi alur waktu baru yang lebih gesit
-            force3D: true // Akselerasi Hardware (Mencegah patah-patah di HP murah)
-        });
-        
-        if (heroDesc) {
-            gsap.from(heroDesc, {
-                y: 40,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power4.out",
-                delay: 2.5, // Muncul sedikit setelah judul utama
-                force3D: true
-            });
-        }
-        
-        const heroIllust = document.querySelector('.story-illustration-img');
-        if (heroIllust) {
-            gsap.from(heroIllust, {
-                x: -40,
-                opacity: 0,
-                duration: 1.5,
-                ease: "power3.out",
-                delay: 2.3, // Muncul seirama sesaat setelah teks Hero pertama muncul
-                force3D: true
-            });
-        }
-    }
-
-    // --- Animasi Hero untuk template.html ---
-    const templateTitle = document.querySelector('.heading-style-h1');
-    if (templateTitle) {
-        const templateDesc = document.querySelector('.project-details_description p');
-        const templateInfo = document.querySelector('.project-details_info');
-        const templateVisual = document.querySelector('.project-details_visual');
-
-        // Memecah teks judul (SplitText) agar bisa dianimasikan per karakter
-        const splitTemplate = new SplitText(templateTitle, { type: "words,chars" });
-
-        // Cek jika preloader ada di halaman, beri delay lebih lama. Jika tidak ada, jalankan lebih cepat
-        const delayTime = document.getElementById('berka-preloader') ? 2.2 : 0.5;
-
-        const tl = gsap.timeline({ delay: delayTime });
-        tl.from(splitTemplate.chars, {
-            y: 40,
-            opacity: 0,
-            rotationX: -30,
-            duration: 1,
-            stagger: 0.02,
-            ease: "power4.out",
-            force3D: true
-        })
-        .from([templateDesc, templateInfo], {
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power3.out"
-        }, "-=0.6") // Animasi info berjalan saat huruf judul hampir selesai
-        .from(templateVisual, {
-            y: 40,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out"
-        }, "-=0.8");
     }
 
     // --- Animasi Magnetic Hover untuk Widget WA ---
@@ -891,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Simpan waktu pemutaran setiap 1 detik
-        setInterval(() => {
+        const musicSaveInterval = setInterval(() => {
             if (!bgMusic.paused) {
                 sessionStorage.setItem('berkaBgMusicTime', bgMusic.currentTime);
             }
@@ -899,6 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Simpan status pasti tepat sebelum pengunjung pindah halaman
         window.addEventListener('beforeunload', () => {
+            clearInterval(musicSaveInterval);
             sessionStorage.setItem('berkaBgMusicTime', bgMusic.currentTime);
             sessionStorage.setItem('berkaBgMusicPlaying', !bgMusic.paused);
         });
