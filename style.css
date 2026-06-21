@@ -241,7 +241,7 @@ h1, h2, h3, h4, h5, h6,
     .service-content-wrapper { padding: 32px 24px !important; flex-direction: column !important; gap: 24px !important; }
     .service-visual-block { width: 100%; justify-content: space-between; flex-direction: row-reverse; align-items: center; }
     .service-image-reveal { height: 140px; }
-    .service-content-wrapper:hover .service-image-reveal, .service-content-wrapper.is-open .service-image-reveal { width: 220px; }
+    .service-content-wrapper.is-open .service-image-reveal { width: 220px; }
     .service-image { width: 220px !important; }
     .service-feature-grid { gap: 16px !important; } /* Merapatkan list kotak Layanan agar tidak terpotong ke kanan */
     .ratecard .large-heading { font-size: 3rem !important; } /* Mencegah judul besar Ratecard kepotong di mode Portrait */
@@ -331,9 +331,8 @@ html.lenis, html.lenis body {
     transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, visibility 0.5s;
     transform: translateZ(0); 
 }
-.service-content-wrapper:hover .service-image-reveal,
 .service-content-wrapper.is-open .service-image-reveal {
-    width: 320px; 
+    width: 320px;
     opacity: 1;
     visibility: visible;
 }
@@ -347,7 +346,6 @@ html.lenis, html.lenis body {
     transform: scale(1.1);
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.service-content-wrapper:hover .service-image,
 .service-content-wrapper.is-open .service-image {
     transform: scale(1);
 }
@@ -361,7 +359,6 @@ html.lenis, html.lenis body {
     height: 24px !important;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
-.service-content-wrapper:hover .service-arrow-2,
 .service-content-wrapper.is-open .service-arrow-2 {
     transform: translateX(12px) !important;
 }
@@ -397,19 +394,16 @@ html.lenis, html.lenis body {
     margin-top: 0 !important;
     transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, margin-top 0.4s ease !important;
 }
-.service-content-wrapper:hover .service-description-item-2,
 .service-content-wrapper.is-open .service-description-item-2 {
-    max-height: 1200px !important; /* Ekspansi absolut ke bawah */
+    max-height: 1200px !important;
     opacity: 1 !important;
     margin-top: 32px !important;
 }
-.service-content-wrapper:hover .service-title.alternate,
 .service-content-wrapper.is-open .service-title.alternate {
     transform: translateY(-100%) !important;
 }
-.service-content-wrapper:hover .service-title:not(.alternate),
 .service-content-wrapper.is-open .service-title:not(.alternate) {
-    transform: translateY(-105%) !important; /* Ditarik ekstra 5% ke atas agar teks pertama tidak "mengintip" tanpa opacity */
+    transform: translateY(-105%) !important;
 }
 
 /* --- Premium Hero Illustration Section --- */
@@ -3124,7 +3118,7 @@ body.project-page .main-wrapper {
     .title-small, .title-small-2, .title-small.light { margin-top: 0 !important; margin-bottom: 16px !important; }
     
     /* 2. Marquee diperbesar, gap bawah dibuat simetris optikal, dan basmi garis hitam (sub-pixel bleed) */
-    .berka-marquee-section { padding: 16px 0 22px 0 !important; margin: 0 !important; gap: 12px !important; background-color: #26589f !important; border: none !important; box-shadow: 0 -2px 0 #26589f, 0 2px 0 #26589f !important; }
+    .berka-marquee-section { padding: 16px 0 22px 0 !important; margin: 0 0 40px 0 !important; gap: 12px !important; background-color: #26589f !important; border: none !important; box-shadow: 0 -2px 0 #26589f, 0 2px 0 #26589f !important; }
     .marquee-text { font-size: 3.2rem !important; }
     .marquee-star { font-size: 1.8rem !important; }
     

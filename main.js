@@ -986,26 +986,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // --- 2. Auto-Scroll Cerdas saat disorot/hover (Desktop) ---
-        if (window.matchMedia("(pointer: fine)").matches) {
-            wrapper.addEventListener('mouseenter', () => {
-                clearTimeout(hoverScrollTimeout);
-                // Beri jeda 300ms. Jika pengunjung hanya tak sengaja lewat, scroll batal.
-                // Jika ia diam untuk membaca, layar otomatis menyesuaikan presisi.
-                hoverScrollTimeout = setTimeout(() => {
-                    const yOffset = wrapper.getBoundingClientRect().top + window.scrollY - 140;
-                    if (typeof lenis !== 'undefined') {
-                        lenis.scrollTo(yOffset, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-                    } else {
-                        window.scrollTo({ top: yOffset, behavior: 'smooth' });
-                    }
-                }, 300);
-            });
-
-            wrapper.addEventListener('mouseleave', () => {
-                clearTimeout(hoverScrollTimeout); // Membatalkan perintah scroll jika kursor pergi
-            });
-        }
     });
 
     // --- Update Current Year in Footer ---
