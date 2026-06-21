@@ -2333,6 +2333,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     .bcp-row:hover .bcp-card { flex: 1; } /* Matikan susut dinamis di HP */
     .bcp-row .bcp-card:hover { flex: 1; }
     .bcp-image-container, .bcp-row.full .bcp-image-container { padding-top: 75%; } /* Rasio 4:3 HP */
+    .section-3 { padding-bottom: 240px !important; }
 }
 @media (max-width: 479px) {
     .bcp-info { flex-wrap: wrap; gap: 8px; }
@@ -2448,8 +2449,8 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
    PREMIUM SECTION: EXPLORE PROJECTS (PROYEK LAINNYA)
    ========================================================================== */
 .section-3 {
-    padding: 120px 5% 40px 5% !important; /* Menambahkan ruang lega di atasnya */
-    background-color: #f4e7d7 !important; /* Background cream elegan */
+    padding: 120px 5% 160px 5% !important;
+    background-color: #f4e7d7 !important;
 }
 .grid-2-column-3 {
     display: flex !important;
@@ -2484,7 +2485,7 @@ p, .service-description-2, .body-display.small, .ratecard_desc {
     margin-top: 0 !important;
 }
 @media (max-width: 767px) {
-    .section-3 { padding: 80px 5% 24px 5% !important; }
+    .section-3 { padding: 80px 5% 280px 5% !important; }
     .grid-2-column-3 { margin-bottom: 32px !important; gap: 12px !important; } /* Jarak lebih rapat dan presisi di HP */
     .display-3.second._5rem { font-size: clamp(2rem, 8vw, 2.5rem) !important; }
     .display-3.second._1-7-rem { font-size: 0.9rem !important; }
